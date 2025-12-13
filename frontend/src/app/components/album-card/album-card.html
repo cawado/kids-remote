@@ -1,0 +1,8 @@
+<mat-card appearance="outlined" class="album-card">
+  <div class="image-container">
+    <img [ngSrc]="album().coverUrl" [alt]="album().title" fill priority class="cover-image">
+  </div>
+  <mat-card-content>
+    <div class="title">{{ album().title }}</div>
+  </mat-card-content>
+</mat-card>

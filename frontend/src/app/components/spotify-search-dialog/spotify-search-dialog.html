@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Search Spotify</h2>
+<mat-dialog-content>
+    <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label>Search Album</mat-label>
+        <input matInput [(ngModel)]="query" (keyup.enter)="search()" placeholder="e.g. Frozen">
+        <button mat-icon-button matSuffix (click)="search()">
+            <span class="material-icons">search</span>
+        </button>
+    </mat-form-field>
+
+    <mat-list>
+        <mat-list-item *ngFor="let album of results()" (click)="select(album)" style="cursor: pointer">
+            <img matListItemAvatar [src]="album.coverUrl" alt="Cover">
+            <span matListItemTitle>{{ album.title }}</span>
+            <span matListItemLine>{{ album.uri }}</span>
+        </mat-list-item>
+    </mat-list>
+
+    <p *ngIf="loading">Searching...</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

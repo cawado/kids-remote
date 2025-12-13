@@ -1,0 +1,188 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+}
+
+mat-dialog-content {
+    flex: 1;
+    overflow: hidden !important; // Table handles scroll
+    padding: 0 !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-container {
+    padding: 16px 24px 0 24px;
+}
+
+.search-field {
+    width: 100%;
+}
+
+.table-container {
+    flex: 1;
+    overflow: auto;
+}
+
+table {
+    width: 100%;
+}
+
+tr.detail-row {
+    height: 0;
+}
+
+.element-row {
+
+    // cursor: pointer; // Set dynamically
+    &:hover {
+        background: #f5f5f5;
+    }
+}
+
+.element-row.expandable-row {
+    cursor: pointer;
+}
+
+.table-cover {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+// Type Colors
+.type-badge {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    color: white;
+    font-weight: 500;
+
+    &.artist {
+        background-color: #9c27b0; // Purple
+    }
+
+    &.playlist {
+        background-color: #1ed760; // Spotify Green
+        color: #000;
+    }
+
+    &.album {
+        background-color: #2196f3; // Blue
+    }
+
+    &.unknown {
+        background-color: #757575;
+    }
+}
+
+.expand-icon {
+    transition: transform 0.2s;
+
+    &.expanded {
+        transform: rotate(180deg);
+    }
+}
+
+.element-detail {
+    overflow: hidden;
+    display: flex;
+}
+
+.detail-content {
+    background: #fafafa;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    // Remove padding to allow full-width rows
+    padding: 0;
+}
+
+.detail-header {
+    padding: 8px 16px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fcfcfc;
+}
+
+.detail-count {
+    font-size: 11px;
+    color: #888;
+}
+
+.small-btn {
+    line-height: 24px;
+    height: 28px;
+    padding: 0 12px;
+    font-size: 12px;
+}
+
+// Child Rows
+.child-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.child-row {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px; // Indent slightly
+    padding-left: 48px; // Indent to align somewhat or show hierarchy
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    height: 56px; // Match standard row height roughly
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &:hover {
+        background-color: #eee;
+    }
+
+    &.selected {
+        background-color: #e8eaf6; // Light Indigo
+    }
+
+    &.already-added {
+        opacity: 0.6;
+        cursor: default;
+    }
+}
+
+.child-cover {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    object-fit: cover;
+    margin-right: 16px;
+}
+
+.child-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.child-title {
+    font-size: 14px;
+    color: #333;
+    font-weight: 400;
+}
+
+.child-actions {
+    margin-left: 16px;
+}
+
+.loading-container,
+.no-results {
+    padding: 24px;
+    text-align: center;
+    color: #888;
+}

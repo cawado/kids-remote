@@ -1,0 +1,40 @@
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+
+# IDEs and Editors
+.idea/
+.project
+.classpath
+.cproject
+.settings/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+
+# Angular
+.angular/
+.sass-cache/
+connect.lock
+coverage/
+libpeerconnection.log
+testem.log
+typings/
+
+# System Files
+System Volume Information

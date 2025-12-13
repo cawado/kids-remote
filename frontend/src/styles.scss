@@ -1,0 +1,33 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: #f0f4f8;
+    /* Slate/Neutral Light Grey */
+    color: #263238;
+    /* Slate Dark */
+}
+
+/* Scrollbar styling for kids (hideous but useful? No, keep clean) */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cfd8dc;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b0bec5;
+}

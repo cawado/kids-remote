@@ -1,0 +1,9 @@
+<div class="grid-container">
+    @for (album of albums(); track album.id) {
+    <div class="grid-item" [class.playing]="isPlaying(album)" (click)="playAlbum(album)">
+        <app-album-card [album]="album"></app-album-card>
+    </div>
+    }
+</div>
+
+<app-playback-controls [transportState]="transportState()"></app-playback-controls>

@@ -1,0 +1,36 @@
+<div class="playback-controls">
+    <!-- Volume Down Group -->
+    <div class="volume-group left">
+        <button class="control-btn volume-btn" (click)="volumeDown()">
+            <mat-icon>remove</mat-icon>
+        </button>
+        <mat-icon class="indicator-icon">volume_down</mat-icon>
+    </div>
+
+    <!-- Main Transport -->
+    <div class="transport-group">
+        <button class="control-btn" (click)="previous()">
+            <span class="material-icons">skip_previous</span>
+        </button>
+
+        <button class="control-btn play-btn" (click)="togglePlay()">
+            @if (!isPlayingOrBuffering()) {
+            <span class="material-icons">play_arrow</span>
+            } @else {
+            <span class="material-icons">pause</span>
+            }
+        </button>
+
+        <button class="control-btn" (click)="next()">
+            <mat-icon>skip_next</mat-icon>
+        </button>
+    </div>
+
+    <!-- Volume Up Group -->
+    <div class="volume-group right">
+        <mat-icon class="indicator-icon">volume_up</mat-icon>
+        <button class="control-btn volume-btn" (click)="volumeUp()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>
