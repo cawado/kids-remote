@@ -14,6 +14,7 @@ const errorHandler_1 = require("./middleware/errorHandler");
 const albums_1 = __importDefault(require("./routes/albums"));
 const sonos_2 = __importDefault(require("./routes/sonos"));
 const spotify_1 = __importDefault(require("./routes/spotify"));
+const health_1 = __importDefault(require("./routes/health"));
 const app = (0, express_1.default)();
 const port = config_1.config.port;
 app.use(express_1.default.json());
@@ -21,6 +22,7 @@ app.use((0, cors_1.default)());
 // Initialize Services
 (0, sonos_1.initSonos)().catch(console.error);
 // Routes
+app.use('/health', health_1.default);
 app.use('/albums', albums_1.default);
 app.use('/spotify', spotify_1.default);
 app.use('/', sonos_2.default); // /play, /pause, /devices are at root level currently

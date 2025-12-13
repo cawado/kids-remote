@@ -9,6 +9,7 @@ import { errorHandler } from './middleware/errorHandler';
 import albumRoutes from './routes/albums';
 import sonosRoutes from './routes/sonos';
 import spotifyRoutes from './routes/spotify';
+import healthRoutes from './routes/health';
 
 const app = express();
 const port = config.port;
@@ -20,6 +21,7 @@ app.use(cors());
 initSonos().catch(console.error);
 
 // Routes
+app.use('/health', healthRoutes);
 app.use('/albums', albumRoutes);
 app.use('/spotify', spotifyRoutes);
 app.use('/', sonosRoutes); // /play, /pause, /devices are at root level currently

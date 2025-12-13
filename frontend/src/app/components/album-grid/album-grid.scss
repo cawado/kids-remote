@@ -63,3 +63,35 @@
         border-color: rgba(0, 188, 212, 1);
     }
 }
+
+/* Loading and Error States */
+.loading-container,
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    min-height: 400px;
+    text-align: center;
+
+    p {
+        margin: 16px 0;
+        font-size: 18px;
+        color: rgba(255, 255, 255, 0.7);
+    }
+}
+
+.error-container {
+    mat-icon {
+        font-size: 64px;
+        width: 64px;
+        height: 64px;
+        color: #f44336;
+        margin-bottom: 16px;
+    }
+
+    button {
+        margin-top: 16px;
+    }
+}

@@ -7,6 +7,8 @@ const express_1 = require("express");
 const path_1 = __importDefault(require("path"));
 const albumStorage_1 = require("../services/albumStorage");
 const errorHandler_1 = require("../middleware/errorHandler");
+const validation_1 = require("../middleware/validation");
+const schemas_1 = require("../validation/schemas");
 const router = (0, express_1.Router)();
 const ALBUMS_FILE = path_1.default.join(__dirname, '../../albums.json');
 const albumStorage = new albumStorage_1.AlbumStorage(ALBUMS_FILE);
@@ -16,11 +18,8 @@ router.get('/', (0, errorHandler_1.asyncHandler)(async (req, res) => {
     res.json(albums);
 }));
 // POST new album
-router.post('/', (0, errorHandler_1.asyncHandler)(async (req, res) => {
+router.post('/', (0, validation_1.validateBody)(schemas_1.AlbumSchema), (0, errorHandler_1.asyncHandler)(async (req, res) => {
     const { title, uri, coverUrl, type } = req.body;
-    if (!title || !uri) {
-        throw new errorHandler_1.AppError(400, 'Missing title or uri');
-    }
     try {
         const newAlbum = await albumStorage.add({
             title,
@@ -39,7 +38,7 @@ router.post('/', (0, errorHandler_1.asyncHandler)(async (req, res) => {
     }
 }));
 // PUT update album
-router.put('/:id', (0, errorHandler_1.asyncHandler)(async (req, res) => {
+router.put('/:id', (0, validation_1.validateBody)(schemas_1.AlbumUpdateSchema), (0, errorHandler_1.asyncHandler)(async (req, res) => {
     const { id } = req.params;
     const updates = req.body;
     try {

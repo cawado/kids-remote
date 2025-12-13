@@ -2,6 +2,8 @@ import { Router, Request, Response } from 'express';
 import path from 'path';
 import { AlbumStorage } from '../services/albumStorage';
 import { AppError, asyncHandler } from '../middleware/errorHandler';
+import { validateBody } from '../middleware/validation';
+import { AlbumSchema, AlbumUpdateSchema } from '../validation/schemas';
 
 const router = Router();
 const ALBUMS_FILE = path.join(__dirname, '../../albums.json');
@@ -14,12 +16,8 @@ router.get('/', asyncHandler(async (req: Request, res: Response) => {
 }));
 
 // POST new album
-router.post('/', asyncHandler(async (req: Request, res: Response) => {
+router.post('/', validateBody(AlbumSchema), asyncHandler(async (req: Request, res: Response) => {
     const { title, uri, coverUrl, type } = req.body;
-
-    if (!title || !uri) {
-        throw new AppError(400, 'Missing title or uri');
-    }
 
     try {
         const newAlbum = await albumStorage.add({
@@ -39,7 +37,7 @@ router.post('/', asyncHandler(async (req: Request, res: Response) => {
 }));
 
 // PUT update album
-router.put('/:id', asyncHandler(async (req: Request, res: Response) => {
+router.put('/:id', validateBody(AlbumUpdateSchema), asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
     const updates = req.body;
 

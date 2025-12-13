@@ -1,3 +1,22 @@
+<!-- Loading State -->
+@if (loading()) {
+<div class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading albums...</p>
+</div>
+}
+
+<!-- Error State -->
+@if (error()) {
+<div class="error-container">
+    <mat-icon>error</mat-icon>
+    <p>{{ error() }}</p>
+    <button mat-raised-button color="primary" (click)="refreshAlbums()">Retry</button>
+</div>
+}
+
+<!-- Album Grid -->
+@if (!loading() && !error()) {
 <div class="grid-container">
     @for (album of albums(); track album.id) {
     <div class="grid-item" [class.playing]="isPlaying(album)" (click)="playAlbum(album)">
@@ -5,5 +24,6 @@
     </div>
     }
 </div>
+}
 
 <app-playback-controls [transportState]="transportState()"></app-playback-controls>

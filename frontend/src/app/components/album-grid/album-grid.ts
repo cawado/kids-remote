@@ -1,15 +1,18 @@
 
 import { Component, inject, signal, OnInit, OnDestroy, ChangeDetectorRef, effect, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { ApiService, Album } from '../../services/api';
 import { AlbumCardComponent } from '../album-card/album-card';
 import { PlaybackControlsComponent } from '../playback-controls/playback-controls';
-import { interval, Subscription, switchMap, catchError, of } from 'rxjs';
+import { interval, Subscription, switchMap, catchError, of, finalize } from 'rxjs';
 
 @Component({
   selector: 'app-album-grid',
   // standalone: true,
-  imports: [CommonModule, AlbumCardComponent, PlaybackControlsComponent],
+  imports: [CommonModule, MatProgressSpinnerModule, MatIconModule, MatButtonModule, AlbumCardComponent, PlaybackControlsComponent],
   templateUrl: './album-grid.html',
   styleUrl: './album-grid.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -21,6 +24,10 @@ export class AlbumGridComponent implements OnInit, OnDestroy {
   albums = signal<Album[]>([]);
   currentAlbumTitle = signal<string | null>(null);
   transportState = signal<string>('STOPPED');
+
+  // Loading and error states
+  loading = signal<boolean>(false);
+  error = signal<string | null>(null);
 
   private pollSub: Subscription | null = null;
 
@@ -52,18 +59,36 @@ export class AlbumGridComponent implements OnInit, OnDestroy {
   }
 
   refreshAlbums() {
-    this.api.getAlbums().subscribe(data => {
-      this.albums.set(data);
-      this.cdr.markForCheck(); // Explicit check needed for OnPush if async pipe isn't used for albums trigger (signals handle it usually but subscribe needs care)
-      // Actually signals propagate changes, but since we are inside subscribe() which is out of zone or just async,
-      // setting signal alerts consumers. Components using OnPush + Signals usually fine.
-      // But verify if we need markForCheck with Signals; conceptually Signals notify the view.
+    this.loading.set(true);
+    this.error.set(null);
+
+    this.api.getAlbums().pipe(
+      finalize(() => {
+        this.loading.set(false);
+        this.cdr.markForCheck();
+      })
+    ).subscribe({
+      next: data => {
+        this.albums.set(data);
+        this.cdr.markForCheck();
+      },
+      error: err => {
+        console.error('Failed to load albums:', err);
+        this.error.set('Failed to load albums. Please try again.');
+        this.cdr.markForCheck();
+      }
     });
   }
 
   playAlbum(album: Album) {
     if (!album.uri) return;
-    this.api.playAlbum(album.uri).subscribe();
+    this.api.playAlbum(album.uri).subscribe({
+      error: err => {
+        console.error('Failed to play album:', err);
+        this.error.set('Failed to play album. Please try again.');
+        this.cdr.markForCheck();
+      }
+    });
   }
 
   isPlaying(album: Album): boolean {
