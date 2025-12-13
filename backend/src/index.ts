@@ -5,6 +5,7 @@ import express from 'express';
 import cors from 'cors';
 import { config } from './config';
 import { initSonos } from './services/sonos';
+import { errorHandler } from './middleware/errorHandler';
 import albumRoutes from './routes/albums';
 import sonosRoutes from './routes/sonos';
 import spotifyRoutes from './routes/spotify';
@@ -30,6 +31,9 @@ app.use(express.static(frontendPath));
 app.get(/.*/, (req, res) => {
     res.sendFile(path.join(frontendPath, 'index.html'));
 });
+
+// Error handling middleware (must be last)
+app.use(errorHandler);
 
 app.listen(port, () => {
     console.log(`Sonos server listening at http://localhost:${port}`);

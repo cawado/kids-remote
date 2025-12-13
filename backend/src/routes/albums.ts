@@ -1,108 +1,69 @@
 import { Router, Request, Response } from 'express';
-import fs from 'fs';
 import path from 'path';
+import { AlbumStorage } from '../services/albumStorage';
+import { AppError, asyncHandler } from '../middleware/errorHandler';
 
 const router = Router();
-const ALBUMS_FILE = path.join(__dirname, '../../albums.json'); // Adjusted path
+const ALBUMS_FILE = path.join(__dirname, '../../albums.json');
+const albumStorage = new AlbumStorage(ALBUMS_FILE);
 
-router.get('/', (req: Request, res: Response) => {
-    try {
-        if (fs.existsSync(ALBUMS_FILE)) {
-            const data = fs.readFileSync(ALBUMS_FILE, 'utf-8');
-            const albums = JSON.parse(data || '[]');
-            albums.sort((a: any, b: any) => a.title.localeCompare(b.title));
-            res.json(albums);
-        } else {
-            res.json([]);
-        }
-    } catch (error: any) {
-        res.status(500).send(`Error reading albums: ${error.message}`);
+// GET all albums
+router.get('/', asyncHandler(async (req: Request, res: Response) => {
+    const albums = await albumStorage.read();
+    res.json(albums);
+}));
+
+// POST new album
+router.post('/', asyncHandler(async (req: Request, res: Response) => {
+    const { title, uri, coverUrl, type } = req.body;
+
+    if (!title || !uri) {
+        throw new AppError(400, 'Missing title or uri');
     }
-});
 
-router.post('/', (req: Request, res: Response) => {
     try {
-        const album = req.body;
-        if (!album.title || !album.uri) {
-            res.status(400).send('Missing title or uri');
-            return;
-        }
-
-        let albums: any[] = [];
-        if (fs.existsSync(ALBUMS_FILE)) {
-            const data = fs.readFileSync(ALBUMS_FILE, 'utf-8');
-            albums = JSON.parse(data || '[]');
-        }
-
-        const existing = albums.find((a: any) => a.uri === album.uri);
-        if (existing) {
-            res.status(409).json({ message: 'Album already exists', album: existing });
-            return;
-        }
-
-        const newAlbum = {
-            id: album.id || Date.now().toString(),
-            title: album.title,
-            coverUrl: album.coverUrl || '',
-            uri: album.uri,
-            type: album.type // Persist type if provided
-        };
-
-        albums.push(newAlbum);
-        fs.writeFileSync(ALBUMS_FILE, JSON.stringify(albums, null, 2));
+        const newAlbum = await albumStorage.add({
+            title,
+            uri,
+            coverUrl: coverUrl || '',
+            type
+        });
         res.json(newAlbum);
     } catch (error: any) {
-        res.status(500).send(`Error saving album: ${error.message}`);
-    }
-});
-
-router.put('/:id', (req: Request, res: Response) => {
-    try {
-        const { id } = req.params;
-        const updates = req.body;
-
-        if (fs.existsSync(ALBUMS_FILE)) {
-            const data = fs.readFileSync(ALBUMS_FILE, 'utf-8');
-            let albums: any[] = JSON.parse(data || '[]');
-
-            const index = albums.findIndex((a: any) => a.id === id);
-            if (index > -1) {
-                albums[index] = { ...albums[index], ...updates, id };
-                fs.writeFileSync(ALBUMS_FILE, JSON.stringify(albums, null, 2));
-                res.json(albums[index]);
-            } else {
-                res.status(404).send('Album not found');
-            }
-        } else {
-            res.status(404).send('Albums file not found');
+        if (error.message === 'Album already exists') {
+            const existing = await albumStorage.findByUri(uri);
+            throw new AppError(409, 'Album already exists');
         }
-    } catch (error: any) {
-        res.status(500).send(`Error updating album: ${error.message}`);
+        throw error;
     }
-});
+}));
 
-router.delete('/:id', (req: Request, res: Response) => {
+// PUT update album
+router.put('/:id', asyncHandler(async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const updates = req.body;
+
     try {
-        const { id } = req.params;
-        if (fs.existsSync(ALBUMS_FILE)) {
-            const data = fs.readFileSync(ALBUMS_FILE, 'utf-8');
-            let albums: any[] = JSON.parse(data || '[]');
-
-            const initialLength = albums.length;
-            albums = albums.filter((a: any) => a.id !== id);
-
-            if (albums.length < initialLength) {
-                fs.writeFileSync(ALBUMS_FILE, JSON.stringify(albums, null, 2));
-                res.status(204).send();
-            } else {
-                res.status(404).json({ message: 'Album not found' });
-            }
-        } else {
-            res.status(204).send();
-        }
+        const updatedAlbum = await albumStorage.update(id, updates);
+        res.json(updatedAlbum);
     } catch (error: any) {
-        res.status(500).send(`Error deleting album: ${error.message}`);
+        if (error.message === 'Album not found') {
+            throw new AppError(404, 'Album not found');
+        }
+        throw error;
     }
-});
+}));
+
+// DELETE album
+router.delete('/:id', asyncHandler(async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const deleted = await albumStorage.delete(id);
+
+    if (!deleted) {
+        throw new AppError(404, 'Album not found');
+    }
+
+    res.status(204).send();
+}));
 
 export default router;

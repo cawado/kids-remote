@@ -10,6 +10,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const config_1 = require("./config");
 const sonos_1 = require("./services/sonos");
+const errorHandler_1 = require("./middleware/errorHandler");
 const albums_1 = __importDefault(require("./routes/albums"));
 const sonos_2 = __importDefault(require("./routes/sonos"));
 const spotify_1 = __importDefault(require("./routes/spotify"));
@@ -29,6 +30,8 @@ app.use(express_1.default.static(frontendPath));
 app.get(/.*/, (req, res) => {
     res.sendFile(path_1.default.join(frontendPath, 'index.html'));
 });
+// Error handling middleware (must be last)
+app.use(errorHandler_1.errorHandler);
 app.listen(port, () => {
     console.log(`Sonos server listening at http://localhost:${port}`);
 });
