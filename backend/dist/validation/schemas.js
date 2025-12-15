@@ -7,6 +7,7 @@ const zod_1 = require("zod");
  */
 exports.AlbumSchema = zod_1.z.object({
     title: zod_1.z.string().min(1, 'Title is required').max(200, 'Title too long'),
+    artist: zod_1.z.string().max(200, 'Artist name too long').optional(),
     uri: zod_1.z.string().startsWith('spotify:', 'URI must be a valid Spotify URI'),
     coverUrl: zod_1.z.string().url('Invalid cover URL').optional().or(zod_1.z.literal('')),
     type: zod_1.z.enum(['album', 'artist', 'playlist']).optional()

@@ -1,36 +1,46 @@
 <div class="playback-controls">
-    <!-- Volume Down Group -->
-    <div class="volume-group left">
-        <button class="control-btn volume-btn" (click)="volumeDown()">
-            <mat-icon>remove</mat-icon>
-        </button>
-        <mat-icon class="indicator-icon">volume_down</mat-icon>
+    <!-- Filter Group -->
+    <div class="control-group filter-group">
+        <div class="group-label">FILTER</div>
+        <mat-slide-toggle [checked]="groupByArtist()()" (change)="onToggleChange($event)" color="primary"
+            class="artist-toggle">
+            <span class="toggle-text">Nach Künstler</span>
+        </mat-slide-toggle>
     </div>
 
-    <!-- Main Transport -->
-    <div class="transport-group">
-        <button class="control-btn" (click)="previous()">
-            <span class="material-icons">skip_previous</span>
-        </button>
+    <!-- Play Controls Group -->
+    <div class="control-group play-group">
+        <div class="group-label">WIEDERGABE</div>
+        <div class="play-buttons">
+            <button class="control-btn prev-btn" (click)="previous()" aria-label="Vorheriges">
+                <mat-icon>skip_previous</mat-icon>
+            </button>
 
-        <button class="control-btn play-btn" (click)="togglePlay()">
-            @if (!isPlayingOrBuffering()) {
-            <span class="material-icons">play_arrow</span>
-            } @else {
-            <span class="material-icons">pause</span>
-            }
-        </button>
+            <button class="control-btn play-btn" (click)="togglePlay()" aria-label="Play/Pause">
+                @if (!isPlayingOrBuffering()) {
+                <mat-icon class="play-icon">play_arrow</mat-icon>
+                } @else {
+                <mat-icon class="pause-icon">pause</mat-icon>
+                }
+            </button>
 
-        <button class="control-btn" (click)="next()">
-            <mat-icon>skip_next</mat-icon>
-        </button>
+            <button class="control-btn next-btn" (click)="next()" aria-label="Nächstes">
+                <mat-icon>skip_next</mat-icon>
+            </button>
+        </div>
     </div>
 
-    <!-- Volume Up Group -->
-    <div class="volume-group right">
-        <mat-icon class="indicator-icon">volume_up</mat-icon>
-        <button class="control-btn volume-btn" (click)="volumeUp()">
-            <mat-icon>add</mat-icon>
-        </button>
+    <!-- Volume Controls Group -->
+    <div class="control-group volume-group">
+        <div class="group-label">LAUTSTÄRKE</div>
+        <div class="volume-buttons">
+            <button class="control-btn volume-btn" (click)="volumeDown()" aria-label="Leiser">
+                <mat-icon>remove</mat-icon>
+            </button>
+            <mat-icon class="volume-icon">volume_up</mat-icon>
+            <button class="control-btn volume-btn" (click)="volumeUp()" aria-label="Lauter">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
     </div>
 </div>

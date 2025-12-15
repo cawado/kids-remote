@@ -17,13 +17,43 @@
 
 <!-- Album Grid -->
 @if (!loading() && !error()) {
+
+<!-- Back Button (when artist selected) -->
+@if (selectedArtist()) {
+<div class="back-button-container">
+    <button mat-raised-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon> Zurück zu Künstlern
+    </button>
+    <h2 class="artist-title">{{ selectedArtist() }}</h2>
+</div>
+}
+
+<!-- Artist Grid (when grouped and no artist selected) -->
+@if (groupByArtist() && !selectedArtist()) {
 <div class="grid-container">
-    @for (album of albums(); track album.id) {
+    @for (artist of artists(); track artist) {
+    <div class="grid-item artist-item" (click)="selectArtist(artist)">
+        <div class="artist-card">
+            <mat-icon class="artist-icon">person</mat-icon>
+            <h3>{{ artist }}</h3>
+        </div>
+    </div>
+    }
+</div>
+}
+
+<!-- Album Grid (when not grouped OR artist selected) -->
+@if (!groupByArtist() || selectedArtist()) {
+<div class="grid-container">
+    @for (album of displayedAlbums(); track album.id) {
     <div class="grid-item" [class.playing]="isPlaying(album)" (click)="playAlbum(album)">
         <app-album-card [album]="album"></app-album-card>
     </div>
     }
 </div>
 }
+}
 
-<app-playback-controls [transportState]="transportState()"></app-playback-controls>
+<app-playback-controls [transportState]="transportState()" [groupByArtist]="groupByArtist"
+    [selectedArtist]="selectedArtist">
+</app-playback-controls>

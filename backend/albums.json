@@ -1,803 +1,922 @@
 [
   {
-    "id": "1765559203428",
-    "title": "Folge 1: Der Kuss des Kometen",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273c890f98ca63a3cf4ec7fc736",
-    "uri": "spotify:album:1iYgyGfFy75dWJVEnGJHpj"
-  },
-  {
-    "id": "1765559465298",
-    "title": "Folge 4: Die Hexenmeister des Metal",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273981c06952b87d93411e56df9",
-    "uri": "spotify:album:0QHMsII5PMwdxiFhsJEM2c"
-  },
-  {
-    "id": "1765560079266",
-    "title": "Folge 2: Auf großer Tour",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2735c26325f28e3473735965a0a",
-    "uri": "spotify:album:2ZeEa0GkJT20v2NxoOcczX"
-  },
-  {
-    "id": "1765560079267",
-    "title": "Folge 3: Heavysaurus auf der Flucht",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273a360b9efb0fc2b9fb82aeedc",
-    "uri": "spotify:album:4bZByUwY1ehEydrDzXz3PM"
-  },
-  {
-    "id": "1765623507235",
+    "id": "1765628619914",
     "title": "001/Die Handy-Falle",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27355b102309e93941753f5dd43",
+    "artist": "Die drei !!!",
     "uri": "spotify:album:3un4woLD6j6kwAwZmSkPYw",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27355b102309e93941753f5dd43",
     "type": "album"
   },
   {
-    "id": "1765623507239",
-    "title": "006/Skandal auf Sendung",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2737682143816a79e151d750ee7",
-    "uri": "spotify:album:70yIrzDIuYc0O4FPWqIKny",
-    "type": "album"
-  },
-  {
-    "id": "1765623507242",
-    "title": "008/Vorsicht Strandhaie",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2731035d61b215ab1ef9f75bdf2",
-    "uri": "spotify:album:5O9rNnNzU7IblnCHUTZU7h",
-    "type": "album"
-  },
-  {
-    "id": "1765623507253",
+    "id": "1765628619921",
     "title": "002/Betrug beim Casting",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273bd83f771b7784e872f7d9d59",
+    "artist": "Die drei !!!",
     "uri": "spotify:album:2DuT0qcP3FnhEqOByZP0kq",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273bd83f771b7784e872f7d9d59",
     "type": "album"
   },
   {
-    "id": "1765623507256",
-    "title": "009/Im Bann des Tarots",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273771aef63efb222677b3e7165",
-    "uri": "spotify:album:3P8DkaKa07qqvuO08Dd93o",
-    "type": "album"
-  },
-  {
-    "id": "1765623507257",
+    "id": "1765628619923",
     "title": "003/Gefährlicher Chat",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2732f7ae5622038c20c8f10fb58",
+    "artist": "Die drei !!!",
     "uri": "spotify:album:5cKrcMBy6bZdhG34G4P3cS",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2732f7ae5622038c20c8f10fb58",
     "type": "album"
   },
   {
-    "id": "1765623507260",
-    "title": "010/Tanz der Hexen",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273d6952d1895ebf55ccdb37b4b",
-    "uri": "spotify:album:3c9r0kBQLOrsJd8OxXJfXa",
-    "type": "album"
-  },
-  {
-    "id": "1765623507261",
-    "title": "005/Tatort Paris",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2735247822245959f4362cd6da8",
-    "uri": "spotify:album:3WcaA1PuJm9n9c7IumaErj",
-    "type": "album"
-  },
-  {
-    "id": "1765623507263",
-    "title": "011/Kuss-Alarm!",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27388418c2d1b32863981acb96f",
-    "uri": "spotify:album:6ZA4CK35JLBed0CAr7xA11",
-    "type": "album"
-  },
-  {
-    "id": "1765623507268",
-    "title": "012/Popstar in Not",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273ac062ea86ee53d9a82982adb",
-    "uri": "spotify:album:5TAMugD2iYsUOzMLVAX4uu",
-    "type": "album"
-  },
-  {
-    "id": "1765623507270",
-    "title": "013/Gefahr im Reitstall",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2738e34da1be8ac0aba58275f68",
-    "uri": "spotify:album:1pRyPquecHFLXzvrVRz0ng",
-    "type": "album"
-  },
-  {
-    "id": "1765623507272",
+    "id": "1765628619925",
     "title": "004/Gefahr im Fitness-Studio",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273bd334c962fb78b72826416b2",
+    "artist": "Die drei !!!",
     "uri": "spotify:album:4piCvDiOy2C7x0mCMcahGE",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273bd334c962fb78b72826416b2",
     "type": "album"
   },
   {
-    "id": "1765623507274",
-    "title": "014/Spuk am See",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2736b7903fcb9d43f5f3cb86158",
-    "uri": "spotify:album:5bEe20BiXHLJHxRO6fXpBa",
+    "id": "1765628619927",
+    "title": "005/Tatort Paris",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:3WcaA1PuJm9n9c7IumaErj",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2735247822245959f4362cd6da8",
     "type": "album"
   },
   {
-    "id": "1765623507278",
-    "title": "015/Duell der Topmodels",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273c7445996e3dd65d7f5e0bbb1",
-    "uri": "spotify:album:2cfvgwipV1K4CLPnXjN5Ve",
+    "id": "1765628619929",
+    "title": "006/Skandal auf Sendung",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:70yIrzDIuYc0O4FPWqIKny",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2737682143816a79e151d750ee7",
     "type": "album"
   },
   {
-    "id": "1765623507278",
-    "title": "016/Total verknallt!",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273513a4ddfd6452049456b068a",
-    "uri": "spotify:album:0oHjNLbrtdonacpPnOFSpi",
-    "type": "album"
-  },
-  {
-    "id": "1765623507281",
-    "title": "017/Gefährliche Fracht",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273d482f02415dcb9f20859ff3b",
-    "uri": "spotify:album:6zVqNpHvSHW3h3n6Q9O0Cy",
-    "type": "album"
-  },
-  {
-    "id": "1765623507282",
-    "title": "018/VIP-Alarm",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273b04961862b40dcbcd1ab5c43",
-    "uri": "spotify:album:6dRGnn4E13yRucYoVRlmHJ",
-    "type": "album"
-  },
-  {
-    "id": "1765623507283",
-    "title": "019/Teuflisches Handy",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2730ad6e328733e6fab168dc956",
-    "uri": "spotify:album:3vOk5Z9ZRAQMstB9EGFYfk",
-    "type": "album"
-  },
-  {
-    "id": "1765623507284",
-    "title": "020/Beutejagd am Geistersee",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273a55371eed2071db117084c5e",
-    "uri": "spotify:album:1Lx6empB7IEYcSM9dtuqhf",
-    "type": "album"
-  },
-  {
-    "id": "1765623507284",
-    "title": "021/Skandal auf der Rennbahn",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2730f1140c493b408faf1ed5b36",
-    "uri": "spotify:album:1m7fs7cHNbqjk1CsnhI9St",
-    "type": "album"
-  },
-  {
-    "id": "1765623507286",
-    "title": "022/Jagd im Untergrund",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273488ff5202de27fc83815d88b",
-    "uri": "spotify:album:1dqdcXxrnsPQW8TtyL6q7A",
-    "type": "album"
-  },
-  {
-    "id": "1765623507286",
-    "title": "023/Undercover im Netz",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2739f4add594beabbf94b0b80c7",
-    "uri": "spotify:album:6LEQ8cVptVomMqdVJrlVkf",
-    "type": "album"
-  },
-  {
-    "id": "1765623507287",
-    "title": "024/Fußballstar in Gefahr",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2736d7ce687f592e8c3d3f410f2",
-    "uri": "spotify:album:5soXodzTvagM8nZldvbpDD",
-    "type": "album"
-  },
-  {
-    "id": "1765623507288",
-    "title": "026/Tatort Filmset",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2732989c20ff5131bfe085a480f",
-    "uri": "spotify:album:1OvCArBEfWgap3VxZxbp4I",
-    "type": "album"
-  },
-  {
-    "id": "1765623507289",
-    "title": "027/Vampire in der Nacht",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27333e9c8675ba17ea14d05fc8d",
-    "uri": "spotify:album:5MqALpg2JaeqGuFhWE0MFg",
-    "type": "album"
-  },
-  {
-    "id": "1765623507290",
-    "title": "028/Achtung, Promihochzeit!",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2730c821a235dbd08143496f99e",
-    "uri": "spotify:album:7DiWGxMXtXR4k4dkW2cJRz",
-    "type": "album"
-  },
-  {
-    "id": "1765623507293",
-    "title": "029/Panik im Freizeitpark",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2730b94b85dfc97b0608eceed5d",
-    "uri": "spotify:album:1WA6KmaDHQFXKYB5chNZe2",
-    "type": "album"
-  },
-  {
-    "id": "1765623507294",
-    "title": "025/Herzklopfen!",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273254ed78ceb8c02c5c98c6d91",
-    "uri": "spotify:album:5dysYAhcB4km5RFMet1K3J",
-    "type": "album"
-  },
-  {
-    "id": "1765623507295",
-    "title": "031/Betrug in den Charts",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2732afa34e6e499efee87fa80f3",
-    "uri": "spotify:album:4Y4lAWfYSWTFMgXzpPoKXI",
-    "type": "album"
-  },
-  {
-    "id": "1765623507297",
-    "title": "032/Party des Grauens",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273117bd4f8241ef0cb79d0eac4",
-    "uri": "spotify:album:0ooKSw6J3b9n4bympkkxzu",
-    "type": "album"
-  },
-  {
-    "id": "1765623507298",
-    "title": "033/Küsse im Schnee",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27380a3e8744c2aa607a7a16ee2",
-    "uri": "spotify:album:41wMgMO7LpxY8o4Rj55oBq",
-    "type": "album"
-  },
-  {
-    "id": "1765623507299",
-    "title": "034/Brandgefährlich!",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2731000c91cb2b132425bdf6b64",
-    "uri": "spotify:album:37z4HkHnOAQzBxw5ylAN9d",
-    "type": "album"
-  },
-  {
-    "id": "1765623507299",
-    "title": "030/Falsches Spiel im Internat",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273389d17d8c63826c53d5b2975",
-    "uri": "spotify:album:16a0epT9yt2SeLGhsoYM4a",
-    "type": "album"
-  },
-  {
-    "id": "1765623507300",
-    "title": "036/SOS per GPS",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2733d9a4e01c99a2f8dc6a5d4d4",
-    "uri": "spotify:album:2NrsEPrTragOn3GQ0PMVOF",
-    "type": "album"
-  },
-  {
-    "id": "1765623507300",
-    "title": "037/Mission Pferdeshow",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273538c931d633c61014b7a9039",
-    "uri": "spotify:album:6Xm4s3aGPU17e9sgGEA8aZ",
-    "type": "album"
-  },
-  {
-    "id": "1765623507301",
-    "title": "038/Stylist in Gefahr",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273d44b9bf868a6618e768cc37f",
-    "uri": "spotify:album:1FSMHiv7d9grmjqUe1a5hj",
-    "type": "album"
-  },
-  {
-    "id": "1765623507301",
-    "title": "039/Verliebte Weihnachten",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273fd6c29e68306e0a64e52ef9f",
-    "uri": "spotify:album:5gaFsWM21HaKWgA0DG0jiN",
-    "type": "album"
-  },
-  {
-    "id": "1765623507301",
-    "title": "035/Diebe in der Lagune",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273ff253a425703d91c08702fc9",
-    "uri": "spotify:album:6Mlom2t82WwqRBz9roHK4K",
-    "type": "album"
-  },
-  {
-    "id": "1765623507302",
-    "title": "041/Im Bann des Flamenco",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27349529bb3d19991e8a5abc98c",
-    "uri": "spotify:album:4Ni50L1zXoIIkS3z2h0xh8",
-    "type": "album"
-  },
-  {
-    "id": "1765623507303",
-    "title": "042/Geheimnis der alten Villa",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2734fb87a8eec3a2cbf9e9b4580",
-    "uri": "spotify:album:4CpizsYamWYUBHZJoQPwdv",
-    "type": "album"
-  },
-  {
-    "id": "1765623507303",
-    "title": "043/Nixensommer",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27387d7fbd05b6a8d114ba907ca",
-    "uri": "spotify:album:7bkvVdlj8wiw4Li61BZR2m",
-    "type": "album"
-  },
-  {
-    "id": "1765623507304",
-    "title": "044/Skandal im Café Lomo!",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27392866be2c658e622b0d94be8",
-    "uri": "spotify:album:5LM81629FwKwJHfJcGPgK2",
-    "type": "album"
-  },
-  {
-    "id": "1765623507305",
-    "title": "040/Achtung, Spionage!",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273dfb77f5cba51cf0c14991ac9",
-    "uri": "spotify:album:5QezttqJ1VP5sVhV5VtwoT",
-    "type": "album"
-  },
-  {
-    "id": "1765623507305",
-    "title": "046/Filmstar in Gefahr",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2739135e727241df50d1d3d29e8",
-    "uri": "spotify:album:0yjbXYX1UtB8r0c1CFWhSG",
-    "type": "album"
-  },
-  {
-    "id": "1765623507306",
-    "title": "047/Unter Verdacht",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2730033fa6c63803e5eba57420a",
-    "uri": "spotify:album:0weLXrClaVQeAPO2KK8m81",
-    "type": "album"
-  },
-  {
-    "id": "1765623507306",
-    "title": "048/Die Maske der Königin",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273eff6313626b7756ee0816387",
-    "uri": "spotify:album:4MZYMMJfqI2qcOcEmN9mCs",
-    "type": "album"
-  },
-  {
-    "id": "1765623507306",
-    "title": "049/Skandal auf dem Laufsteg",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273375758e5226ff22759575829",
-    "uri": "spotify:album:3jO56T2HsEqKgmGYuCEhKZ",
-    "type": "album"
-  },
-  {
-    "id": "1765623507307",
-    "title": "045/Tatort Geisterhaus",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27383e02d2d93cb36117f2a4fe7",
-    "uri": "spotify:album:4zlWM9OKrtiCgSusljX1E7",
-    "type": "album"
-  },
-  {
-    "id": "1765623507307",
-    "title": "051/Krimi-Dinner",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2732f879950ac703688967f55a8",
-    "uri": "spotify:album:5mdP79ob1KSHwk16l1KAco",
-    "type": "album"
-  },
-  {
-    "id": "1765623507308",
-    "title": "052/Das rote Phantom",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273d6a6b6bd93de97c7d03f2ba5",
-    "uri": "spotify:album:6FlKoWXZmRuIG9Zc7J1tUZ",
-    "type": "album"
-  },
-  {
-    "id": "1765623507308",
-    "title": "053/Hochzeitsfieber",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27359abb62fc8fbd906f82fd1de",
-    "uri": "spotify:album:6WsVyCSywp7O3aKjAzVcGp",
-    "type": "album"
-  },
-  {
-    "id": "1765623507308",
-    "title": "054/Klappe und Action!",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273e02de27d7cd4976696ca227d",
-    "uri": "spotify:album:7e78EvusAQMZ3L2Und3Jbg",
-    "type": "album"
-  },
-  {
-    "id": "1765623507309",
-    "title": "050/Freundinnen in Gefahr",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273cc0736b0c892cfe593bbb480",
-    "uri": "spotify:album:6rfILMiUOyyGgF8dhQ8Uht",
-    "type": "album"
-  },
-  {
-    "id": "1765623507309",
-    "title": "056/Geheimnis im Düstermoor",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2738b894dc22414baf773812aca",
-    "uri": "spotify:album:3rBGGGFl6s04ev8TG3nklf",
-    "type": "album"
-  },
-  {
-    "id": "1765623507309",
-    "title": "057/Tatort Kreuzfahrt",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273b08345d002bf17d592574777",
-    "uri": "spotify:album:0tygMEWC5NzVMpQXXpNiY7",
-    "type": "album"
-  },
-  {
-    "id": "1765623507310",
-    "title": "058/Gorilla in Not",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273ca3b2b7105bdd07951278bae",
-    "uri": "spotify:album:1RlL8kNAhx5buOGBbW0cfV",
-    "type": "album"
-  },
-  {
-    "id": "1765623507310",
-    "title": "059/Das geheime Parfüm",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273b3ccc6a434ea16d7f327b169",
-    "uri": "spotify:album:4NteeZLRxYHyizQtckB6lk",
-    "type": "album"
-  },
-  {
-    "id": "1765623507310",
-    "title": "055/Wildpferd in Gefahr",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273199f38d49e2bbea4568768f8",
-    "uri": "spotify:album:7cAODGObTkR9Swz0YSABD6",
-    "type": "album"
-  },
-  {
-    "id": "1765623507311",
-    "title": "061/Der Fall Dornröschen",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273c1f70e4e53a7fe1492b36a98",
-    "uri": "spotify:album:55j61hrwSlDok7oaxxM1Iy",
-    "type": "album"
-  },
-  {
-    "id": "1765623507311",
-    "title": "062/Spuk am Himmel",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273ebb264197e343fe3481005d5",
-    "uri": "spotify:album:1jObrioJhKRNVPlxlG7B9Z",
-    "type": "album"
-  },
-  {
-    "id": "1765623507311",
-    "title": "063/Flammen in der Nacht",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273c69caae9cf581d6e5b391d1b",
-    "uri": "spotify:album:1tiSNbq6kgALcPNOIZHu67",
-    "type": "album"
-  },
-  {
-    "id": "1765623507312",
+    "id": "1765628619930",
     "title": "007/Skaterfieber",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2738be16a247a1d528bf5ee4bab",
+    "artist": "Die drei !!!",
     "uri": "spotify:album:2LH2tPzRlGGd8UzCUW9A2s",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2738be16a247a1d528bf5ee4bab",
     "type": "album"
   },
   {
-    "id": "1765623507312",
+    "id": "1765628619932",
+    "title": "008/Vorsicht Strandhaie",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:5O9rNnNzU7IblnCHUTZU7h",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2731035d61b215ab1ef9f75bdf2",
+    "type": "album"
+  },
+  {
+    "id": "1765628619933",
+    "title": "009/Im Bann des Tarots",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:3P8DkaKa07qqvuO08Dd93o",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273771aef63efb222677b3e7165",
+    "type": "album"
+  },
+  {
+    "id": "1765628619935",
+    "title": "010/Tanz der Hexen",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:3c9r0kBQLOrsJd8OxXJfXa",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273d6952d1895ebf55ccdb37b4b",
+    "type": "album"
+  },
+  {
+    "id": "1765628619936",
+    "title": "011/Kuss-Alarm!",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:6ZA4CK35JLBed0CAr7xA11",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27388418c2d1b32863981acb96f",
+    "type": "album"
+  },
+  {
+    "id": "1765628619937",
+    "title": "012/Popstar in Not",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:5TAMugD2iYsUOzMLVAX4uu",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273ac062ea86ee53d9a82982adb",
+    "type": "album"
+  },
+  {
+    "id": "1765628619938",
+    "title": "013/Gefahr im Reitstall",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:1pRyPquecHFLXzvrVRz0ng",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2738e34da1be8ac0aba58275f68",
+    "type": "album"
+  },
+  {
+    "id": "1765628619940",
+    "title": "014/Spuk am See",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:5bEe20BiXHLJHxRO6fXpBa",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2736b7903fcb9d43f5f3cb86158",
+    "type": "album"
+  },
+  {
+    "id": "1765628619941",
+    "title": "015/Duell der Topmodels",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:2cfvgwipV1K4CLPnXjN5Ve",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273c7445996e3dd65d7f5e0bbb1",
+    "type": "album"
+  },
+  {
+    "id": "1765628619943",
+    "title": "016/Total verknallt!",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:0oHjNLbrtdonacpPnOFSpi",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273513a4ddfd6452049456b068a",
+    "type": "album"
+  },
+  {
+    "id": "1765628619944",
+    "title": "017/Gefährliche Fracht",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:6zVqNpHvSHW3h3n6Q9O0Cy",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273d482f02415dcb9f20859ff3b",
+    "type": "album"
+  },
+  {
+    "id": "1765628619946",
+    "title": "018/VIP-Alarm",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:6dRGnn4E13yRucYoVRlmHJ",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273b04961862b40dcbcd1ab5c43",
+    "type": "album"
+  },
+  {
+    "id": "1765628619948",
+    "title": "019/Teuflisches Handy",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:3vOk5Z9ZRAQMstB9EGFYfk",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2730ad6e328733e6fab168dc956",
+    "type": "album"
+  },
+  {
+    "id": "1765628619950",
+    "title": "020/Beutejagd am Geistersee",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:1Lx6empB7IEYcSM9dtuqhf",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273a55371eed2071db117084c5e",
+    "type": "album"
+  },
+  {
+    "id": "1765628619951",
+    "title": "021/Skandal auf der Rennbahn",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:1m7fs7cHNbqjk1CsnhI9St",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2730f1140c493b408faf1ed5b36",
+    "type": "album"
+  },
+  {
+    "id": "1765628619952",
+    "title": "022/Jagd im Untergrund",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:1dqdcXxrnsPQW8TtyL6q7A",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273488ff5202de27fc83815d88b",
+    "type": "album"
+  },
+  {
+    "id": "1765628619954",
+    "title": "023/Undercover im Netz",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:6LEQ8cVptVomMqdVJrlVkf",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2739f4add594beabbf94b0b80c7",
+    "type": "album"
+  },
+  {
+    "id": "1765628619955",
+    "title": "024/Fußballstar in Gefahr",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:5soXodzTvagM8nZldvbpDD",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2736d7ce687f592e8c3d3f410f2",
+    "type": "album"
+  },
+  {
+    "id": "1765628619956",
+    "title": "025/Herzklopfen!",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:5dysYAhcB4km5RFMet1K3J",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273254ed78ceb8c02c5c98c6d91",
+    "type": "album"
+  },
+  {
+    "id": "1765628619958",
+    "title": "026/Tatort Filmset",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:1OvCArBEfWgap3VxZxbp4I",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2732989c20ff5131bfe085a480f",
+    "type": "album"
+  },
+  {
+    "id": "1765628619959",
+    "title": "027/Vampire in der Nacht",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:5MqALpg2JaeqGuFhWE0MFg",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27333e9c8675ba17ea14d05fc8d",
+    "type": "album"
+  },
+  {
+    "id": "1765628619961",
+    "title": "028/Achtung, Promihochzeit!",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:7DiWGxMXtXR4k4dkW2cJRz",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2730c821a235dbd08143496f99e",
+    "type": "album"
+  },
+  {
+    "id": "1765628619963",
+    "title": "029/Panik im Freizeitpark",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:1WA6KmaDHQFXKYB5chNZe2",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2730b94b85dfc97b0608eceed5d",
+    "type": "album"
+  },
+  {
+    "id": "1765628619965",
+    "title": "030/Falsches Spiel im Internat",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:16a0epT9yt2SeLGhsoYM4a",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273389d17d8c63826c53d5b2975",
+    "type": "album"
+  },
+  {
+    "id": "1765628619966",
+    "title": "031/Betrug in den Charts",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:4Y4lAWfYSWTFMgXzpPoKXI",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2732afa34e6e499efee87fa80f3",
+    "type": "album"
+  },
+  {
+    "id": "1765628619967",
+    "title": "032/Party des Grauens",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:0ooKSw6J3b9n4bympkkxzu",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273117bd4f8241ef0cb79d0eac4",
+    "type": "album"
+  },
+  {
+    "id": "1765628619969",
+    "title": "033/Küsse im Schnee",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:41wMgMO7LpxY8o4Rj55oBq",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27380a3e8744c2aa607a7a16ee2",
+    "type": "album"
+  },
+  {
+    "id": "1765628619970",
+    "title": "034/Brandgefährlich!",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:37z4HkHnOAQzBxw5ylAN9d",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2731000c91cb2b132425bdf6b64",
+    "type": "album"
+  },
+  {
+    "id": "1765628619972",
+    "title": "035/Diebe in der Lagune",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:6Mlom2t82WwqRBz9roHK4K",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273ff253a425703d91c08702fc9",
+    "type": "album"
+  },
+  {
+    "id": "1765628619973",
+    "title": "036/SOS per GPS",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:2NrsEPrTragOn3GQ0PMVOF",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2733d9a4e01c99a2f8dc6a5d4d4",
+    "type": "album"
+  },
+  {
+    "id": "1765628619975",
+    "title": "037/Mission Pferdeshow",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:6Xm4s3aGPU17e9sgGEA8aZ",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273538c931d633c61014b7a9039",
+    "type": "album"
+  },
+  {
+    "id": "1765628619976",
+    "title": "038/Stylist in Gefahr",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:1FSMHiv7d9grmjqUe1a5hj",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273d44b9bf868a6618e768cc37f",
+    "type": "album"
+  },
+  {
+    "id": "1765628619978",
+    "title": "039/Verliebte Weihnachten",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:5gaFsWM21HaKWgA0DG0jiN",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273fd6c29e68306e0a64e52ef9f",
+    "type": "album"
+  },
+  {
+    "id": "1765628619979",
+    "title": "040/Achtung, Spionage!",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:5QezttqJ1VP5sVhV5VtwoT",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273dfb77f5cba51cf0c14991ac9",
+    "type": "album"
+  },
+  {
+    "id": "1765628619980",
+    "title": "041/Im Bann des Flamenco",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:4Ni50L1zXoIIkS3z2h0xh8",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27349529bb3d19991e8a5abc98c",
+    "type": "album"
+  },
+  {
+    "id": "1765628619982",
+    "title": "042/Geheimnis der alten Villa",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:4CpizsYamWYUBHZJoQPwdv",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2734fb87a8eec3a2cbf9e9b4580",
+    "type": "album"
+  },
+  {
+    "id": "1765628619983",
+    "title": "043/Nixensommer",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:7bkvVdlj8wiw4Li61BZR2m",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27387d7fbd05b6a8d114ba907ca",
+    "type": "album"
+  },
+  {
+    "id": "1765628619985",
+    "title": "044/Skandal im Café Lomo!",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:5LM81629FwKwJHfJcGPgK2",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27392866be2c658e622b0d94be8",
+    "type": "album"
+  },
+  {
+    "id": "1765628619987",
+    "title": "045/Tatort Geisterhaus",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:4zlWM9OKrtiCgSusljX1E7",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27383e02d2d93cb36117f2a4fe7",
+    "type": "album"
+  },
+  {
+    "id": "1765628619988",
+    "title": "046/Filmstar in Gefahr",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:0yjbXYX1UtB8r0c1CFWhSG",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2739135e727241df50d1d3d29e8",
+    "type": "album"
+  },
+  {
+    "id": "1765628619990",
+    "title": "047/Unter Verdacht",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:0weLXrClaVQeAPO2KK8m81",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2730033fa6c63803e5eba57420a",
+    "type": "album"
+  },
+  {
+    "id": "1765628619991",
+    "title": "048/Die Maske der Königin",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:4MZYMMJfqI2qcOcEmN9mCs",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273eff6313626b7756ee0816387",
+    "type": "album"
+  },
+  {
+    "id": "1765628619993",
+    "title": "049/Skandal auf dem Laufsteg",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:3jO56T2HsEqKgmGYuCEhKZ",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273375758e5226ff22759575829",
+    "type": "album"
+  },
+  {
+    "id": "1765628619995",
+    "title": "050/Freundinnen in Gefahr",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:6rfILMiUOyyGgF8dhQ8Uht",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273cc0736b0c892cfe593bbb480",
+    "type": "album"
+  },
+  {
+    "id": "1765628619996",
+    "title": "051/Krimi-Dinner",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:5mdP79ob1KSHwk16l1KAco",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2732f879950ac703688967f55a8",
+    "type": "album"
+  },
+  {
+    "id": "1765628619998",
+    "title": "052/Das rote Phantom",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:6FlKoWXZmRuIG9Zc7J1tUZ",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273d6a6b6bd93de97c7d03f2ba5",
+    "type": "album"
+  },
+  {
+    "id": "1765628619999",
+    "title": "053/Hochzeitsfieber",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:6WsVyCSywp7O3aKjAzVcGp",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27359abb62fc8fbd906f82fd1de",
+    "type": "album"
+  },
+  {
+    "id": "1765628620001",
+    "title": "054/Klappe und Action!",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:7e78EvusAQMZ3L2Und3Jbg",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273e02de27d7cd4976696ca227d",
+    "type": "album"
+  },
+  {
+    "id": "1765628620002",
+    "title": "055/Wildpferd in Gefahr",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:7cAODGObTkR9Swz0YSABD6",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273199f38d49e2bbea4568768f8",
+    "type": "album"
+  },
+  {
+    "id": "1765628620004",
+    "title": "056/Geheimnis im Düstermoor",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:3rBGGGFl6s04ev8TG3nklf",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2738b894dc22414baf773812aca",
+    "type": "album"
+  },
+  {
+    "id": "1765628620006",
+    "title": "057/Tatort Kreuzfahrt",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:0tygMEWC5NzVMpQXXpNiY7",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273b08345d002bf17d592574777",
+    "type": "album"
+  },
+  {
+    "id": "1765628620008",
+    "title": "058/Gorilla in Not",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:1RlL8kNAhx5buOGBbW0cfV",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273ca3b2b7105bdd07951278bae",
+    "type": "album"
+  },
+  {
+    "id": "1765628620009",
+    "title": "059/Das geheime Parfüm",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:4NteeZLRxYHyizQtckB6lk",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273b3ccc6a434ea16d7f327b169",
+    "type": "album"
+  },
+  {
+    "id": "1765628620011",
     "title": "060/Liebes-Chaos",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27380919117c96721178810e96e",
+    "artist": "Die drei !!!",
     "uri": "spotify:album:7jbBsUDn1hWNVyrRHxMV9B",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27380919117c96721178810e96e",
     "type": "album"
   },
   {
-    "id": "1765623507313",
-    "title": "065/Heuler in Not",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273f7d08ffd77eaa148c41fe30e",
-    "uri": "spotify:album:2QKlQRf0Cfe5T34w6B5DfQ",
+    "id": "1765628620012",
+    "title": "061/Der Fall Dornröschen",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:55j61hrwSlDok7oaxxM1Iy",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273c1f70e4e53a7fe1492b36a98",
     "type": "album"
   },
   {
-    "id": "1765623507313",
-    "title": "066/Tanz der Herzen",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273f292b252f7df00e414dbcafe",
-    "uri": "spotify:album:05rlDFdI1cqe2VnM5A67S2",
+    "id": "1765628620013",
+    "title": "062/Spuk am Himmel",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:1jObrioJhKRNVPlxlG7B9Z",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273ebb264197e343fe3481005d5",
     "type": "album"
   },
   {
-    "id": "1765623507313",
-    "title": "067/Tatort Geisterbahn",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273ba6dc33be5b90c84e5ece25e",
-    "uri": "spotify:album:2e5ncFY5iOyLdUZgjI9bo5",
+    "id": "1765628620014",
+    "title": "063/Flammen in der Nacht",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:1tiSNbq6kgALcPNOIZHu67",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273c69caae9cf581d6e5b391d1b",
     "type": "album"
   },
   {
-    "id": "1765623507314",
-    "title": "068/Gefahr im Netz",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273a461e868d5a32a871793f4ae",
-    "uri": "spotify:album:02JfnORmf7rsQLSptYAt6a",
-    "type": "album"
-  },
-  {
-    "id": "1765623507314",
+    "id": "1765628620016",
     "title": "064/Der Graffiti-Code",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2731712fc9dd5be7691fde607c3",
+    "artist": "Die drei !!!",
     "uri": "spotify:album:4DgY9rIEtwpNXuKJJkjDY2",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2731712fc9dd5be7691fde607c3",
     "type": "album"
   },
   {
-    "id": "1765623507314",
-    "title": "070/Gefährliches Spiel",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273cb950a4728fb1359ec05afb1",
-    "uri": "spotify:album:63f1Nl6tYYA2dNdTCzFF9R",
+    "id": "1765628620018",
+    "title": "065/Heuler in Not",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:2QKlQRf0Cfe5T34w6B5DfQ",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273f7d08ffd77eaa148c41fe30e",
     "type": "album"
   },
   {
-    "id": "1765623507315",
-    "title": "071/Gefahr in den Ruinen",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273ee204be64365ed07a163a2b9",
-    "uri": "spotify:album:6Vroxjn7WABCFMVWImdefS",
+    "id": "1765628620019",
+    "title": "066/Tanz der Herzen",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:05rlDFdI1cqe2VnM5A67S2",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273f292b252f7df00e414dbcafe",
     "type": "album"
   },
   {
-    "id": "1765623507315",
-    "title": "Folge 72: Kuss der Meerjungfrau",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27309849e1062acc3b9dc33f583",
-    "uri": "spotify:album:1dZCFF0MmS9aZEs4HbthCw",
+    "id": "1765628620021",
+    "title": "067/Tatort Geisterbahn",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:2e5ncFY5iOyLdUZgjI9bo5",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273ba6dc33be5b90c84e5ece25e",
     "type": "album"
   },
   {
-    "id": "1765623507316",
-    "title": "Folge 73: Legende der Einhörner",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2737dc02eff6e12cdba5db5de68",
-    "uri": "spotify:album:4AgcyMrB11xPCCTjRzfHGL",
+    "id": "1765628620022",
+    "title": "068/Gefahr im Netz",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:02JfnORmf7rsQLSptYAt6a",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273a461e868d5a32a871793f4ae",
     "type": "album"
   },
   {
-    "id": "1765623507317",
+    "id": "1765628620024",
     "title": "069/Nacht der Wölfe",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2739b7838dd1d1cbfe9f3774d53",
+    "artist": "Die drei !!!",
     "uri": "spotify:album:5Eznzlc1K2lCAekaQwBGOB",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2739b7838dd1d1cbfe9f3774d53",
     "type": "album"
   },
   {
-    "id": "1765623507317",
-    "title": "Folge 75: Tatort Hollywood",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27366148337b549a4cc847daf07",
-    "uri": "spotify:album:3msSCztCTvvNWx91aL66Df",
+    "id": "1765628620026",
+    "title": "070/Gefährliches Spiel",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:63f1Nl6tYYA2dNdTCzFF9R",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273cb950a4728fb1359ec05afb1",
     "type": "album"
   },
   {
-    "id": "1765623507318",
-    "title": "Folge 76: #Falscher Ruhm",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27357d1ffd9c47ec6925d046db2",
-    "uri": "spotify:album:5mssqxVqhwbVQg96w8dqq6",
+    "id": "1765628620027",
+    "title": "071/Gefahr in den Ruinen",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:6Vroxjn7WABCFMVWImdefS",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273ee204be64365ed07a163a2b9",
     "type": "album"
   },
   {
-    "id": "1765623507319",
-    "title": "Folge 77: Achtung, Gaunerzeichen!",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2739a11bdebead0fbe6d5e04887",
-    "uri": "spotify:album:5y9tQvy4LtFqV8b4VXsLzk",
-    "type": "album"
-  },
-  {
-    "id": "1765623507319",
-    "title": "Folge 78: Das Bienengeheimnis",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2734c305dc5d9d50ec546cffa0a",
-    "uri": "spotify:album:0CZ4okIufmxtgXVUF6cM0I",
-    "type": "album"
-  },
-  {
-    "id": "1765623507319",
-    "title": "Folge 74: Rätsel der Vergangenheit",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2739ac354a84e7563cba9fc79be",
-    "uri": "spotify:album:4RYRHaRZLSj1rptGaegXat",
-    "type": "album"
-  },
-  {
-    "id": "1765623507320",
-    "title": "Folge 80: Ein echt schöner Fall",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273b3d3c8a6052c769e68de729d",
-    "uri": "spotify:album:41H3IW5sFwwpFPbLGmlLJW",
-    "type": "album"
-  },
-  {
-    "id": "1765623507320",
-    "title": "Folge 81: Geheimnis im Spukhotel",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273cf6b1925172a4a2008b518e4",
-    "uri": "spotify:album:6JZmsJOFeOkn683w1Qzdj3",
-    "type": "album"
-  },
-  {
-    "id": "1765623507321",
-    "title": "Folge 82: Das Konfetti-Komplott",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273a14ecc49e9a62fa586ff1ca8",
-    "uri": "spotify:album:5cePM34PH7BFRY77i3dtIW",
-    "type": "album"
-  },
-  {
-    "id": "1765623507321",
-    "title": "Folge 83: Voller Einsatz für die Erde",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27385d4e585ff252aabc50417d1",
-    "uri": "spotify:album:0logTHRSKGE37uVdSlf6O8",
-    "type": "album"
-  },
-  {
-    "id": "1765623507322",
-    "title": "Folge 84: Luftballonküsse",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2737078c6ef415d9051d81075f8",
-    "uri": "spotify:album:5HUoaRTkFG7FOtFeMsEZEO",
-    "type": "album"
-  },
-  {
-    "id": "1765623507322",
-    "title": "Folge 79: Vier Pfoten in Gefahr",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273e50fee93a174c660776bea20",
-    "uri": "spotify:album:7doQH1kPe6v73TSoYGU6QY",
-    "type": "album"
-  },
-  {
-    "id": "1765623507322",
-    "title": "Folge 85: Ein Fall mit Herz und Huf",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27304852955ff9e7337069ba036",
-    "uri": "spotify:album:3p9JnVWaakuFyDyPev6dUj",
-    "type": "album"
-  },
-  {
-    "id": "1765623507323",
-    "title": "Folge 86: Rätselhafter Raub",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27321076dfc7b8c404c59c014ad",
-    "uri": "spotify:album:17ZoX7E5FoPkz5xUvC5pJp",
-    "type": "album"
-  },
-  {
-    "id": "1765623507323",
-    "title": "Folge 87: Geheimnisvoller Liebestrank",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273ab1c4780a76cd6953653171a",
-    "uri": "spotify:album:50WblRxJHvT2M8RtGgBzOn",
-    "type": "album"
-  },
-  {
-    "id": "1765623507324",
-    "title": "Folge 88: Die Krimi-Verschwörung",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27336effad021461faba35f797c",
-    "uri": "spotify:album:5BrBj3ptD3M91uAfZ5N9Ws",
-    "type": "album"
-  },
-  {
-    "id": "1765623507324",
-    "title": "Folge 89: Der Fluch der Fee",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27361f3b132423bd27217067e59",
-    "uri": "spotify:album:6lJLEeb1XlFXhnmPc5Wi1t",
-    "type": "album"
-  },
-  {
-    "id": "1765623507324",
-    "title": "Folge 91: Geburtstagsdiebe",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2731cd1e1e5f557bb2dde43c2f2",
-    "uri": "spotify:album:4hegbgngXPTokZ3Z4tR7IS",
-    "type": "album"
-  },
-  {
-    "id": "1765623507325",
-    "title": "Folge 92: Geheimnis am Fluss",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2735a99e6b804247e526722d754",
-    "uri": "spotify:album:1IksQVlojtgy0J6822BMeD",
-    "type": "album"
-  },
-  {
-    "id": "1765623507325",
-    "title": "Folge 93: Abenteuer-Küsse",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27346a27dcaa68d68a8a124f95a",
-    "uri": "spotify:album:4mYateqqljvBE5ASbbsxx9",
-    "type": "album"
-  },
-  {
-    "id": "1765623507326",
-    "title": "Folge 94: Unheimliches Meeresleuchten",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2736b69fa59acb6ce7ca780168a",
-    "uri": "spotify:album:3p0eAPMrp79UFTGRYtFFOl",
-    "type": "album"
-  },
-  {
-    "id": "1765623507326",
-    "title": "Folge 90: Mission Gipfelglück",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273ed9a344274541be9fa3bfc59",
-    "uri": "spotify:album:51Oqg9PlgcN7xRVJEgzu5h",
-    "type": "album"
-  },
-  {
-    "id": "1765623507326",
+    "id": "1765628620063",
     "title": "Adventskalender - Das Weihnachtsrätsel",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273eddf69e9a88cbd5b7edc055c",
+    "artist": "Die drei !!!",
     "uri": "spotify:album:5337c71ghTYTKz3sJBYeAK",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273eddf69e9a88cbd5b7edc055c",
     "type": "album"
   },
   {
-    "id": "1765623507327",
+    "id": "1765628620065",
     "title": "Adventskalender - Eisprinzessin in Not",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273d081f645f32ff0b2728bdef9",
+    "artist": "Die drei !!!",
     "uri": "spotify:album:6dgraZML3CQZkRuoFQkzJk",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273d081f645f32ff0b2728bdef9",
     "type": "album"
   },
   {
-    "id": "1765623507327",
+    "id": "1765628620066",
     "title": "Adventskalender - Engel in Gefahr",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27311e9a12bb45b666959d200f6",
+    "artist": "Die drei !!!",
     "uri": "spotify:album:5hS6afCS6iR3fyeyjixu5I",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27311e9a12bb45b666959d200f6",
     "type": "album"
   },
   {
-    "id": "1765623507327",
+    "id": "1765628620067",
     "title": "Adventskalender - Geheimnis im Schnee",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273f170cc19f83fa108a73365dc",
+    "artist": "Die drei !!!",
     "uri": "spotify:album:3Y7SbC7xEqmh6beaCAUjFd",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273f170cc19f83fa108a73365dc",
     "type": "album"
   },
   {
-    "id": "1765623507328",
-    "title": "Folge 95: Falle im alten Kino",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27374ba49fd8755c5e69c3ef426",
-    "uri": "spotify:album:2m78VS4hYSz3iLdNEVJZ9I",
-    "type": "album"
-  },
-  {
-    "id": "1765623507328",
-    "title": "Adventskalender - Wintertraum in Gefahr",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27332f36b53d0056468491495ba",
-    "uri": "spotify:album:6sY5T9eROTkGXkprYS1JIc",
-    "type": "album"
-  },
-  {
-    "id": "1765623507329",
-    "title": "Adventskalender - Wirbel im Weihnachtshotel",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273fcd202d31786dc99ceda14e3",
-    "uri": "spotify:album:6r5Z1GCgD8diUD9inajKvd",
-    "type": "album"
-  },
-  {
-    "id": "1765623507329",
-    "title": "Adventskalender - Zauberhafte Eiswelt",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273b7211c82ae00b02358b02e95",
-    "uri": "spotify:album:7rOiqNA8gO1qWLEUTvXAun",
-    "type": "album"
-  },
-  {
-    "id": "1765623507330",
-    "title": "Adventskalender/Die Marzipan-Mission",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27344cc24b969b351ba3a6a82c8",
-    "uri": "spotify:album:3trwiTOpImrBHlfRFL2jqB",
-    "type": "album"
-  },
-  {
-    "id": "1765623507331",
+    "id": "1765628620068",
     "title": "Adventskalender - Weihnachtsmann gesucht",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27379e57b76e34227e2aaf63530",
+    "artist": "Die drei !!!",
     "uri": "spotify:album:1i5YX8hEf27Ep62GEfkUzF",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27379e57b76e34227e2aaf63530",
     "type": "album"
   },
   {
-    "id": "1765623507331",
-    "title": "Adventskalender/Weihnachtsponys in Gefahr",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2733343dcb53e0b8c3f562008f9",
-    "uri": "spotify:album:4ZbwSV67s5f4nwn1UYzwGE",
+    "id": "1765628620070",
+    "title": "Adventskalender - Wintertraum in Gefahr",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:6sY5T9eROTkGXkprYS1JIc",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27332f36b53d0056468491495ba",
     "type": "album"
   },
   {
-    "id": "1765623507332",
-    "title": "Das Original Hörspiel zum Kinofilm",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273ce9274fb2107e84e93ba18f4",
-    "uri": "spotify:album:3s2ROvBMTI2rwW8RHkCsRg",
+    "id": "1765628620071",
+    "title": "Adventskalender - Wirbel im Weihnachtshotel",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:6r5Z1GCgD8diUD9inajKvd",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273fcd202d31786dc99ceda14e3",
     "type": "album"
   },
   {
-    "id": "1765623507332",
-    "title": "Die gruseligsten Fälle",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27300dcdbd69c546be422b85f5b",
-    "uri": "spotify:album:3KA6lz77Fq1sMQRnGhSUjp",
+    "id": "1765628620072",
+    "title": "Adventskalender - Zauberhafte Eiswelt",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:7rOiqNA8gO1qWLEUTvXAun",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273b7211c82ae00b02358b02e95",
     "type": "album"
   },
   {
-    "id": "1765623507333",
-    "title": "Die Ponyverschwörung",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2738b9090ab145c6c8e0eddb9ec",
-    "uri": "spotify:album:6HUsj30bF5HtJzwNZLzoY0",
+    "id": "1765628620073",
+    "title": "Adventskalender/Die Marzipan-Mission",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:3trwiTOpImrBHlfRFL2jqB",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27344cc24b969b351ba3a6a82c8",
     "type": "album"
   },
   {
-    "id": "1765623507333",
+    "id": "1765628620075",
     "title": "Adventskalender/Geheimnisse zur Weihnachtszeit",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273f117a57024a3b315831ec05e",
+    "artist": "Die drei !!!",
     "uri": "spotify:album:2S6DeiIPdkQPIQi5JQRqtD",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273f117a57024a3b315831ec05e",
     "type": "album"
   },
   {
-    "id": "1765623507334",
-    "title": "Sommer-Abenteuer",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27307dd3a2019dd92d0fc8f9a81",
-    "uri": "spotify:album:6DQlcEORK2iSsPErB58Enp",
+    "id": "1765628620076",
+    "title": "Adventskalender/Weihnachtsponys in Gefahr",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:4ZbwSV67s5f4nwn1UYzwGE",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2733343dcb53e0b8c3f562008f9",
     "type": "album"
   },
   {
-    "id": "1765623507334",
+    "id": "1765628620077",
+    "title": "Das Original Hörspiel zum Kinofilm",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:3s2ROvBMTI2rwW8RHkCsRg",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273ce9274fb2107e84e93ba18f4",
+    "type": "album"
+  },
+  {
+    "id": "1765628620078",
+    "title": "Die gruseligsten Fälle",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:3KA6lz77Fq1sMQRnGhSUjp",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27300dcdbd69c546be422b85f5b",
+    "type": "album"
+  },
+  {
+    "id": "1765628620079",
+    "title": "Die Ponyverschwörung",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:6HUsj30bF5HtJzwNZLzoY0",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2738b9090ab145c6c8e0eddb9ec",
+    "type": "album"
+  },
+  {
+    "id": "1765628287909",
+    "title": "Folge 1: Der Kuss des Kometen",
+    "artist": "Heavysaurus",
+    "uri": "spotify:album:1iYgyGfFy75dWJVEnGJHpj",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273c890f98ca63a3cf4ec7fc736",
+    "type": "album"
+  },
+  {
+    "id": "1765628287913",
+    "title": "Folge 2: Auf großer Tour",
+    "artist": "Heavysaurus",
+    "uri": "spotify:album:2ZeEa0GkJT20v2NxoOcczX",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2735c26325f28e3473735965a0a",
+    "type": "album"
+  },
+  {
+    "id": "1765628287915",
+    "title": "Folge 3: Heavysaurus auf der Flucht",
+    "artist": "Heavysaurus",
+    "uri": "spotify:album:4bZByUwY1ehEydrDzXz3PM",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273a360b9efb0fc2b9fb82aeedc",
+    "type": "album"
+  },
+  {
+    "id": "1765628287917",
+    "title": "Folge 4: Die Hexenmeister des Metal",
+    "artist": "Heavysaurus",
+    "uri": "spotify:album:0QHMsII5PMwdxiFhsJEM2c",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273981c06952b87d93411e56df9",
+    "type": "album"
+  },
+  {
+    "id": "1765628620029",
+    "title": "Folge 72: Kuss der Meerjungfrau",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:1dZCFF0MmS9aZEs4HbthCw",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27309849e1062acc3b9dc33f583",
+    "type": "album"
+  },
+  {
+    "id": "1765628620031",
+    "title": "Folge 73: Legende der Einhörner",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:4AgcyMrB11xPCCTjRzfHGL",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2737dc02eff6e12cdba5db5de68",
+    "type": "album"
+  },
+  {
+    "id": "1765628620033",
+    "title": "Folge 74: Rätsel der Vergangenheit",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:4RYRHaRZLSj1rptGaegXat",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2739ac354a84e7563cba9fc79be",
+    "type": "album"
+  },
+  {
+    "id": "1765628620035",
+    "title": "Folge 75: Tatort Hollywood",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:3msSCztCTvvNWx91aL66Df",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27366148337b549a4cc847daf07",
+    "type": "album"
+  },
+  {
+    "id": "1765628620036",
+    "title": "Folge 76: #Falscher Ruhm",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:5mssqxVqhwbVQg96w8dqq6",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27357d1ffd9c47ec6925d046db2",
+    "type": "album"
+  },
+  {
+    "id": "1765628620037",
+    "title": "Folge 77: Achtung, Gaunerzeichen!",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:5y9tQvy4LtFqV8b4VXsLzk",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2739a11bdebead0fbe6d5e04887",
+    "type": "album"
+  },
+  {
+    "id": "1765628620039",
+    "title": "Folge 78: Das Bienengeheimnis",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:0CZ4okIufmxtgXVUF6cM0I",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2734c305dc5d9d50ec546cffa0a",
+    "type": "album"
+  },
+  {
+    "id": "1765628620040",
+    "title": "Folge 79: Vier Pfoten in Gefahr",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:7doQH1kPe6v73TSoYGU6QY",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273e50fee93a174c660776bea20",
+    "type": "album"
+  },
+  {
+    "id": "1765628620041",
+    "title": "Folge 80: Ein echt schöner Fall",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:41H3IW5sFwwpFPbLGmlLJW",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273b3d3c8a6052c769e68de729d",
+    "type": "album"
+  },
+  {
+    "id": "1765628620043",
+    "title": "Folge 81: Geheimnis im Spukhotel",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:6JZmsJOFeOkn683w1Qzdj3",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273cf6b1925172a4a2008b518e4",
+    "type": "album"
+  },
+  {
+    "id": "1765628620045",
+    "title": "Folge 82: Das Konfetti-Komplott",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:5cePM34PH7BFRY77i3dtIW",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273a14ecc49e9a62fa586ff1ca8",
+    "type": "album"
+  },
+  {
+    "id": "1765628620046",
+    "title": "Folge 83: Voller Einsatz für die Erde",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:0logTHRSKGE37uVdSlf6O8",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27385d4e585ff252aabc50417d1",
+    "type": "album"
+  },
+  {
+    "id": "1765628620047",
+    "title": "Folge 84: Luftballonküsse",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:5HUoaRTkFG7FOtFeMsEZEO",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2737078c6ef415d9051d81075f8",
+    "type": "album"
+  },
+  {
+    "id": "1765628620048",
+    "title": "Folge 85: Ein Fall mit Herz und Huf",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:3p9JnVWaakuFyDyPev6dUj",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27304852955ff9e7337069ba036",
+    "type": "album"
+  },
+  {
+    "id": "1765628620049",
+    "title": "Folge 86: Rätselhafter Raub",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:17ZoX7E5FoPkz5xUvC5pJp",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27321076dfc7b8c404c59c014ad",
+    "type": "album"
+  },
+  {
+    "id": "1765628620051",
+    "title": "Folge 87: Geheimnisvoller Liebestrank",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:50WblRxJHvT2M8RtGgBzOn",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273ab1c4780a76cd6953653171a",
+    "type": "album"
+  },
+  {
+    "id": "1765628620052",
+    "title": "Folge 88: Die Krimi-Verschwörung",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:5BrBj3ptD3M91uAfZ5N9Ws",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27336effad021461faba35f797c",
+    "type": "album"
+  },
+  {
+    "id": "1765628620053",
+    "title": "Folge 89: Der Fluch der Fee",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:6lJLEeb1XlFXhnmPc5Wi1t",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27361f3b132423bd27217067e59",
+    "type": "album"
+  },
+  {
+    "id": "1765628620054",
+    "title": "Folge 90: Mission Gipfelglück",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:51Oqg9PlgcN7xRVJEgzu5h",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b273ed9a344274541be9fa3bfc59",
+    "type": "album"
+  },
+  {
+    "id": "1765628620058",
+    "title": "Folge 91: Geburtstagsdiebe",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:4hegbgngXPTokZ3Z4tR7IS",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2731cd1e1e5f557bb2dde43c2f2",
+    "type": "album"
+  },
+  {
+    "id": "1765628620059",
+    "title": "Folge 92: Geheimnis am Fluss",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:1IksQVlojtgy0J6822BMeD",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2735a99e6b804247e526722d754",
+    "type": "album"
+  },
+  {
+    "id": "1765628620060",
+    "title": "Folge 93: Abenteuer-Küsse",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:4mYateqqljvBE5ASbbsxx9",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27346a27dcaa68d68a8a124f95a",
+    "type": "album"
+  },
+  {
+    "id": "1765628620061",
+    "title": "Folge 94: Unheimliches Meeresleuchten",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:3p0eAPMrp79UFTGRYtFFOl",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2736b69fa59acb6ce7ca780168a",
+    "type": "album"
+  },
+  {
+    "id": "1765628620062",
+    "title": "Folge 95: Falle im alten Kino",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:2m78VS4hYSz3iLdNEVJZ9I",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27374ba49fd8755c5e69c3ef426",
+    "type": "album"
+  },
+  {
+    "id": "1765628620081",
     "title": "Kims Tagebuch - Happy Halloween (Hörbuch)",
-    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2730fecbc4b156ccba9d06f0ffd",
+    "artist": "Die drei !!!",
     "uri": "spotify:album:0qnvqGEWUPfievg2l7D6U9",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b2730fecbc4b156ccba9d06f0ffd",
+    "type": "album"
+  },
+  {
+    "id": "1765628620082",
+    "title": "Sommer-Abenteuer",
+    "artist": "Die drei !!!",
+    "uri": "spotify:album:6DQlcEORK2iSsPErB58Enp",
+    "coverUrl": "https://i.scdn.co/image/ab67616d0000b27307dd3a2019dd92d0fc8f9a81",
     "type": "album"
   }
 ]

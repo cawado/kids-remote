@@ -4,6 +4,7 @@ import path from 'path';
 export interface Album {
     id: string;
     title: string;
+    artist?: string;
     coverUrl: string;
     uri: string;
     type?: 'album' | 'artist' | 'playlist';

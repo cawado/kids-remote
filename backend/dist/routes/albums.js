@@ -19,10 +19,11 @@ router.get('/', (0, errorHandler_1.asyncHandler)(async (req, res) => {
 }));
 // POST new album
 router.post('/', (0, validation_1.validateBody)(schemas_1.AlbumSchema), (0, errorHandler_1.asyncHandler)(async (req, res) => {
-    const { title, uri, coverUrl, type } = req.body;
+    const { title, artist, uri, coverUrl, type } = req.body;
     try {
         const newAlbum = await albumStorage.add({
             title,
+            artist,
             uri,
             coverUrl: coverUrl || '',
             type

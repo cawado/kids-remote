@@ -5,6 +5,7 @@ import { z } from 'zod';
  */
 export const AlbumSchema = z.object({
     title: z.string().min(1, 'Title is required').max(200, 'Title too long'),
+    artist: z.string().max(200, 'Artist name too long').optional(),
     uri: z.string().startsWith('spotify:', 'URI must be a valid Spotify URI'),
     coverUrl: z.string().url('Invalid cover URL').optional().or(z.literal('')),
     type: z.enum(['album', 'artist', 'playlist']).optional()

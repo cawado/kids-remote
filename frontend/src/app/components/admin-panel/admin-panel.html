@@ -6,19 +6,13 @@
     <div class="container">
         <div class="header">
             <h2>Alben verwalten</h2>
+            <!-- Top Actions -->
             <div class="actions">
-                @if (selection.selected.length > 0) {
-                <button mat-flat-button color="warn" (click)="deleteSelected()">
-                    Ausgewählte löschen ({{selection.selected.length}})
-                </button>
-                }
-                <button mat-raised-button color="primary" (click)="openSearchDialog()">
-                    <mat-icon>add</mat-icon> Alben hinzufügen
-                </button>
+                <ng-container *ngTemplateOutlet="actionButtons"></ng-container>
             </div>
         </div>
 
-        <table mat-table [dataSource]="albums()" class="mat-elevation-z2">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2">
 
             <!-- Checkbox Column -->
             <ng-container matColumnDef="select">
@@ -52,16 +46,16 @@
 
             <!-- Title Column -->
             <ng-container matColumnDef="title">
-                <th mat-header-cell *matHeaderCellDef> Titel </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Titel </th>
                 <td mat-cell *matCellDef="let element" [class.playing-text]="isPlaying(element)">
                     {{element.title}}
                     @if(isPlaying(element)) { <span class="playing-status">(Läuft gerade)</span> }
                 </td>
             </ng-container>
 
-            <!-- Artist Column (Optional based on user request "add artist to the table", assuming general) -->
+            <!-- Artist Column -->
             <ng-container matColumnDef="artist">
-                <th mat-header-cell *matHeaderCellDef> Künstler </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Künstler </th>
                 <td mat-cell *matCellDef="let element"> {{element.artist || '-'}} </td>
             </ng-container>
 
@@ -70,7 +64,32 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.playing-row]="isPlaying(row)"></tr>
         </table>
+
+        <!-- Bottom Actions -->
+        <div class="actions bottom-actions">
+            <ng-container *ngTemplateOutlet="actionButtons"></ng-container>
+        </div>
+
     </div> <button mat-fab class="add-fab" color="primary" (click)="openSearchDialog()">
         <mat-icon>add</mat-icon>
     </button>
 </div>
+
+<!-- Action Buttons Template -->
+<ng-template #actionButtons>
+    @if (selection.selected.length > 0) {
+    <button mat-flat-button color="warn" (click)="deleteSelected()">
+        Ausgewählte löschen ({{selection.selected.length}})
+    </button>
+    }
+    <button mat-raised-button color="primary" (click)="openSearchDialog()">
+        <mat-icon>add</mat-icon> Alben hinzufügen
+    </button>
+
+    <!-- Search Filter -->
+    <mat-form-field class="search-field" appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Suchen</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Titel oder Künstler..." #input>
+        <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+</ng-template>

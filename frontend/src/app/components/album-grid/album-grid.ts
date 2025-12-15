@@ -1,5 +1,4 @@
-
-import { Component, inject, signal, OnInit, OnDestroy, ChangeDetectorRef, effect, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, signal, OnInit, OnDestroy, ChangeDetectorRef, effect, ChangeDetectionStrategy, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,6 +27,37 @@ export class AlbumGridComponent implements OnInit, OnDestroy {
   // Loading and error states
   loading = signal<boolean>(false);
   error = signal<string | null>(null);
+
+  // Group by artist toggle and navigation
+  groupByArtist = signal<boolean>(false);
+  selectedArtist = signal<string | null>(null);
+
+  // Computed list of unique artists
+  artists = computed(() => {
+    const albums = this.albums();
+    const artistSet = new Set<string>();
+    albums.forEach(album => {
+      const artist = album.artist || 'Unbekannter Künstler';
+      artistSet.add(artist);
+    });
+    return Array.from(artistSet).sort((a, b) => a.localeCompare(b));
+  });
+
+  // Computed albums to display based on view mode
+  displayedAlbums = computed(() => {
+    const albums = this.albums();
+    const artist = this.selectedArtist();
+
+    if (artist) {
+      // Show only albums from selected artist
+      return albums.filter(album =>
+        (album.artist || 'Unbekannter Künstler') === artist
+      ).sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    // Show all albums
+    return albums;
+  });
 
   private pollSub: Subscription | null = null;
 
@@ -89,6 +119,14 @@ export class AlbumGridComponent implements OnInit, OnDestroy {
         this.cdr.markForCheck();
       }
     });
+  }
+
+  selectArtist(artist: string) {
+    this.selectedArtist.set(artist);
+  }
+
+  goBack() {
+    this.selectedArtist.set(null);
   }
 
   isPlaying(album: Album): boolean {

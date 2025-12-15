@@ -1,15 +1,17 @@
-import { Component, OnInit, OnDestroy, signal, inject, effect } from '@angular/core';
+import { Component, OnInit, OnDestroy, signal, inject, effect, ViewChild, AfterViewInit, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ApiService, Album } from '../../services/api';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MultiSelectSearchDialogComponent } from '../multi-select-search-dialog/multi-select-search-dialog';
 import { interval, Subscription, switchMap, catchError, of, firstValueFrom } from 'rxjs';
 import { MatInputModule } from '@angular/material/input'; // For input in edit if needed
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SelectionModel } from '@angular/cdk/collections';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 
 @Component({
   selector: 'app-admin-panel',
@@ -20,20 +22,24 @@ import { SelectionModel } from '@angular/cdk/collections';
     MatIconModule,
     MatDialogModule,
     MatTableModule,
+    MatSortModule,
     MatCheckboxModule,
-    MatInputModule
+    MatInputModule,
+    MatFormFieldModule
   ],
   templateUrl: './admin-panel.html',
   styleUrl: './admin-panel.scss'
 })
-export class AdminPanelComponent implements OnDestroy {
+export class AdminPanelComponent implements OnDestroy, AfterViewInit {
   private api = inject(ApiService);
   private dialog = inject(MatDialog);
 
-  albums = signal<Album[]>([]);
+  dataSource = new MatTableDataSource<Album>([]);
   currentAlbumTitle = signal<string | null>(null);
-  displayedColumns: string[] = ['select', 'cover', 'title'];
+  displayedColumns: string[] = ['select', 'cover', 'artist', 'title'];
   private destroy$ = new Subscription();
+
+  @ViewChild(MatSort) sort!: MatSort;
 
   // Selection logic for delete
   selection = new SelectionModel<Album>(true, []);
@@ -64,17 +70,35 @@ export class AdminPanelComponent implements OnDestroy {
     this.destroy$.unsubscribe();
   }
 
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+
+    // Custom filter to search across title and artist
+    this.dataSource.filterPredicate = (data: Album, filter: string) => {
+      const searchStr = filter.toLowerCase();
+      return (
+        data.title.toLowerCase().includes(searchStr) ||
+        (data.artist?.toLowerCase().includes(searchStr) || false)
+      );
+    };
+  }
+
   refreshAlbums() {
     this.api.getAlbums().subscribe(data => {
       // Sort alphabetically by title default
       data.sort((a, b) => a.title.localeCompare(b.title));
-      this.albums.set(data);
+      this.dataSource.data = data;
       this.selection.clear(); // Clear selection on refresh
     });
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   openSearchDialog() {
-    const existingUris = new Set(this.albums().map(a => a.uri));
+    const existingUris = new Set(this.dataSource.data.map(a => a.uri));
     const dialogRef = this.dialog.open(MultiSelectSearchDialogComponent, {
       width: '90%',
       maxWidth: '800px',
@@ -104,7 +128,7 @@ export class AdminPanelComponent implements OnDestroy {
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.albums().length;
+    const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
 
@@ -115,7 +139,7 @@ export class AdminPanelComponent implements OnDestroy {
       return;
     }
 
-    this.selection.select(...this.albums());
+    this.selection.select(...this.dataSource.data);
   }
 
   async deleteSelected() {
@@ -125,7 +149,7 @@ export class AdminPanelComponent implements OnDestroy {
     if (confirm(`Sind Sie sicher, dass Sie ${selectedAlbums.length} Alben löschen möchten?`)) {
       // Optimistic update
       const selectedIds = new Set(selectedAlbums.map(a => a.id));
-      this.albums.update(current => current.filter(a => !selectedIds.has(a.id)));
+      this.dataSource.data = this.dataSource.data.filter(a => !selectedIds.has(a.id));
       this.selection.clear();
 
       // Perform deletions
