@@ -37,7 +37,7 @@ This guide walks you through setting up "Kids Remote" on a Raspberry Pi starting
     Since we are using the Lite OS, we need a minimal X server and window manager.
     ```bash
     # Install X server, Openbox (window manager), and Chromium browser
-    sudo apt install -y --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox chromium-browser xserver-xorg-input-libinput
+    sudo apt install -y --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox chromium xserver-xorg-input-libinput
     ```
     *Note: `xserver-xorg-input-libinput` is typically needed for touchscreens.*
 
@@ -46,7 +46,7 @@ This guide walks you through setting up "Kids Remote" on a Raspberry Pi starting
 1.  **Clone Repository**:
     ```bash
     cd ~
-    git clone https://github.com/your-username/kids-remote.git
+    git clone https://github.com/cawado/kids-remote.git
     cd kids-remote
     ```
 

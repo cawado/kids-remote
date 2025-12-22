@@ -1,5 +1,10 @@
 <mat-card appearance="outlined" class="album-card">
   <div class="image-container">
+    @if (loading()) {
+    <div class="loading-overlay">
+      <mat-spinner diameter="48"></mat-spinner>
+    </div>
+    }
     <img [ngSrc]="album().coverUrl" [alt]="album().title" fill priority class="cover-image">
   </div>
   <mat-card-content>

@@ -27,6 +27,7 @@ export class AlbumGridComponent implements OnInit, OnDestroy {
   // Loading and error states
   loading = signal<boolean>(false);
   error = signal<string | null>(null);
+  startingAlbumId = signal<string | null>(null);
 
   // Group by artist toggle and navigation
   groupByArtist = signal<boolean>(false);
@@ -111,8 +112,16 @@ export class AlbumGridComponent implements OnInit, OnDestroy {
   }
 
   playAlbum(album: Album) {
-    if (!album.uri) return;
-    this.api.playAlbum(album.uri).subscribe({
+    if (!album.uri || this.startingAlbumId()) return;
+
+    this.startingAlbumId.set(album.id || album.uri);
+
+    this.api.playAlbum(album.uri).pipe(
+      finalize(() => {
+        this.startingAlbumId.set(null);
+        this.cdr.markForCheck();
+      })
+    ).subscribe({
       error: err => {
         console.error('Failed to play album:', err);
         this.error.set('Failed to play album. Please try again.');

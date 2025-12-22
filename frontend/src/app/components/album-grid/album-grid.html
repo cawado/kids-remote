@@ -46,8 +46,9 @@
 @if (!groupByArtist() || selectedArtist()) {
 <div class="grid-container">
     @for (album of displayedAlbums(); track album.id) {
-    <div class="grid-item" [class.playing]="isPlaying(album)" (click)="playAlbum(album)">
-        <app-album-card [album]="album"></app-album-card>
+    <div class="grid-item" [class.playing]="isPlaying(album)" [class.disabled]="startingAlbumId()"
+        (click)="playAlbum(album)">
+        <app-album-card [album]="album" [loading]="startingAlbumId() === (album.id || album.uri)"></app-album-card>
     </div>
     }
 </div>
