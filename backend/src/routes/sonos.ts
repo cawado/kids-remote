@@ -3,11 +3,15 @@ import { getDeviceByName } from '../services/sonos';
 import { config } from '../config';
 import { AppError, asyncHandler } from '../middleware/errorHandler';
 import { parseMetadata } from '../services/metadata';
+import { EdgeTTS, listVoices } from '@travisvn/edge-tts';
+import fs from 'fs';
+import path from 'path';
+import { getLocalIp } from '../utils/network';
 
 const router = Router();
 
 // Middleware to normalize deviceName
-router.use((req: Request, res: Response, next) => {
+router.use((req: any, res: Response, next: any) => {
     if (req.method === 'POST') {
         if (!req.body) req.body = {};
         if (!req.body.deviceName) req.body.deviceName = config.defaultDeviceName;
@@ -123,6 +127,66 @@ router.post('/volume/relative', asyncHandler(async (req: Request, res: Response)
 
     await device.SetRelativeVolume(adjustment);
     res.json({ success: true, adjustment });
+}));
+
+router.post('/tts', asyncHandler(async (req: any, res: Response) => {
+    let { deviceName, text, lang } = req.body;
+    if (!text) throw new AppError(400, 'Missing text');
+    if (!lang) lang = 'de-DE';
+    if (!deviceName) deviceName = config.defaultDeviceName;
+
+    const device = getDeviceByName(deviceName) as any;
+    if (!device) throw new AppError(404, `Device '${deviceName}' not found`);
+
+    console.log(`Generating TTS for: "${text}" [${lang}]`);
+
+    try {
+        const voices = await listVoices();
+        const deVoice = voices.find(v => v.Locale === lang) || voices.find(v => v.Locale.startsWith('de')) || voices[0];
+
+        const edgeTts = new EdgeTTS(text, deVoice.ShortName);
+        const result = await edgeTts.synthesize();
+
+        // Convert Blob to Buffer and save to file
+        const arrayBuffer = await result.audio.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+
+        const filename = `tts-${Date.now()}.mp3`;
+        const publicDir = path.join(__dirname, '../../public/tts');
+        if (!fs.existsSync(publicDir)) {
+            fs.mkdirSync(publicDir, { recursive: true });
+        }
+
+        const filePath = path.join(publicDir, filename);
+        fs.writeFileSync(filePath, buffer);
+
+        // Construct public URL. 
+        // Sonos needs a reachable IP address, not localhost.
+        const host = getLocalIp();
+        const port = config.port;
+        const url = `http://${host}:${port}/tts-static/${filename}`;
+
+        console.log(`TTS URL: ${url}`);
+
+        await device.PlayNotification({
+            trackUri: url,
+            onlyWhenPlaying: false,
+            timeout: 20,
+            volume: 40,
+            delayMs: 500
+        });
+
+        res.json({ success: true, message: `TTS sent to ${deviceName}`, voice: deVoice.ShortName });
+
+        // Optional: Clean up old files after some time
+        setTimeout(() => {
+            if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+        }, 60000 * 5); // 5 minutes
+
+    } catch (error: any) {
+        console.error('TTS Error:', error);
+        throw new AppError(500, `TTS failed: ${error.message}`);
+    }
 }));
 
 export default router;

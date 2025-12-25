@@ -83,4 +83,8 @@ export class ApiService {
   getPlaylistAlbums(id: string): Observable<Album[]> {
     return this.http.get<Album[]>(`${this.apiUrl}/spotify/playlist/${id}/albums`);
   }
+
+  sendTTS(text: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/tts`, { text });
+  }
 }

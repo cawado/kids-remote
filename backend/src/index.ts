@@ -30,6 +30,9 @@ app.use('/', sonosRoutes); // /play, /pause, /devices are at root level currentl
 const frontendPath = path.join(__dirname, '../../frontend/dist/client/browser');
 app.use(express.static(frontendPath));
 
+// Serve TTS files
+app.use('/tts-static', express.static(path.join(__dirname, '../public/tts')));
+
 app.get(/.*/, (req, res) => {
     res.sendFile(path.join(frontendPath, 'index.html'));
 });

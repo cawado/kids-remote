@@ -80,10 +80,10 @@ We will verify X starts automatically and launches our app.
 2.  **Add Startup Commands**:
     Paste this into `~/.config/openbox/autostart`:
     ```bash
-    # Disable screen saver/blanking
-    xset s off
-    xset s noblank
-    xset -dpms
+    # Enable screen blanking after 5 minutes (300 seconds)
+    xset s 300
+    xset +dpms
+    xset dpms 300 300 300
 
     # Start the application backend (recommend systemd for reliability, see below)
     # cd ~/kids-remote && npm start & 

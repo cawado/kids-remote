@@ -15,6 +15,7 @@
   "description": "",
   "dependencies": {
     "@svrooij/sonos": "^2.5.0",
+    "@travisvn/edge-tts": "^1.0.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",

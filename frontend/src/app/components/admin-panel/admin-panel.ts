@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort, MatSortModule } from '@angular/material/sort';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-panel',
@@ -25,7 +26,8 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
     MatSortModule,
     MatCheckboxModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    FormsModule
   ],
   templateUrl: './admin-panel.html',
   styleUrl: './admin-panel.scss'
@@ -43,6 +45,9 @@ export class AdminPanelComponent implements OnDestroy, AfterViewInit {
 
   // Selection logic for delete
   selection = new SelectionModel<Album>(true, []);
+
+  ttsText = signal<string>('');
+  isSendingTts = signal<boolean>(false);
 
   constructor() {
     this.refreshAlbums();
@@ -176,5 +181,22 @@ export class AdminPanelComponent implements OnDestroy, AfterViewInit {
 
   isPlaying(album: Album): boolean {
     return this.currentAlbumTitle() === album.title;
+  }
+
+  sendTTS() {
+    const text = this.ttsText();
+    if (!text || this.isSendingTts()) return;
+
+    this.isSendingTts.set(true);
+    this.api.sendTTS(text).subscribe({
+      next: () => {
+        this.ttsText.set('');
+        this.isSendingTts.set(false);
+      },
+      error: (err) => {
+        console.error('Failed to send TTS', err);
+        this.isSendingTts.set(false);
+      }
+    });
   }
 }

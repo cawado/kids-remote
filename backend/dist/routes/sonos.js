@@ -1,176 +1,177 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const sonos_1 = require("../services/sonos");
 const config_1 = require("../config");
+const errorHandler_1 = require("../middleware/errorHandler");
+const metadata_1 = require("../services/metadata");
+const edge_tts_1 = require("@travisvn/edge-tts");
+const fs_1 = __importDefault(require("fs"));
+const path_1 = __importDefault(require("path"));
 const router = (0, express_1.Router)();
 // Middleware to normalize deviceName
 router.use((req, res, next) => {
-    // Handling both query and body for deviceName for convenience if needed, 
-    // though usually GET uses query and POST uses body.
-    const body = req.body || {};
-    let deviceName = body.deviceName || req.query.deviceName;
-    if (!deviceName) {
+    if (req.method === 'POST') {
         if (!req.body)
             req.body = {};
-        req.body.deviceName = config_1.config.defaultDeviceName; // set for POST
+        if (!req.body.deviceName)
+            req.body.deviceName = config_1.config.defaultDeviceName;
     }
     next();
 });
-router.get('/devices', async (req, res) => {
-    // We need to access manager from service, maybe export it?
-    // Importing sonosManager directly
+router.get('/devices', (0, errorHandler_1.asyncHandler)(async (req, res) => {
     const { sonosManager } = require('../services/sonos');
-    try {
-        const devices = sonosManager.Devices.map((d) => ({
-            name: d.Name,
-            host: d.Host,
-            group: d.GroupName
-        }));
-        res.json(devices);
-    }
-    catch (e) {
-        res.json([]);
-    }
-});
-router.get('/state', async (req, res) => {
+    const devices = sonosManager.Devices.map((d) => ({
+        name: d.Name,
+        host: d.Host,
+        group: d.GroupName
+    }));
+    res.json(devices);
+}));
+router.get('/state', (0, errorHandler_1.asyncHandler)(async (req, res) => {
     let deviceName = req.query.deviceName || config_1.config.defaultDeviceName;
     const device = (0, sonos_1.getDeviceByName)(deviceName);
     if (!device) {
-        res.json({ currentUri: null });
-        return;
+        return res.json({ transportState: 'STOPPED', currentUri: null });
     }
-    try {
-        if (!device.AVTransportService) {
-            throw new Error("AVTransportService not available");
-        }
-        const state = await device.AVTransportService.GetTransportInfo();
-        const region = await device.AVTransportService.GetPositionInfo();
-        res.json({
-            transportState: state.CurrentTransportState,
-            currentUri: region.TrackURI,
-            trackMetaData: region.TrackMetaData
-        });
+    if (!device.AVTransportService) {
+        throw new errorHandler_1.AppError(503, "AVTransportService not available on device");
     }
-    catch (error) {
-        console.error("Error getting state", error);
-        res.json({ error: error.message });
-    }
-});
-router.post('/play', async (req, res) => {
+    const state = await device.AVTransportService.GetTransportInfo();
+    const region = await device.AVTransportService.GetPositionInfo();
+    res.json({
+        transportState: state.CurrentTransportState,
+        currentUri: region.TrackURI,
+        trackMetaData: (0, metadata_1.parseMetadata)(region.TrackMetaData)
+    });
+}));
+router.post('/play', (0, errorHandler_1.asyncHandler)(async (req, res) => {
     let { deviceName, uri } = req.body;
-    // deviceName set by middleware logic or defaults above
     if (!uri) {
-        res.status(400).send('Missing uri');
-        return;
+        throw new errorHandler_1.AppError(400, 'Missing uri');
     }
     const device = (0, sonos_1.getDeviceByName)(deviceName);
     if (!device) {
-        res.status(404).send(`Device '${deviceName}' not found`);
-        return;
+        throw new errorHandler_1.AppError(404, `Device '${deviceName}' not found`);
     }
-    try {
-        if (uri.startsWith('spotify:')) {
-            try {
-                await device.ExecuteCommand('AVTransportService.RemoveAllTracksFromQueue');
-            }
-            catch (e) {
-                console.warn('Could not clear queue, proceeding to add.', e);
-            }
-            await device.AddUriToQueue(uri);
-            await device.SwitchToQueue();
-            await device.Play();
+    if (uri.startsWith('spotify:')) {
+        try {
+            await device.ExecuteCommand('AVTransportService.RemoveAllTracksFromQueue');
         }
-        else {
-            await device.SetAVTransportURI(uri);
-            await device.Play();
+        catch (e) {
+            console.warn('Could not clear queue, proceeding to add.', e);
         }
-        res.send(`Playing ${uri} on ${deviceName}`);
+        await device.AddUriToQueue(uri);
+        await device.SwitchToQueue();
+        await device.Play();
     }
-    catch (error) {
-        res.status(500).send(`Error playing: ${error.message}`);
+    else {
+        await device.SetAVTransportURI(uri);
+        await device.Play();
     }
-});
-router.post('/pause', async (req, res) => {
+    res.json({ success: true, message: `Playing ${uri} on ${deviceName}` });
+}));
+router.post('/pause', (0, errorHandler_1.asyncHandler)(async (req, res) => {
     const { deviceName } = req.body;
     const device = (0, sonos_1.getDeviceByName)(deviceName);
-    if (!device) {
-        res.status(404).send(`Device '${deviceName}' not found`);
-        return;
-    }
-    try {
-        await device.Pause();
-        res.send(`Paused ${deviceName}`);
-    }
-    catch (error) {
-        res.status(500).send(`Error pausing: ${error.message}`);
-    }
-});
-// ... Volume, Next, Previous, Stop, Resume follow same pattern
-// To save space in this tool call, implementing them concisely:
-const simpleAction = (action) => async (req, res) => {
+    if (!device)
+        throw new errorHandler_1.AppError(404, `Device '${deviceName}' not found`);
+    await device.Pause();
+    res.json({ success: true, message: `Paused ${deviceName}` });
+}));
+const simpleAction = (action) => (0, errorHandler_1.asyncHandler)(async (req, res) => {
     const { deviceName } = req.body;
     const device = (0, sonos_1.getDeviceByName)(deviceName);
-    if (!device) {
-        res.status(404).send(`Device '${deviceName}' not found`);
-        return;
-    }
-    try {
-        // Dynamic method call
-        if (action === 'Next')
-            await device.Next();
-        if (action === 'Previous')
-            await device.Previous();
-        if (action === 'Stop')
-            await device.Stop();
-        if (action === 'Play')
-            await device.Play(); // For Resume
-        res.send(`${action} executed on ${deviceName}`);
-    }
-    catch (error) {
-        res.status(500).send(`Error executing ${action}: ${error.message}`);
-    }
-};
+    if (!device)
+        throw new errorHandler_1.AppError(404, `Device '${deviceName}' not found`);
+    if (action === 'Next')
+        await device.Next();
+    else if (action === 'Previous')
+        await device.Previous();
+    else if (action === 'Stop')
+        await device.Stop();
+    else if (action === 'Play')
+        await device.Play();
+    res.json({ success: true, message: `${action} executed on ${deviceName}` });
+});
 router.post('/next', simpleAction('Next'));
 router.post('/previous', simpleAction('Previous'));
 router.post('/stop', simpleAction('Stop'));
 router.post('/resume', simpleAction('Play'));
-router.post('/volume', async (req, res) => {
+router.post('/volume', (0, errorHandler_1.asyncHandler)(async (req, res) => {
     const { deviceName, volume } = req.body;
-    if (volume === undefined) {
-        res.status(400).send('Missing volume');
-        return;
-    }
+    if (volume === undefined)
+        throw new errorHandler_1.AppError(400, 'Missing volume');
     const device = (0, sonos_1.getDeviceByName)(deviceName);
-    if (!device) {
-        res.status(404).send('Device not found');
-        return;
-    }
-    try {
-        await device.SetVolume(volume);
-        res.send(`Set volume to ${volume}`);
-    }
-    catch (e) {
-        res.status(500).send(e.message);
-    }
-});
-router.post('/volume/relative', async (req, res) => {
+    if (!device)
+        throw new errorHandler_1.AppError(404, 'Device not found');
+    await device.SetVolume(volume);
+    res.json({ success: true, volume });
+}));
+router.post('/volume/relative', (0, errorHandler_1.asyncHandler)(async (req, res) => {
     const { deviceName, adjustment } = req.body;
-    if (adjustment === undefined) {
-        res.status(400).send('Missing adjustment');
-        return;
-    }
+    if (adjustment === undefined)
+        throw new errorHandler_1.AppError(400, 'Missing adjustment');
     const device = (0, sonos_1.getDeviceByName)(deviceName);
-    if (!device) {
-        res.status(404).send('Device not found');
-        return;
-    }
+    if (!device)
+        throw new errorHandler_1.AppError(404, 'Device not found');
+    await device.SetRelativeVolume(adjustment);
+    res.json({ success: true, adjustment });
+}));
+router.post('/tts', (0, errorHandler_1.asyncHandler)(async (req, res) => {
+    let { deviceName, text, lang } = req.body;
+    if (!text)
+        throw new errorHandler_1.AppError(400, 'Missing text');
+    if (!lang)
+        lang = 'de-DE';
+    if (!deviceName)
+        deviceName = config_1.config.defaultDeviceName;
+    const device = (0, sonos_1.getDeviceByName)(deviceName);
+    if (!device)
+        throw new errorHandler_1.AppError(404, `Device '${deviceName}' not found`);
+    console.log(`Generating TTS for: "${text}" [${lang}]`);
     try {
-        await device.SetRelativeVolume(adjustment);
-        res.send(`Adjusted volume by ${adjustment}`);
+        const voices = await (0, edge_tts_1.listVoices)();
+        const deVoice = voices.find(v => v.Locale === lang) || voices.find(v => v.Locale.startsWith('de')) || voices[0];
+        const edgeTts = new edge_tts_1.EdgeTTS(text, deVoice.ShortName);
+        const result = await edgeTts.synthesize();
+        // Convert Blob to Buffer and save to file
+        const arrayBuffer = await result.audio.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        const filename = `tts-${Date.now()}.mp3`;
+        const publicDir = path_1.default.join(__dirname, '../../public/tts');
+        if (!fs_1.default.existsSync(publicDir)) {
+            fs_1.default.mkdirSync(publicDir, { recursive: true });
+        }
+        const filePath = path_1.default.join(publicDir, filename);
+        fs_1.default.writeFileSync(filePath, buffer);
+        // Construct public URL. 
+        // We need to know the server's IP or hostname. 
+        // For simplicity, we'll try to use the request host.
+        const host = req.get('host');
+        const protocol = req.protocol;
+        const url = `${protocol}://${host}/tts-static/${filename}`;
+        console.log(`TTS URL: ${url}`);
+        await device.PlayNotification({
+            trackUri: url,
+            onlyWhenPlaying: false,
+            timeout: 20,
+            volume: 40,
+            delayMs: 500
+        });
+        res.json({ success: true, message: `TTS sent to ${deviceName}`, voice: deVoice.ShortName });
+        // Optional: Clean up old files after some time
+        setTimeout(() => {
+            if (fs_1.default.existsSync(filePath))
+                fs_1.default.unlinkSync(filePath);
+        }, 60000 * 5); // 5 minutes
     }
-    catch (e) {
-        res.status(500).send(e.message);
+    catch (error) {
+        console.error('TTS Error:', error);
+        throw new errorHandler_1.AppError(500, `TTS failed: ${error.message}`);
     }
-});
+}));
 exports.default = router;

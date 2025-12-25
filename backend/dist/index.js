@@ -29,6 +29,8 @@ app.use('/', sonos_2.default); // /play, /pause, /devices are at root level curr
 // Serve Frontend
 const frontendPath = path_1.default.join(__dirname, '../../frontend/dist/client/browser');
 app.use(express_1.default.static(frontendPath));
+// Serve TTS files
+app.use('/tts-static', express_1.default.static(path_1.default.join(__dirname, '../public/tts')));
 app.get(/.*/, (req, res) => {
     res.sendFile(path_1.default.join(frontendPath, 'index.html'));
 });

@@ -70,7 +70,36 @@
             <ng-container *ngTemplateOutlet="actionButtons"></ng-container>
         </div>
 
-    </div> <button mat-fab class="add-fab" color="primary" (click)="openSearchDialog()">
+    </div>
+
+    <!-- TTS Section -->
+    <div class="container tts-section">
+        <div class="header">
+            <h2>Sprachnachricht senden</h2>
+        </div>
+        <div class="tts-controls">
+            <mat-form-field appearance="outline" class="tts-field">
+                <mat-label>Nachricht</mat-label>
+                <input matInput [(ngModel)]="ttsText" placeholder="Was möchtest du sagen?" (keyup.enter)="sendTTS()">
+                <mat-icon matPrefix>record_voice_over</mat-icon>
+            </mat-form-field>
+            <button mat-flat-button color="primary" (click)="sendTTS()" [disabled]="!ttsText() || isSendingTts()"
+                class="send-button">
+                @if(isSendingTts()) {
+                <ng-container>
+                    <mat-icon>hourglass_empty</mat-icon> Senden...
+                </ng-container>
+                } @else {
+                <ng-container>
+                    <mat-icon>send</mat-icon> Senden
+                </ng-container>
+                }
+            </button>
+        </div>
+    </div>
+
+
+    <button mat-fab class="add-fab" color="primary" (click)="openSearchDialog()">
         <mat-icon>add</mat-icon>
     </button>
 </div>
