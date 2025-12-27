@@ -4,16 +4,66 @@
     height: 80vh;
 }
 
+// Bordfunk-style header
+.dialog-header {
+    background: linear-gradient(135deg, #3f51b5 0%, #7b1fa2 100%);
+    color: white;
+    padding: 24px 24px 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 4px solid #ff4081;
+    box-shadow: 0 4px 12px rgba(63, 81, 181, 0.3);
+
+    .header-icon {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        width: 56px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        mat-icon {
+            font-size: 32px;
+            width: 32px;
+            height: 32px;
+        }
+    }
+
+    .header-content {
+        flex: 1;
+
+        h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .header-subtitle {
+            margin: 4px 0 0 0;
+            font-size: 14px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+    }
+}
+
 mat-dialog-content {
     flex: 1;
     overflow: hidden !important; // Table handles scroll
     padding: 0 !important;
     display: flex;
     flex-direction: column;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
 }
 
 .search-container {
-    padding: 16px 24px 0 24px;
+    padding: 20px 24px 16px 24px;
+    background: white;
+    border-bottom: 2px solid #e8eaf6;
 }
 
 .search-field {
@@ -27,6 +77,7 @@ mat-dialog-content {
 
 table {
     width: 100%;
+    background: white;
 }
 
 tr.detail-row {
@@ -34,10 +85,10 @@ tr.detail-row {
 }
 
 .element-row {
+    transition: background-color 0.2s;
 
-    // cursor: pointer; // Set dynamically
     &:hover {
-        background: #f5f5f5;
+        background: #f5f7ff;
     }
 }
 
@@ -46,32 +97,36 @@ tr.detail-row {
 }
 
 .table-cover {
-    width: 40px;
-    height: 40px;
-    border-radius: 4px;
+    width: 48px;
+    height: 48px;
+    border-radius: 6px;
     object-fit: cover;
     margin-right: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 // Type Colors
 .type-badge {
-    padding: 2px 8px;
-    border-radius: 12px;
+    padding: 4px 12px;
+    border-radius: 16px;
     font-size: 11px;
     color: white;
-    font-weight: 500;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 
     &.artist {
-        background-color: #9c27b0; // Purple
+        background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%);
     }
 
     &.playlist {
-        background-color: #1ed760; // Spotify Green
+        background: linear-gradient(135deg, #1ed760 0%, #1db954 100%);
         color: #000;
     }
 
     &.album {
-        background-color: #2196f3; // Blue
+        background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
     }
 
     &.unknown {
@@ -79,8 +134,54 @@ tr.detail-row {
     }
 }
 
+// Room Badges
+.room-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+
+    .room-chip {
+        height: 28px;
+        min-width: 28px;
+        font-size: 16px;
+        color: white;
+        font-weight: 600;
+        border-radius: 14px;
+        padding: 0 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+        cursor: help;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            transform: scale(1.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+        }
+
+        ::ng-deep .mdc-evolution-chip__text-label {
+            color: white;
+            padding: 0;
+        }
+    }
+}
+
+.child-room-chips {
+    margin-top: 6px;
+
+    .room-chip {
+        height: 24px;
+        min-width: 24px;
+        font-size: 14px;
+        padding: 0 6px;
+        border-radius: 12px;
+    }
+}
+
 .expand-icon {
     transition: transform 0.2s;
+    color: #3f51b5;
 
     &.expanded {
         transform: rotate(180deg);
@@ -93,32 +194,34 @@ tr.detail-row {
 }
 
 .detail-content {
-    background: #fafafa;
-    border-bottom: 1px solid #eee;
+    background: linear-gradient(135deg, #fafafa 0%, #f5f7ff 100%);
+    border-bottom: 2px solid #e8eaf6;
     width: 100%;
-    // Remove padding to allow full-width rows
     padding: 0;
 }
 
 .detail-header {
-    padding: 8px 16px;
-    border-bottom: 1px solid #eee;
+    padding: 12px 16px;
+    border-bottom: 2px solid #e0e0e0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #fcfcfc;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
 }
 
 .detail-count {
-    font-size: 11px;
-    color: #888;
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
 }
 
 .small-btn {
     line-height: 24px;
-    height: 28px;
-    padding: 0 12px;
+    height: 32px;
+    padding: 0 16px;
     font-size: 12px;
+    font-weight: 600;
+    border-radius: 16px;
 }
 
 // Child Rows
@@ -130,37 +233,44 @@ tr.detail-row {
 .child-row {
     display: flex;
     align-items: center;
-    padding: 8px 16px; // Indent slightly
-    padding-left: 48px; // Indent to align somewhat or show hierarchy
+    padding: 12px 16px;
+    padding-left: 56px;
     border-bottom: 1px solid #f0f0f0;
     cursor: pointer;
-    transition: background-color 0.2s;
-    height: 56px; // Match standard row height roughly
+    transition: all 0.2s;
+    min-height: 64px;
 
     &:last-child {
         border-bottom: none;
     }
 
     &:hover {
-        background-color: #eee;
+        background: linear-gradient(135deg, #f5f7ff 0%, #e8eaf6 100%);
+        transform: translateX(4px);
     }
 
     &.selected {
-        background-color: #e8eaf6; // Light Indigo
+        background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+        border-left: 4px solid #3f51b5;
     }
 
     &.already-added {
-        opacity: 0.6;
+        opacity: 0.5;
         cursor: default;
+
+        &:hover {
+            transform: none;
+        }
     }
 }
 
 .child-cover {
     width: 40px;
     height: 40px;
-    border-radius: 4px;
+    border-radius: 6px;
     object-fit: cover;
     margin-right: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .child-info {
@@ -170,19 +280,94 @@ tr.detail-row {
     justify-content: space-between;
 }
 
+.child-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
 .child-title {
     font-size: 14px;
     color: #333;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .child-actions {
     margin-left: 16px;
+    display: flex;
+    align-items: center;
 }
 
 .loading-container,
 .no-results {
-    padding: 24px;
+    padding: 48px 24px;
     text-align: center;
     color: #888;
+    font-size: 14px;
+}
+
+// Dialog Actions
+mat-dialog-actions {
+    padding: 16px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+    border-top: 2px solid #e8eaf6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+
+    .actions-left {
+        flex: 1;
+        display: flex;
+        align-items: center;
+    }
+
+    .actions-right {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .bulk-room-field {
+        min-width: 280px;
+        max-width: 400px;
+        margin: 0;
+
+        ::ng-deep .mat-mdc-form-field-infix {
+            min-height: 40px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        ::ng-deep .mat-mdc-text-field-wrapper {
+            height: 40px;
+        }
+    }
+
+    button[mat-flat-button] {
+        background: linear-gradient(135deg, #3f51b5 0%, #7b1fa2 100%) !important;
+        color: white !important;
+        font-weight: 600;
+        border-radius: 24px;
+        padding: 0 24px;
+        box-shadow: 0 4px 12px rgba(63, 81, 181, 0.3);
+        transition: all 0.2s;
+
+        &:hover:not([disabled]) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(63, 81, 181, 0.4);
+        }
+
+        &[disabled] {
+            opacity: 0.6;
+            background: #ccc !important;
+            box-shadow: none;
+        }
+
+        mat-icon {
+            margin-right: 8px;
+        }
+    }
 }

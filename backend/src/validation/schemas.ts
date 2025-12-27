@@ -8,7 +8,8 @@ export const AlbumSchema = z.object({
     artist: z.string().max(200, 'Artist name too long').optional(),
     uri: z.string().startsWith('spotify:', 'URI must be a valid Spotify URI'),
     coverUrl: z.string().url('Invalid cover URL').optional().or(z.literal('')),
-    type: z.enum(['album', 'artist', 'playlist']).optional()
+    type: z.enum(['album', 'artist', 'playlist']).optional(),
+    deviceNames: z.array(z.string()).optional()
 });
 
 /**

@@ -1,11 +1,19 @@
-<h2 mat-dialog-title>Alben suchen & hinzufügen</h2>
+<div class="dialog-header">
+    <div class="header-icon">
+        <mat-icon>library_music</mat-icon>
+    </div>
+    <div class="header-content">
+        <h2 mat-dialog-title>Alben suchen & hinzufügen</h2>
+        <p class="header-subtitle">Suche nach Alben auf Spotify und füge sie deiner Sammlung hinzu</p>
+    </div>
+</div>
 
 <mat-dialog-content>
     <div class="search-container">
         <mat-form-field appearance="outline" class="search-field">
             <mat-label>Spotify durchsuchen</mat-label>
             <input matInput [formControl]="searchControl" placeholder="Album- oder Künstlername">
-            <mat-icon matSuffix>search</mat-icon>
+            <mat-icon matPrefix>search</mat-icon>
         </mat-form-field>
     </div>
 
@@ -43,6 +51,23 @@
                 <th mat-header-cell *matHeaderCellDef> Typ </th>
                 <td mat-cell *matCellDef="let element">
                     <span class="type-badge" [ngClass]="element.type">{{element.type | titlecase}}</span>
+                </td>
+            </ng-container>
+
+            <!-- Rooms Column -->
+            <ng-container matColumnDef="rooms">
+                <th mat-header-cell *matHeaderCellDef> Räume </th>
+                <td mat-cell *matCellDef="let element">
+                    @if (isSelected(element)) {
+                    <mat-chip-set class="room-chips">
+                        @for (room of getAlbumRooms(element); track room) {
+                        <mat-chip class="room-chip" [style.background-color]="getRoomColor(room)" [matTooltip]="room"
+                            matTooltipPosition="above">
+                            {{ getRoomSymbol(room) }}
+                        </mat-chip>
+                        }
+                    </mat-chip-set>
+                    }
                 </td>
             </ng-container>
 
@@ -96,7 +121,20 @@
                                     <img [src]="child.coverUrl" class="child-cover">
 
                                     <div class="child-info">
-                                        <span class="child-title">{{child.title}}</span>
+                                        <div class="child-main">
+                                            <span class="child-title">{{child.title}}</span>
+                                            @if (isSelected(child)) {
+                                            <mat-chip-set class="room-chips child-room-chips">
+                                                @for (room of getAlbumRooms(child); track room) {
+                                                <mat-chip class="room-chip"
+                                                    [style.background-color]="getRoomColor(room)" [matTooltip]="room"
+                                                    matTooltipPosition="above">
+                                                    {{ getRoomSymbol(room) }}
+                                                </mat-chip>
+                                                }
+                                            </mat-chip-set>
+                                            }
+                                        </div>
 
                                         <div class="child-actions">
                                             @if (isAlreadyAdded(child)) {
@@ -139,10 +177,28 @@
     </div>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-    <button mat-button (click)="selectAll()">Alles auswählen</button>
-    <button mat-button (click)="close()">Abbrechen</button>
-    <button mat-flat-button color="primary" [disabled]="selectedAlbums().size === 0" (click)="addSelected()">
-        Auswahl hinzufügen ({{ selectedAlbums().size }})
-    </button>
+<mat-dialog-actions>
+    <div class="actions-left">
+        <!-- Bulk Room Selection -->
+        @if (selectedAlbums().size > 0) {
+        <mat-form-field appearance="outline" class="bulk-room-field" subscriptSizing="dynamic">
+            <mat-label>Standard-Räume für Auswahl</mat-label>
+            <mat-select [value]="defaultRooms()" (selectionChange)="defaultRooms.set($event.value)" multiple>
+                @for (room of rooms(); track room.name) {
+                <mat-option [value]="room.name">{{ room.name }}</mat-option>
+                }
+            </mat-select>
+            <mat-icon matPrefix>room</mat-icon>
+        </mat-form-field>
+        }
+    </div>
+
+    <div class="actions-right">
+        <button mat-button (click)="selectAll()">Alles auswählen</button>
+        <button mat-button (click)="close()">Abbrechen</button>
+        <button mat-flat-button color="primary" [disabled]="selectedAlbums().size === 0" (click)="addSelected()">
+            <mat-icon>add</mat-icon>
+            Auswahl hinzufügen ({{ selectedAlbums().size }})
+        </button>
+    </div>
 </mat-dialog-actions>

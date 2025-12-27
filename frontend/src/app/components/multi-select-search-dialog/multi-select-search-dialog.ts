@@ -11,6 +11,10 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ApiService, Album } from '../../services/api';
 import { debounceTime, distinctUntilChanged, switchMap, catchError, of, firstValueFrom } from 'rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { getRoomColor, getRoomSymbol } from '../../utils/room-utils';
 
 @Component({
   selector: 'app-multi-select-search-dialog',
@@ -25,7 +29,10 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     MatInputModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
-    MatTableModule
+    MatTableModule,
+    MatChipsModule,
+    MatSelectModule,
+    MatTooltipModule
   ],
   templateUrl: './multi-select-search-dialog.html',
   styleUrl: './multi-select-search-dialog.scss',
@@ -53,7 +60,7 @@ export class MultiSelectSearchDialogComponent {
   existingUris = new Set<string>(this.data?.existingUris || []);
 
   // Table Logic
-  columnsToDisplay = ['image', 'title', 'artist', 'type', 'action'];
+  columnsToDisplay = ['image', 'title', 'artist', 'type', 'rooms', 'action'];
   expandedElement = signal<Album | null>(null);
 
   // Cache for child albums of artists/playlists: Map<ParentID, Album[]>
@@ -63,6 +70,11 @@ export class MultiSelectSearchDialogComponent {
 
   isLoading = signal<boolean>(false);
   loadingChildren = signal<Set<string>>(new Set());
+
+  // Room management
+  rooms = signal<any[]>([]);
+  defaultRooms = signal<string[]>([]);
+  selectedRoomsForAlbums = new Map<string, string[]>();
 
   // Grouped results for display - This computed property is no longer needed with MatTable
   // and the new expansion logic. It can be removed or refactored if grouping is still desired
@@ -108,6 +120,8 @@ export class MultiSelectSearchDialogComponent {
   });
 
   constructor() {
+    this.loadRooms();
+
     this.searchControl.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged(),
@@ -124,6 +138,16 @@ export class MultiSelectSearchDialogComponent {
       // Sort: Artist > Playlist > Album, then Title (Logic moved to backend but good to know)
       this.searchResults.set(results);
       this.isLoading.set(false);
+    });
+  }
+
+  loadRooms() {
+    this.api.getRooms().subscribe(rooms => {
+      this.rooms.set(rooms);
+      // Auto-select all rooms by default
+      if (rooms.length > 0) {
+        this.defaultRooms.set(rooms.map(r => r.name));
+      }
     });
   }
 
@@ -258,7 +282,28 @@ export class MultiSelectSearchDialogComponent {
   }
 
   addSelected() {
-    this.dialogRef.close(this.selectedAlbumObjects());
+    // Apply room assignments to selected albums
+    const albumsWithRooms = this.selectedAlbumObjects().map(album => {
+      const rooms = this.selectedRoomsForAlbums.get(album.uri) || this.defaultRooms();
+      return { ...album, deviceNames: rooms };
+    });
+    this.dialogRef.close(albumsWithRooms);
+  }
+
+  updateAlbumRooms(album: Album, rooms: string[]) {
+    this.selectedRoomsForAlbums.set(album.uri, rooms);
+  }
+
+  getAlbumRooms(album: Album): string[] {
+    return this.selectedRoomsForAlbums.get(album.uri) || this.defaultRooms();
+  }
+
+  getRoomColor(roomName: string): string {
+    return getRoomColor(roomName);
+  }
+
+  getRoomSymbol(roomName: string): string {
+    return getRoomSymbol(roomName);
   }
 
   close() {

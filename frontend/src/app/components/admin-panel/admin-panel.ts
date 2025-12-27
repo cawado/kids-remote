@@ -15,6 +15,9 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { getRoomColor, getRoomSymbol } from '../../utils/room-utils';
 
 @Component({
   selector: 'app-admin-panel',
@@ -31,7 +34,9 @@ import { MatCardModule } from '@angular/material/card';
     MatFormFieldModule,
     MatSelectModule,
     MatCardModule,
-    FormsModule
+    FormsModule,
+    MatChipsModule,
+    MatTooltipModule
   ],
   templateUrl: './admin-panel.html',
   styleUrl: './admin-panel.scss'
@@ -42,7 +47,8 @@ export class AdminPanelComponent implements OnDestroy, AfterViewInit {
 
   dataSource = new MatTableDataSource<Album>([]);
   currentAlbumTitle = signal<string | null>(null);
-  displayedColumns: string[] = ['select', 'cover', 'artist', 'title'];
+  displayedColumns: string[] = ['select', 'cover', 'artist', 'title', 'rooms'];
+  filterRoom = signal<string | 'ALL'>('ALL');
   private destroy$ = new Subscription();
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -62,6 +68,10 @@ export class AdminPanelComponent implements OnDestroy, AfterViewInit {
     { label: 'Français', value: 'fr-FR' },
     { label: 'Español', value: 'es-ES' }
   ];
+
+  // Bulk room modification
+  bulkRoomMode = signal<boolean>(false);
+  bulkRoomSelection = signal<string[]>([]);
 
   constructor() {
     this.refreshAlbums();
@@ -93,13 +103,17 @@ export class AdminPanelComponent implements OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
 
-    // Custom filter to search across title and artist
+    // Custom filter to search across title, artist and room
     this.dataSource.filterPredicate = (data: Album, filter: string) => {
-      const searchStr = filter.toLowerCase();
-      return (
+      const [searchStr, roomFilter] = filter.split('|');
+
+      const searchMatches =
         data.title.toLowerCase().includes(searchStr) ||
-        (data.artist?.toLowerCase().includes(searchStr) || false)
-      );
+        (data.artist?.toLowerCase().includes(searchStr) || false);
+
+      const roomMatches = roomFilter === 'ALL' || (data.deviceNames?.includes(roomFilter) || false);
+
+      return searchMatches && roomMatches;
     };
   }
 
@@ -113,8 +127,15 @@ export class AdminPanelComponent implements OnDestroy, AfterViewInit {
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    const searchVal = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    const roomVal = this.filterRoom();
+    this.dataSource.filter = `${searchVal}|${roomVal}`;
+  }
+
+  applyRoomFilter() {
+    const searchVal = (document.querySelector('.search-field input') as HTMLInputElement)?.value.trim().toLowerCase() || '';
+    const roomVal = this.filterRoom();
+    this.dataSource.filter = `${searchVal}|${roomVal}`;
   }
 
   loadRooms() {
@@ -223,5 +244,49 @@ export class AdminPanelComponent implements OnDestroy, AfterViewInit {
         this.isSendingTts.set(false);
       }
     });
+  }
+
+  updateAlbumRooms(album: Album, rooms: string[]) {
+    if (!album.id) return;
+    this.api.updateAlbum(album.id, { ...album, deviceNames: rooms }).subscribe({
+      next: (updated) => {
+        const data = this.dataSource.data;
+        const index = data.findIndex(a => a.id === updated.id);
+        if (index > -1) {
+          data[index] = updated;
+          this.dataSource.data = [...data];
+        }
+      },
+      error: (err) => console.error('Failed to update album rooms', err)
+    });
+  }
+
+  async applyBulkRoomUpdate() {
+    const selectedAlbums = this.selection.selected;
+    if (selectedAlbums.length === 0 || this.bulkRoomSelection().length === 0) return;
+
+    // Update all selected albums
+    for (const album of selectedAlbums) {
+      if (album.id) {
+        try {
+          await firstValueFrom(this.api.updateAlbum(album.id, { ...album, deviceNames: this.bulkRoomSelection() }));
+        } catch (err) {
+          console.error(`Failed to update rooms for album ${album.title}`, err);
+        }
+      }
+    }
+
+    // Refresh and reset
+    this.refreshAlbums();
+    this.bulkRoomMode.set(false);
+    this.bulkRoomSelection.set([]);
+  }
+
+  getRoomColor(roomName: string): string {
+    return getRoomColor(roomName);
+  }
+
+  getRoomSymbol(roomName: string): string {
+    return getRoomSymbol(roomName);
   }
 }

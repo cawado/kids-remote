@@ -10,6 +10,7 @@ export interface Album {
   coverUrl: string;
   uri: string;
   type?: 'album' | 'artist' | 'playlist';
+  deviceNames?: string[];
 }
 
 @Injectable({

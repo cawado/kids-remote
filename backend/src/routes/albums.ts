@@ -4,6 +4,7 @@ import { AlbumStorage } from '../services/albumStorage';
 import { AppError, asyncHandler } from '../middleware/errorHandler';
 import { validateBody } from '../middleware/validation';
 import { AlbumSchema, AlbumUpdateSchema } from '../validation/schemas';
+import { config } from '../config';
 
 const router = Router();
 const ALBUMS_FILE = path.join(__dirname, '../../albums.json');
@@ -12,12 +13,19 @@ const albumStorage = new AlbumStorage(ALBUMS_FILE);
 // GET all albums
 router.get('/', asyncHandler(async (req: Request, res: Response) => {
     const albums = await albumStorage.read();
-    res.json(albums);
+    // Ensure all albums have deviceNames, default to config.defaultDeviceName
+    const albumsWithDevices = albums.map(album => ({
+        ...album,
+        deviceNames: album.deviceNames && album.deviceNames.length > 0
+            ? album.deviceNames
+            : [config.defaultDeviceName]
+    }));
+    res.json(albumsWithDevices);
 }));
 
 // POST new album
 router.post('/', validateBody(AlbumSchema), asyncHandler(async (req: Request, res: Response) => {
-    const { title, artist, uri, coverUrl, type } = req.body;
+    const { title, artist, uri, coverUrl, type, deviceNames } = req.body;
 
     try {
         const newAlbum = await albumStorage.add({
@@ -25,7 +33,8 @@ router.post('/', validateBody(AlbumSchema), asyncHandler(async (req: Request, re
             artist,
             uri,
             coverUrl: coverUrl || '',
-            type
+            type,
+            deviceNames
         });
         res.json(newAlbum);
     } catch (error: any) {
