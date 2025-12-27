@@ -114,7 +114,11 @@ router.post('/volume', asyncHandler(async (req: Request, res: Response) => {
     const device = getDeviceByName(deviceName);
     if (!device) throw new AppError(404, 'Device not found');
 
-    await device.SetVolume(volume);
+    if (device.RenderingControlService) {
+        await device.RenderingControlService.SetVolume({ InstanceID: 0, Channel: 'Master', DesiredVolume: volume });
+    } else {
+        await device.SetVolume(volume);
+    }
     res.json({ success: true, volume });
 }));
 
@@ -125,20 +129,23 @@ router.post('/volume/relative', asyncHandler(async (req: Request, res: Response)
     const device = getDeviceByName(deviceName);
     if (!device) throw new AppError(404, 'Device not found');
 
-    await device.SetRelativeVolume(adjustment);
+    if (device.RenderingControlService) {
+        await device.RenderingControlService.SetRelativeVolume({ InstanceID: 0, Channel: 'Master', Adjustment: adjustment });
+    } else {
+        await device.SetRelativeVolume(adjustment);
+    }
     res.json({ success: true, adjustment });
 }));
 
 router.post('/tts', asyncHandler(async (req: any, res: Response) => {
-    let { deviceName, text, lang } = req.body;
+    let { deviceNames, deviceName, text, lang } = req.body;
     if (!text) throw new AppError(400, 'Missing text');
     if (!lang) lang = 'de-DE';
-    if (!deviceName) deviceName = config.defaultDeviceName;
 
-    const device = getDeviceByName(deviceName) as any;
-    if (!device) throw new AppError(404, `Device '${deviceName}' not found`);
+    // Normalize to an array of device names
+    const targets: string[] = Array.isArray(deviceNames) ? deviceNames : [deviceName || config.defaultDeviceName];
 
-    console.log(`Generating TTS for: "${text}" [${lang}]`);
+    console.log(`Generating TTS for targets [${targets.join(', ')}]: "${text}" [${lang}]`);
 
     try {
         const voices = await listVoices();
@@ -147,7 +154,6 @@ router.post('/tts', asyncHandler(async (req: any, res: Response) => {
         const edgeTts = new EdgeTTS(text, deVoice.ShortName);
         const result = await edgeTts.synthesize();
 
-        // Convert Blob to Buffer and save to file
         const arrayBuffer = await result.audio.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
 
@@ -160,28 +166,36 @@ router.post('/tts', asyncHandler(async (req: any, res: Response) => {
         const filePath = path.join(publicDir, filename);
         fs.writeFileSync(filePath, buffer);
 
-        // Construct public URL. 
-        // Sonos needs a reachable IP address, not localhost.
         const host = getLocalIp();
         const port = config.port;
         const url = `http://${host}:${port}/tts-static/${filename}`;
 
         console.log(`TTS URL: ${url}`);
 
-        await device.PlayNotification({
-            trackUri: url,
-            onlyWhenPlaying: false,
-            timeout: 20,
-            volume: 40,
-            delayMs: 500
+        // Broadcast to all targets
+        const sendPromises = targets.map(async (name) => {
+            const device = getDeviceByName(name) as any;
+            if (device) {
+                return device.PlayNotification({
+                    trackUri: url,
+                    onlyWhenPlaying: false,
+                    timeout: 20,
+                    volume: 40,
+                    delayMs: 500
+                }).catch((err: any) => console.error(`Failed to send TTS to ${name}:`, err.message));
+            } else {
+                console.warn(`Device '${name}' not found for TTS broadcast.`);
+            }
         });
 
-        res.json({ success: true, message: `TTS sent to ${deviceName}`, voice: deVoice.ShortName });
+        await Promise.all(sendPromises);
 
-        // Optional: Clean up old files after some time
+        res.json({ success: true, message: `TTS sent to targets`, targets, voice: deVoice.ShortName });
+
+        // Optional: Clean up old files
         setTimeout(() => {
             if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
-        }, 60000 * 5); // 5 minutes
+        }, 60000 * 5);
 
     } catch (error: any) {
         console.error('TTS Error:', error);

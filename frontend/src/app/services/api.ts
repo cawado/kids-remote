@@ -84,7 +84,11 @@ export class ApiService {
     return this.http.get<Album[]>(`${this.apiUrl}/spotify/playlist/${id}/albums`);
   }
 
-  sendTTS(text: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/tts`, { text });
+  sendTTS(text: string, deviceNames?: string[], lang?: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/tts`, { text, deviceNames, lang });
+  }
+
+  getRooms(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/devices`);
   }
 }

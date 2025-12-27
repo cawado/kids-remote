@@ -13,6 +13,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { FormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-admin-panel',
@@ -27,6 +29,8 @@ import { FormsModule } from '@angular/forms';
     MatCheckboxModule,
     MatInputModule,
     MatFormFieldModule,
+    MatSelectModule,
+    MatCardModule,
     FormsModule
   ],
   templateUrl: './admin-panel.html',
@@ -48,9 +52,20 @@ export class AdminPanelComponent implements OnDestroy, AfterViewInit {
 
   ttsText = signal<string>('');
   isSendingTts = signal<boolean>(false);
+  rooms = signal<any[]>([]);
+  selectedRooms = signal<string[]>([]);
+  selectedVoice = signal<string>('de-DE');
+
+  availableVoices = [
+    { label: 'Deutsch', value: 'de-DE' },
+    { label: 'English', value: 'en-US' },
+    { label: 'Français', value: 'fr-FR' },
+    { label: 'Español', value: 'es-ES' }
+  ];
 
   constructor() {
     this.refreshAlbums();
+    this.loadRooms();
 
     // Poll state every 3 seconds for highlight
     this.destroy$.add(
@@ -100,6 +115,16 @@ export class AdminPanelComponent implements OnDestroy, AfterViewInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  loadRooms() {
+    this.api.getRooms().subscribe(rooms => {
+      this.rooms.set(rooms);
+      // Auto-select all rooms by default if nothing is selected yet
+      if (rooms.length > 0 && this.selectedRooms().length === 0) {
+        this.selectedRooms.set(rooms.map(r => r.name));
+      }
+    });
   }
 
   openSearchDialog() {
@@ -188,7 +213,7 @@ export class AdminPanelComponent implements OnDestroy, AfterViewInit {
     if (!text || this.isSendingTts()) return;
 
     this.isSendingTts.set(true);
-    this.api.sendTTS(text).subscribe({
+    this.api.sendTTS(text, this.selectedRooms(), this.selectedVoice()).subscribe({
       next: () => {
         this.ttsText.set('');
         this.isSendingTts.set(false);

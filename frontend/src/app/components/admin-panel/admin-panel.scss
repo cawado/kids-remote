@@ -101,3 +101,77 @@
         height: 40px;
     }
 }
+
+/* TTS Controls Section */
+.tts-section-card {
+    margin-top: 32px;
+    background: linear-gradient(135deg, #ffffff 0%, #f1f8ff 100%) !important;
+    border-top: 4px solid #3f51b5 !important;
+    box-shadow: 0 8px 24px rgba(63, 81, 181, 0.15) !important;
+
+    .tts-avatar {
+        background-color: #3f51b5;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.tts-controls {
+    display: flex;
+    gap: 16px;
+    align-items: center; // Vertical centering
+    flex-wrap: nowrap;
+    padding: 12px 0; // Tighter padding
+
+    .room-field {
+        width: 200px;
+    }
+
+    .voice-field {
+        width: 160px;
+    }
+
+    .tts-field {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .send-button {
+        height: 48px; // Standard MDC height for outline fields is roughly this
+        padding: 0 28px;
+        min-width: 150px;
+        flex-shrink: 0;
+        border-radius: 24px; // More rounded
+        background: linear-gradient(135deg, #3f51b5 0%, #7b1fa2 100%) !important;
+        color: white !important;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 12px rgba(63, 81, 181, 0.3);
+        transition: all 0.2s ease;
+
+        &:hover:not([disabled]) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(63, 81, 181, 0.4);
+            filter: brightness(1.1);
+        }
+
+        &:active:not([disabled]) {
+            transform: translateY(0);
+        }
+
+        &[disabled] {
+            opacity: 0.6;
+            background: #ccc !important;
+            box-shadow: none;
+        }
+
+        mat-icon {
+            margin-right: 8px;
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+        }
+    }
+}

@@ -73,30 +73,59 @@
     </div>
 
     <!-- TTS Section -->
-    <div class="container tts-section">
-        <div class="header">
-            <h2>Sprachnachricht senden</h2>
-        </div>
-        <div class="tts-controls">
-            <mat-form-field appearance="outline" class="tts-field">
-                <mat-label>Nachricht</mat-label>
-                <input matInput [(ngModel)]="ttsText" placeholder="Was möchtest du sagen?" (keyup.enter)="sendTTS()">
-                <mat-icon matPrefix>record_voice_over</mat-icon>
-            </mat-form-field>
-            <button mat-flat-button color="primary" (click)="sendTTS()" [disabled]="!ttsText() || isSendingTts()"
-                class="send-button">
-                @if(isSendingTts()) {
-                <ng-container>
-                    <mat-icon>hourglass_empty</mat-icon> Senden...
-                </ng-container>
-                } @else {
-                <ng-container>
-                    <mat-icon>send</mat-icon> Senden
-                </ng-container>
-                }
-            </button>
-        </div>
-    </div>
+    <mat-card class="tts-section-card">
+        <mat-card-header>
+            <div mat-card-avatar class="tts-avatar">
+                <mat-icon>settings_input_antenna</mat-icon>
+            </div>
+            <mat-card-title>Bordfunk</mat-card-title>
+            <mat-card-subtitle>Sprachnachricht an die Räume senden</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <div class="tts-controls">
+                <mat-form-field appearance="outline" class="room-field" subscriptSizing="dynamic">
+                    <mat-label>Räume</mat-label>
+                    <mat-select [value]="selectedRooms()" (selectionChange)="selectedRooms.set($event.value)" multiple>
+                        @for (room of rooms(); track room.name) {
+                        <mat-option [value]="room.name">{{ room.name }}</mat-option>
+                        }
+                    </mat-select>
+                    <mat-icon matPrefix>room</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="voice-field" subscriptSizing="dynamic">
+                    <mat-label>Sprache</mat-label>
+                    <mat-select [value]="selectedVoice()" (selectionChange)="selectedVoice.set($event.value)">
+                        @for (voice of availableVoices; track voice.value) {
+                        <mat-option [value]="voice.value">{{ voice.label }}</mat-option>
+                        }
+                    </mat-select>
+                    <mat-icon matPrefix>translate</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="tts-field" subscriptSizing="dynamic">
+                    <mat-label>Nachricht</mat-label>
+                    <input matInput [(ngModel)]="ttsText" placeholder="Was möchtest du sagen?"
+                        (keyup.enter)="sendTTS()">
+                    <mat-icon matPrefix>record_voice_over</mat-icon>
+                </mat-form-field>
+
+                <button mat-flat-button color="primary" (click)="sendTTS()" [disabled]="!ttsText() || isSendingTts()"
+                    class="send-button">
+                    @if(isSendingTts()) {
+                    <ng-container>
+                        <mat-icon>hourglass_empty</mat-icon> Senden...
+                    </ng-container>
+                    } @else {
+                    <ng-container>
+                        <mat-icon>send</mat-icon> Senden
+                    </ng-container>
+                    }
+                </button>
+            </div>
+        </mat-card-content>
+    </mat-card>
 
 
     <button mat-fab class="add-fab" color="primary" (click)="openSearchDialog()">
