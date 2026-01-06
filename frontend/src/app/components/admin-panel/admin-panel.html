@@ -1,11 +1,11 @@
 <div class="admin-container">
     <div class="page-header">
         <div class="header-icon">
-            <mat-icon>settings</mat-icon>
+            <mat-icon>science</mat-icon>
         </div>
         <div class="header-content">
-            <h1>Verwaltung</h1>
-            <p class="header-subtitle">Verwalte deine Alben und Einstellungen</p>
+            <h1>Aperture Science Music Interface</h1>
+            <p class="header-subtitle">[SYS_OP: ADMIN] // AUDIO-STEUERUNGSZENTRALE</p>
         </div>
     </div>
 
@@ -15,14 +15,14 @@
             <div mat-card-avatar class="tts-avatar">
                 <mat-icon>settings_input_antenna</mat-icon>
             </div>
-            <mat-card-title>Bordfunk</mat-card-title>
-            <mat-card-subtitle>Sprachnachricht an die Räume senden</mat-card-subtitle>
+            <mat-card-title>SPRACHÜBERTRAGUNGSSYSTEM</mat-card-title>
+            <mat-card-subtitle>[STATUS: ONLINE] // BROADCAST AN TESTKAMMERN</mat-card-subtitle>
         </mat-card-header>
 
         <mat-card-content>
             <div class="tts-controls">
                 <mat-form-field appearance="outline" class="room-field" subscriptSizing="dynamic">
-                    <mat-label>Räume</mat-label>
+                    <mat-label>ZIELKAMMERN</mat-label>
                     <mat-select [value]="selectedRooms()" (selectionChange)="selectedRooms.set($event.value)" multiple>
                         @for (room of rooms(); track room.name) {
                         <mat-option [value]="room.name">{{ room.name }}</mat-option>
@@ -32,7 +32,7 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="voice-field" subscriptSizing="dynamic">
-                    <mat-label>Sprache</mat-label>
+                    <mat-label>SPRACHMODUL</mat-label>
                     <mat-select [value]="selectedVoice()" (selectionChange)="selectedVoice.set($event.value)">
                         @for (voice of availableVoices; track voice.value) {
                         <mat-option [value]="voice.value">{{ voice.label }}</mat-option>
@@ -42,8 +42,8 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="tts-field" subscriptSizing="dynamic">
-                    <mat-label>Nachricht</mat-label>
-                    <input matInput [(ngModel)]="ttsText" placeholder="Was möchtest du sagen?"
+                    <mat-label>ÜBERTRAGUNGSDATEN</mat-label>
+                    <input matInput [(ngModel)]="ttsText" placeholder="Nachrichtensequenz eingeben..."
                         (keyup.enter)="sendTTS()">
                     <mat-icon matPrefix>record_voice_over</mat-icon>
                 </mat-form-field>
@@ -52,11 +52,11 @@
                     class="send-button">
                     @if(isSendingTts()) {
                     <ng-container>
-                        <mat-icon>hourglass_empty</mat-icon> Senden...
+                        <mat-icon>hourglass_empty</mat-icon> VERARBEITE...
                     </ng-container>
                     } @else {
                     <ng-container>
-                        <mat-icon>send</mat-icon> Senden
+                        <mat-icon>send</mat-icon> ÜBERTRAGEN
                     </ng-container>
                     }
                 </button>
@@ -66,33 +66,33 @@
 
     <div class="container albums-section">
         <div class="header">
-            <h2>Alben verwalten</h2>
+            <h2>ALBEN-DATENBANK [L/S ZUGRIFF]</h2>
             <!-- Top Actions -->
             <div class="actions">
                 <ng-container *ngTemplateOutlet="actionButtons"></ng-container>
             </div>
         </div>
 
-        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z0">
 
             <!-- Checkbox Column -->
             <ng-container matColumnDef="select">
                 <th mat-header-cell *matHeaderCellDef>
-                    <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                    <mat-checkbox (change)="$event ? toggleAllRows() : null" color="primary"
                         [checked]="selection.hasValue() && isAllSelected()"
                         [indeterminate]="selection.hasValue() && !isAllSelected()">
                     </mat-checkbox>
                 </th>
                 <td mat-cell *matCellDef="let row">
                     <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-                        [checked]="selection.isSelected(row)">
+                        color="primary" [checked]="selection.isSelected(row)">
                     </mat-checkbox>
                 </td>
             </ng-container>
 
             <!-- Image Column -->
             <ng-container matColumnDef="cover">
-                <th mat-header-cell *matHeaderCellDef> Cover </th>
+                <th mat-header-cell *matHeaderCellDef> OBJEKT </th>
                 <td mat-cell *matCellDef="let element">
                     <div class="image-wrapper">
                         <img [src]="element.coverUrl" alt="Cover" class="cover-image">
@@ -107,22 +107,22 @@
 
             <!-- Title Column -->
             <ng-container matColumnDef="title">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Titel </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> BEZEICHNUNG </th>
                 <td mat-cell *matCellDef="let element" [class.playing-text]="isPlaying(element)">
                     {{element.title}}
-                    @if(isPlaying(element)) { <span class="playing-status">(Läuft gerade)</span> }
+                    @if(isPlaying(element)) { <span class="playing-status">AKTIV</span> }
                 </td>
             </ng-container>
 
             <!-- Artist Column -->
             <ng-container matColumnDef="artist">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Künstler </th>
-                <td mat-cell *matCellDef="let element"> {{element.artist || '-'}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ERSTELLER </th>
+                <td mat-cell *matCellDef="let element"> {{element.artist || '[UNBEKANNT]'}} </td>
             </ng-container>
 
             <!-- Rooms Column -->
             <ng-container matColumnDef="rooms">
-                <th mat-header-cell *matHeaderCellDef> Räume </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ZUGEWIESENE KAMMERN </th>
                 <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
                     <mat-chip-set class="room-chips">
                         @for (room of element.deviceNames || []; track room) {
@@ -132,7 +132,7 @@
                         </mat-chip>
                         }
                         @if (!element.deviceNames || element.deviceNames.length === 0) {
-                        <span class="no-rooms">Keine Räume</span>
+                        <span class="no-rooms">[NICHT ZUGEWIESEN]</span>
                         }
                     </mat-chip-set>
                 </td>
@@ -150,7 +150,7 @@
 
     </div>
 
-    <button mat-fab class="add-fab" color="primary" (click)="openSearchDialog()">
+    <button mat-fab class="add-fab" (click)="openSearchDialog()">
         <mat-icon>add</mat-icon>
     </button>
 </div>
@@ -161,17 +161,17 @@
     <div class="bulk-actions">
         <button mat-flat-button color="warn" (click)="deleteSelected()">
             <mat-icon>delete</mat-icon>
-            Löschen ({{selection.selected.length}})
+            VERNICHTEN ({{selection.selected.length}})
         </button>
 
         @if (!bulkRoomMode()) {
         <button mat-raised-button color="accent" (click)="bulkRoomMode.set(true)">
             <mat-icon>room</mat-icon>
-            Räume ändern
+            KAMMERN NEU ZUWEISEN
         </button>
         } @else {
         <mat-form-field appearance="outline" class="bulk-room-field" subscriptSizing="dynamic">
-            <mat-label>Räume für {{selection.selected.length}} Alben</mat-label>
+            <mat-label>ZIELKAMMERN ({{selection.selected.length}} Objekte)</mat-label>
             <mat-select [value]="bulkRoomSelection()" (selectionChange)="bulkRoomSelection.set($event.value)" multiple>
                 @for (room of rooms(); track room.name) {
                 <mat-option [value]="room.name">{{ room.name }}</mat-option>
@@ -182,30 +182,30 @@
         <button mat-flat-button color="primary" (click)="applyBulkRoomUpdate()"
             [disabled]="bulkRoomSelection().length === 0">
             <mat-icon>check</mat-icon>
-            Anwenden
+            BESTÄTIGEN
         </button>
         <button mat-button (click)="bulkRoomMode.set(false); bulkRoomSelection.set([])">
-            Abbrechen
+            ABBRECHEN
         </button>
         }
     </div>
     }
     <button mat-raised-button color="primary" (click)="openSearchDialog()">
-        <mat-icon>add</mat-icon> Alben hinzufügen
+        <mat-icon>add</mat-icon> OBJEKT IMPORTIEREN
     </button>
 
     <!-- Search Filter -->
     <mat-form-field class="search-field" appearance="outline" subscriptSizing="dynamic">
-        <mat-label>Suchen</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Titel oder Künstler..." #input>
+        <mat-label>DATENBANK DURCHSUCHEN</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Nach Kennung filtern..." #input>
         <mat-icon matPrefix>search</mat-icon>
     </mat-form-field>
 
     <!-- Room Filter -->
     <mat-form-field class="room-filter" appearance="outline" subscriptSizing="dynamic">
-        <mat-label>Raum filtern</mat-label>
+        <mat-label>KAMMER-FILTER</mat-label>
         <mat-select [value]="filterRoom()" (selectionChange)="filterRoom.set($event.value); applyRoomFilter()">
-            <mat-option value="ALL">Alle Räume</mat-option>
+            <mat-option value="ALL">[ALLE KAMMERN]</mat-option>
             @for (room of rooms(); track room.name) {
             <mat-option [value]="room.name">{{ room.name }}</mat-option>
             }

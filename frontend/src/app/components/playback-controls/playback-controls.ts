@@ -16,9 +16,19 @@ import { ApiService } from '../../services/api';
 export class PlaybackControlsComponent {
   // Modern Signal Inputs
   transportState = input<string>('STOPPED');
+  hasNextAlbum = input<boolean>(false);
+  hasQueue = input<boolean>(false);
   groupByArtist = input.required<WritableSignal<boolean>>();
   selectedArtist = input.required<WritableSignal<string | null>>();
   private api = inject(ApiService);
+
+  skipToNextAlbum() {
+    this.api.skipToNextAlbum().subscribe();
+  }
+
+  clearQueue() {
+    this.api.clearQueue().subscribe();
+  }
 
   previous() {
     this.api.previous().subscribe();

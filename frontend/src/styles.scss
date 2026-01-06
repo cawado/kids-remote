@@ -1,33 +1,48 @@
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Roboto+Mono:wght@500&display=swap');
+
+:root {
+    --portal-blue: #00a2ff;
+    --portal-orange: #ff9a00;
+    --aperture-white: #ffffff;
+    --aperture-light-grey: #f5f5f5;
+    --aperture-grey: #e0e0e0;
+    --aperture-dark: #333333;
+    --text-main: #222222;
+    --glow-blue: 0 0 15px rgba(0, 162, 255, 0.4);
+    --glow-orange: 0 0 15px rgba(255, 154, 0, 0.4);
+}
 
 html,
 body {
     height: 100%;
+    overflow: hidden; /* No scrolling on body, only in grid */
 }
 
 body {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
-    background: #f0f4f8;
-    /* Slate/Neutral Light Grey */
-    color: #263238;
-    /* Slate Dark */
+    font-family: 'Inter', sans-serif;
+    background: var(--aperture-white);
+    color: var(--text-main);
+    user-select: none; /* Touch friendliness */
+    -webkit-tap-highlight-color: transparent;
 }
 
-/* Scrollbar styling for kids (hideous but useful? No, keep clean) */
+/* Scrollbar styling - clinical and clean */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--aperture-light-grey);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #cfd8dc;
-    border-radius: 4px;
+    background: var(--aperture-grey);
+    border: 3px solid var(--aperture-light-grey);
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #b0bec5;
+    background: var(--aperture-dark);
 }

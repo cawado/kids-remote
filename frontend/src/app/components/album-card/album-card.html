@@ -5,6 +5,11 @@
       <mat-spinner diameter="48"></mat-spinner>
     </div>
     }
+    @if (queuePosition()) {
+    <div class="queue-badge" [class.is-playing]="queuePosition() === 1">
+      {{ queuePosition() }}
+    </div>
+    }
     <img [ngSrc]="album().coverUrl" [alt]="album().title" fill priority class="cover-image">
   </div>
   <mat-card-content>

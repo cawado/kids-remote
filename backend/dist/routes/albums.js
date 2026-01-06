@@ -9,24 +9,33 @@ const albumStorage_1 = require("../services/albumStorage");
 const errorHandler_1 = require("../middleware/errorHandler");
 const validation_1 = require("../middleware/validation");
 const schemas_1 = require("../validation/schemas");
+const config_1 = require("../config");
 const router = (0, express_1.Router)();
 const ALBUMS_FILE = path_1.default.join(__dirname, '../../albums.json');
 const albumStorage = new albumStorage_1.AlbumStorage(ALBUMS_FILE);
 // GET all albums
 router.get('/', (0, errorHandler_1.asyncHandler)(async (req, res) => {
     const albums = await albumStorage.read();
-    res.json(albums);
+    // Ensure all albums have deviceNames, default to config.defaultDeviceName
+    const albumsWithDevices = albums.map(album => ({
+        ...album,
+        deviceNames: album.deviceNames && album.deviceNames.length > 0
+            ? album.deviceNames
+            : [config_1.config.defaultDeviceName]
+    }));
+    res.json(albumsWithDevices);
 }));
 // POST new album
 router.post('/', (0, validation_1.validateBody)(schemas_1.AlbumSchema), (0, errorHandler_1.asyncHandler)(async (req, res) => {
-    const { title, artist, uri, coverUrl, type } = req.body;
+    const { title, artist, uri, coverUrl, type, deviceNames } = req.body;
     try {
         const newAlbum = await albumStorage.add({
             title,
             artist,
             uri,
             coverUrl: coverUrl || '',
-            type
+            type,
+            deviceNames
         });
         res.json(newAlbum);
     }

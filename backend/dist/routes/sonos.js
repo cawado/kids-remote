@@ -11,10 +11,25 @@ const metadata_1 = require("../services/metadata");
 const edge_tts_1 = require("@travisvn/edge-tts");
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
+const network_1 = require("../utils/network");
 const router = (0, express_1.Router)();
 // Middleware to normalize deviceName
 router.use((req, res, next) => {
-    if (req.method === 'POST') {
+    const headerDevice = req.headers['x-device-name'];
+    if (headerDevice) {
+        if (req.method === 'POST') {
+            if (!req.body)
+                req.body = {};
+            if (!req.body.deviceName)
+                req.body.deviceName = headerDevice;
+        }
+        // Also normalize for GET requests by putting it into query if not present
+        if (req.method === 'GET') {
+            if (!req.query.deviceName)
+                req.query.deviceName = headerDevice;
+        }
+    }
+    else if (req.method === 'POST') {
         if (!req.body)
             req.body = {};
         if (!req.body.deviceName)
@@ -108,7 +123,12 @@ router.post('/volume', (0, errorHandler_1.asyncHandler)(async (req, res) => {
     const device = (0, sonos_1.getDeviceByName)(deviceName);
     if (!device)
         throw new errorHandler_1.AppError(404, 'Device not found');
-    await device.SetVolume(volume);
+    if (device.RenderingControlService) {
+        await device.RenderingControlService.SetVolume({ InstanceID: 0, Channel: 'Master', DesiredVolume: volume });
+    }
+    else {
+        await device.SetVolume(volume);
+    }
     res.json({ success: true, volume });
 }));
 router.post('/volume/relative', (0, errorHandler_1.asyncHandler)(async (req, res) => {
@@ -118,27 +138,28 @@ router.post('/volume/relative', (0, errorHandler_1.asyncHandler)(async (req, res
     const device = (0, sonos_1.getDeviceByName)(deviceName);
     if (!device)
         throw new errorHandler_1.AppError(404, 'Device not found');
-    await device.SetRelativeVolume(adjustment);
+    if (device.RenderingControlService) {
+        await device.RenderingControlService.SetRelativeVolume({ InstanceID: 0, Channel: 'Master', Adjustment: adjustment });
+    }
+    else {
+        await device.SetRelativeVolume(adjustment);
+    }
     res.json({ success: true, adjustment });
 }));
 router.post('/tts', (0, errorHandler_1.asyncHandler)(async (req, res) => {
-    let { deviceName, text, lang } = req.body;
+    let { deviceNames, deviceName, text, lang } = req.body;
     if (!text)
         throw new errorHandler_1.AppError(400, 'Missing text');
     if (!lang)
         lang = 'de-DE';
-    if (!deviceName)
-        deviceName = config_1.config.defaultDeviceName;
-    const device = (0, sonos_1.getDeviceByName)(deviceName);
-    if (!device)
-        throw new errorHandler_1.AppError(404, `Device '${deviceName}' not found`);
-    console.log(`Generating TTS for: "${text}" [${lang}]`);
+    // Normalize to an array of device names
+    const targets = Array.isArray(deviceNames) ? deviceNames : [deviceName || config_1.config.defaultDeviceName];
+    console.log(`Generating TTS for targets [${targets.join(', ')}]: "${text}" [${lang}]`);
     try {
         const voices = await (0, edge_tts_1.listVoices)();
         const deVoice = voices.find(v => v.Locale === lang) || voices.find(v => v.Locale.startsWith('de')) || voices[0];
         const edgeTts = new edge_tts_1.EdgeTTS(text, deVoice.ShortName);
         const result = await edgeTts.synthesize();
-        // Convert Blob to Buffer and save to file
         const arrayBuffer = await result.audio.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
         const filename = `tts-${Date.now()}.mp3`;
@@ -148,26 +169,33 @@ router.post('/tts', (0, errorHandler_1.asyncHandler)(async (req, res) => {
         }
         const filePath = path_1.default.join(publicDir, filename);
         fs_1.default.writeFileSync(filePath, buffer);
-        // Construct public URL. 
-        // We need to know the server's IP or hostname. 
-        // For simplicity, we'll try to use the request host.
-        const host = req.get('host');
-        const protocol = req.protocol;
-        const url = `${protocol}://${host}/tts-static/${filename}`;
+        const host = (0, network_1.getLocalIp)();
+        const port = config_1.config.port;
+        const url = `http://${host}:${port}/tts-static/${filename}`;
         console.log(`TTS URL: ${url}`);
-        await device.PlayNotification({
-            trackUri: url,
-            onlyWhenPlaying: false,
-            timeout: 20,
-            volume: 40,
-            delayMs: 500
+        // Broadcast to all targets
+        const sendPromises = targets.map(async (name) => {
+            const device = (0, sonos_1.getDeviceByName)(name);
+            if (device) {
+                return device.PlayNotification({
+                    trackUri: url,
+                    onlyWhenPlaying: false,
+                    timeout: 20,
+                    volume: 40,
+                    delayMs: 500
+                }).catch((err) => console.error(`Failed to send TTS to ${name}:`, err.message));
+            }
+            else {
+                console.warn(`Device '${name}' not found for TTS broadcast.`);
+            }
         });
-        res.json({ success: true, message: `TTS sent to ${deviceName}`, voice: deVoice.ShortName });
-        // Optional: Clean up old files after some time
+        await Promise.all(sendPromises);
+        res.json({ success: true, message: `TTS sent to targets`, targets, voice: deVoice.ShortName });
+        // Optional: Clean up old files
         setTimeout(() => {
             if (fs_1.default.existsSync(filePath))
                 fs_1.default.unlinkSync(filePath);
-        }, 60000 * 5); // 5 minutes
+        }, 60000 * 5);
     }
     catch (error) {
         console.error('TTS Error:', error);

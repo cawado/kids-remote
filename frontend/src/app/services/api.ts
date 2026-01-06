@@ -38,8 +38,24 @@ export class ApiService {
     return this.http.delete<void>(`${this.apiUrl}/albums/${id}`);
   }
 
+  getState(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/state`);
+  }
+
   playAlbum(uri: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/play`, { uri });
+  }
+
+  enqueueAlbum(uri: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/enqueue`, { uri });
+  }
+
+  clearQueue(): Observable<any> {
+    return this.http.post(`${this.apiUrl}/clear-queue`, {});
+  }
+
+  skipToNextAlbum(): Observable<any> {
+    return this.http.post(`${this.apiUrl}/next-album`, {});
   }
 
   searchSpotify(query: string): Observable<Album[]> {
@@ -74,9 +90,6 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}/resume`, {});
   }
 
-  getState(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/state`);
-  }
   getArtistAlbums(id: string): Observable<Album[]> {
     return this.http.get<Album[]>(`${this.apiUrl}/spotify/artist/${id}/albums`);
   }

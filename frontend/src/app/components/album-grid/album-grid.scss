@@ -1,72 +1,135 @@
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    /* Verkleinert für 4 pro Zeile */
+    gap: 20px;
     padding: 24px;
     padding-bottom: 120px;
-    /* Space for playback controls */
+    /* Platz für HUD */
+    height: 100vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+    position: relative;
+
+    /* Scroll Indikator - Sanfte Verblassung oben und unten */
+    mask-image: linear-gradient(to bottom,
+            transparent 0%,
+            black 5%,
+            black 90%,
+            transparent 100%);
 }
 
 .grid-item {
-    transition: transform 0.2s, box-shadow 0.2s;
-    border-radius: 16px;
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-radius: 20px;
     position: relative;
     cursor: pointer;
+    background: var(--aperture-white);
+    border: 4px solid var(--aperture-grey); // Normal border
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
     &.disabled {
         pointer-events: none;
-        cursor: not-allowed;
-        opacity: 0.8;
+        opacity: 0.5;
+        filter: grayscale(1);
+    }
+
+    &:active {
+        transform: scale(0.92);
+        border-color: var(--portal-blue);
+        box-shadow: var(--glow-blue);
     }
 }
 
-.grid-item:active {
-    transform: scale(0.95);
-}
-
-/* Playing Highlight */
-.grid-item.playing {
-    transform: scale(1.05);
-    /* Default playing scale */
-    z-index: 10;
-    position: relative;
-    /* Use CSS variable or consistent color */
-    --highlight-color: #00bcd4;
-}
-
-/* Ensure hover scales up even more and highlight follows */
-.grid-item.playing:hover {
-    transform: scale(1.08);
-}
-
-.grid-item.playing::after {
-    content: '';
+.enqueue-btn {
     position: absolute;
-    top: -6px;
-    left: -6px;
-    right: -6px;
-    bottom: -6px;
-    border: 4px solid var(--highlight-color);
-    border-radius: 20px;
-    animation: pulse 2s infinite;
-    pointer-events: none;
-    background: transparent;
-}
+    top: 20px;
+    left: 20px;
+    background: var(--portal-orange) !important;
+    color: white !important;
+    width: 56px !important;
+    height: 56px !important;
+    box-shadow: 0 4px 12px rgba(255, 154, 0, 0.4) !important;
+    border: 3px solid white !important;
+    z-index: 20;
 
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(0, 188, 212, 0.7);
-        border-color: rgba(0, 188, 212, 1);
+    mat-icon {
+        font-size: 32px;
+        width: 32px;
+        height: 32px;
     }
 
-    70% {
-        box-shadow: 0 0 0 15px rgba(0, 188, 212, 0);
-        border-color: rgba(0, 188, 212, 0.8);
+    &:active {
+        transform: scale(0.9);
+    }
+}
+
+/* Playing Highlight (Blue Gradient) */
+.grid-item.playing {
+    border-color: transparent;
+    background-clip: padding-box;
+    z-index: 10;
+
+    // Gradient border using pseudo-element
+    &::after {
+        content: '';
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        bottom: -4px;
+        left: -4px;
+        z-index: -1;
+        margin: 0;
+        border-radius: inherit;
+        background: linear-gradient(135deg, #0072ff, #00c6ff, #0072ff);
+        animation: border-flow 4s linear infinite;
+        box-shadow: 0 0 20px rgba(0, 114, 255, 0.6);
+    }
+}
+
+.grid-item.playing::before {
+    content: 'ACTIVE';
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    background: #0072ff;
+    color: white;
+    font-size: 10px;
+    font-family: 'Roboto Mono', monospace;
+    padding: 2px 8px;
+    border-radius: 4px;
+    z-index: 5;
+}
+
+/* Queued Highlight (Gradient) */
+.grid-item.queued {
+    border-color: transparent; // Hide base border to show gradient
+    background-clip: padding-box;
+    z-index: 5;
+
+    // Gradient border using pseudo-element
+    &::after {
+        content: '';
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        bottom: -4px;
+        left: -4px;
+        z-index: -1;
+        margin: 0;
+        border-radius: inherit;
+        background: linear-gradient(135deg, var(--portal-orange), #ffcc33, var(--portal-orange));
+        animation: border-flow 4s linear infinite;
+    }
+}
+
+@keyframes border-flow {
+    0% {
+        filter: hue-rotate(0deg);
     }
 
     100% {
-        box-shadow: 0 0 0 0 rgba(0, 188, 212, 0);
-        border-color: rgba(0, 188, 212, 1);
+        filter: hue-rotate(15deg);
     }
 }
 
@@ -77,96 +140,114 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 48px 24px;
-    min-height: 400px;
+    padding: 48px;
+    height: 60vh;
     text-align: center;
 
     p {
-        margin: 16px 0;
-        font-size: 18px;
-        color: rgba(255, 255, 255, 0.7);
+        margin: 24px 0;
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--aperture-dark);
     }
 }
 
-.error-container {
-    mat-icon {
-        font-size: 64px;
-        width: 64px;
-        height: 64px;
-        color: #f44336;
-        margin-bottom: 16px;
-    }
-
-    button {
-        margin-top: 16px;
-    }
-}
-
-/* Back Button Container */
+/* HUD Button Container */
 .back-button-container {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 16px 24px;
+    gap: 24px;
+    padding: 24px 32px 0 32px;
 
     button {
+        height: 64px !important;
+        border-radius: 32px !important;
+        border: 4px solid var(--aperture-dark) !important;
+        font-weight: 700 !important;
+        padding: 0 32px !important;
+        background: var(--aperture-white) !important;
+
         mat-icon {
-            margin-right: 8px;
+            margin-right: 12px;
+            font-size: 32px;
+            width: 32px;
+            height: 32px;
         }
     }
 }
 
 .artist-title {
-    font-size: 28px;
-    font-weight: 600;
+    font-size: 32px;
+    font-weight: 800;
     margin: 0;
-    color: #ffffff;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 8px 16px;
-    border-radius: 8px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    color: var(--aperture-dark);
+    font-family: 'Roboto Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: -1px;
 }
 
-/* Artist Cards */
-.artist-item {
-    cursor: pointer;
-
-    &:hover {
-        transform: scale(1.05);
-    }
-}
-
+/* Artist Cards - Portal Style */
 .artist-card {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 16px;
-    padding: 32px 16px;
+    background: var(--aperture-white);
+    border: 4px solid var(--aperture-grey);
+    border-radius: 20px;
+    padding: 40px 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100%;
-    min-height: 200px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    min-height: 220px;
     transition: all 0.2s;
 
-    &:hover {
-        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+    &:active {
+        border-color: var(--portal-orange);
+        box-shadow: var(--glow-orange);
+        background: var(--aperture-light-grey);
     }
 
     .artist-icon {
-        font-size: 64px;
-        width: 64px;
-        height: 64px;
-        color: rgba(255, 255, 255, 0.9);
-        margin-bottom: 16px;
+        font-size: 80px;
+        width: 80px;
+        height: 80px;
+        color: var(--aperture-dark);
+        margin-bottom: 24px;
     }
 
     h3 {
-        font-size: 20px;
-        font-weight: 500;
-        color: rgba(255, 255, 255, 0.95);
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--aperture-dark);
         text-align: center;
         margin: 0;
-        word-break: break-word;
+    }
+}
+
+.clear-queue-container {
+    position: fixed;
+    bottom: 140px;
+    right: 24px;
+    z-index: 100;
+
+    .clear-btn {
+        height: 64px !important;
+        border-radius: 32px !important;
+        border: 4px solid var(--aperture-dark) !important;
+        font-weight: 700 !important;
+        padding: 0 24px !important;
+        background: var(--aperture-white) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+
+        mat-icon {
+            margin-right: 8px;
+            font-size: 28px;
+            width: 28px;
+            height: 28px;
+        }
+
+        &:active {
+            transform: scale(0.95);
+            background: var(--aperture-light-grey) !important;
+        }
     }
 }

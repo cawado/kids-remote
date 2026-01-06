@@ -10,7 +10,8 @@ exports.AlbumSchema = zod_1.z.object({
     artist: zod_1.z.string().max(200, 'Artist name too long').optional(),
     uri: zod_1.z.string().startsWith('spotify:', 'URI must be a valid Spotify URI'),
     coverUrl: zod_1.z.string().url('Invalid cover URL').optional().or(zod_1.z.literal('')),
-    type: zod_1.z.enum(['album', 'artist', 'playlist']).optional()
+    type: zod_1.z.enum(['album', 'artist', 'playlist']).optional(),
+    deviceNames: zod_1.z.array(zod_1.z.string()).optional()
 });
 /**
  * Validation schema for album update (all fields optional)

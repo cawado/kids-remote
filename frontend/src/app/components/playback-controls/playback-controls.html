@@ -1,17 +1,21 @@
 <div class="playback-controls">
     <!-- Filter Group -->
     <div class="control-group filter-group">
-        <div class="group-label">FILTER</div>
         <mat-slide-toggle [checked]="groupByArtist()()" (change)="onToggleChange($event)" color="primary"
             class="artist-toggle">
-            <span class="toggle-text">Nach Künstler</span>
+            <span class="toggle-text">Künstler</span>
         </mat-slide-toggle>
     </div>
 
     <!-- Play Controls Group -->
     <div class="control-group play-group">
-        <div class="group-label">WIEDERGABE</div>
         <div class="play-buttons">
+            @if (hasQueue()) {
+            <button class="control-btn clear-btn" (click)="clearQueue()" aria-label="Warteschlange leeren">
+                <mat-icon>delete_sweep</mat-icon>
+            </button>
+            }
+
             <button class="control-btn prev-btn" (click)="previous()" aria-label="Vorheriges">
                 <mat-icon>skip_previous</mat-icon>
             </button>
@@ -27,12 +31,17 @@
             <button class="control-btn next-btn" (click)="next()" aria-label="Nächstes">
                 <mat-icon>skip_next</mat-icon>
             </button>
+
+            @if (hasNextAlbum()) {
+            <button class="control-btn next-album-btn" (click)="skipToNextAlbum()" aria-label="Nächstes Album">
+                <mat-icon>fast_forward</mat-icon>
+            </button>
+            }
         </div>
     </div>
 
     <!-- Volume Controls Group -->
     <div class="control-group volume-group">
-        <div class="group-label">LAUTSTÄRKE</div>
         <div class="volume-buttons">
             <button class="control-btn volume-btn" (click)="volumeDown()" aria-label="Leiser">
                 <mat-icon>remove</mat-icon>

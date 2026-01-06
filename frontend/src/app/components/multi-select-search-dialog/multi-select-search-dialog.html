@@ -3,16 +3,16 @@
         <mat-icon>library_music</mat-icon>
     </div>
     <div class="header-content">
-        <h2 mat-dialog-title>Alben suchen & hinzufügen</h2>
-        <p class="header-subtitle">Suche nach Alben auf Spotify und füge sie deiner Sammlung hinzu</p>
+        <h2 mat-dialog-title>ALBEN-AKQUISITIONS-PROTOKOLL</h2>
+        <p class="header-subtitle">INITIIERE SUCHSEQUENZ // DATENBANK: SPOTIFY</p>
     </div>
 </div>
 
 <mat-dialog-content>
     <div class="search-container">
-        <mat-form-field appearance="outline" class="search-field">
-            <mat-label>Spotify durchsuchen</mat-label>
-            <input matInput [formControl]="searchControl" placeholder="Album- oder Künstlername">
+        <mat-form-field appearance="outline" class="search-field" subscriptSizing="dynamic">
+            <mat-label>SUCHPARAMETER EINGEBEN</mat-label>
+            <input matInput [formControl]="searchControl" placeholder="Album- / Künstler-Bezeichnung">
             <mat-icon matPrefix>search</mat-icon>
         </mat-form-field>
     </div>
@@ -20,6 +20,7 @@
     @if (isLoading()) {
     <div class="loading-container">
         <mat-spinner diameter="40"></mat-spinner>
+        <p style="margin-top: 16px;">EMPFANGE DATEN...</p>
     </div>
     }
 
@@ -28,7 +29,7 @@
 
             <!-- Image Column -->
             <ng-container matColumnDef="image">
-                <th mat-header-cell *matHeaderCellDef> Cover </th>
+                <th mat-header-cell *matHeaderCellDef> OBJEKT </th>
                 <td mat-cell *matCellDef="let element">
                     <img [src]="element.coverUrl" class="table-cover">
                 </td>
@@ -36,27 +37,27 @@
 
             <!-- Title Column -->
             <ng-container matColumnDef="title">
-                <th mat-header-cell *matHeaderCellDef> Titel </th>
+                <th mat-header-cell *matHeaderCellDef> BEZEICHNUNG </th>
                 <td mat-cell *matCellDef="let element"> {{element.title}} </td>
             </ng-container>
 
             <!-- Artist Column -->
             <ng-container matColumnDef="artist">
-                <th mat-header-cell *matHeaderCellDef> Künstler </th>
-                <td mat-cell *matCellDef="let element"> {{element.artist || '-'}} </td>
+                <th mat-header-cell *matHeaderCellDef> ERSTELLER </th>
+                <td mat-cell *matCellDef="let element"> {{element.artist || '[UNBEKANNT]'}} </td>
             </ng-container>
 
             <!-- Type Column -->
             <ng-container matColumnDef="type">
-                <th mat-header-cell *matHeaderCellDef> Typ </th>
+                <th mat-header-cell *matHeaderCellDef> KLASSE </th>
                 <td mat-cell *matCellDef="let element">
-                    <span class="type-badge" [ngClass]="element.type">{{element.type | titlecase}}</span>
+                    <span class="type-badge" [ngClass]="element.type">{{element.type}}</span>
                 </td>
             </ng-container>
 
             <!-- Rooms Column -->
             <ng-container matColumnDef="rooms">
-                <th mat-header-cell *matHeaderCellDef> Räume </th>
+                <th mat-header-cell *matHeaderCellDef> KAMMERN </th>
                 <td mat-cell *matCellDef="let element">
                     @if (isSelected(element)) {
                     <mat-chip-set class="room-chips">
@@ -73,7 +74,7 @@
 
             <!-- Action Column -->
             <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef> Aktion </th>
+                <th mat-header-cell *matHeaderCellDef> AUSFÜHREN </th>
                 <td mat-cell *matCellDef="let element">
                     @if (element.type === 'album') {
                     <button mat-icon-button (click)="toggleSelection(element, $event)"
@@ -104,11 +105,11 @@
                             } @else {
                             @if (getChildren(element).length > 0) {
                             <div class="detail-header">
-                                <button mat-stroked-button color="primary" class="small-btn"
+                                <button mat-stroked-button class="small-btn"
                                     (click)="selectAllChildren(element, $event)">
-                                    Alle geladenen auswählen
+                                    ALLE UNTEROBJEKTE WÄHLEN
                                 </button>
-                                <span class="detail-count">{{getChildren(element).length}} Alben</span>
+                                <span class="detail-count">{{getChildren(element).length}} OBJEKTE GEFUNDEN</span>
                             </div>
                             }
 
@@ -139,7 +140,7 @@
                                         <div class="child-actions">
                                             @if (isAlreadyAdded(child)) {
                                             <span
-                                                style="color: grey; font-size: 12px; margin-right: 8px;">Hinzugefügt</span>
+                                                style="color: #999; font-size: 10px; margin-right: 8px; font-family: 'Roboto Mono';">INSTALLIERT</span>
                                             }
                                             <mat-icon [color]="isSelected(child) ? 'primary' : ''"
                                                 style="font-size: 20px; height: 20px; width: 20px;">
@@ -152,8 +153,9 @@
                                 }
                             </div>
                             @if (getChildren(element).length === 0 && !isChildrenLoading(element)) {
-                            <div class="no-children" style="padding: 16px; text-align: center; color: #888;">Keine Alben
-                                gefunden.</div>
+                            <div class="no-children"
+                                style="padding: 16px; text-align: center; color: #888; font-family: 'Roboto Mono';">
+                                KEINE DATEN GEFUNDEN</div>
                             }
                             }
                         </div>
@@ -172,7 +174,7 @@
         </table>
 
         @if (searchResults().length === 0 && !isLoading() && searchControl.value?.length! > 1) {
-        <div class="no-results">Keine Ergebnisse gefunden.</div>
+        <div class="no-results">SUCHERGEBNIS: NULL</div>
         }
     </div>
 </mat-dialog-content>
@@ -182,7 +184,7 @@
         <!-- Bulk Room Selection -->
         @if (selectedAlbums().size > 0) {
         <mat-form-field appearance="outline" class="bulk-room-field" subscriptSizing="dynamic">
-            <mat-label>Standard-Räume für Auswahl</mat-label>
+            <mat-label>ZIELKAMMERN ({{selectedAlbums().size}})</mat-label>
             <mat-select [value]="defaultRooms()" (selectionChange)="defaultRooms.set($event.value)" multiple>
                 @for (room of rooms(); track room.name) {
                 <mat-option [value]="room.name">{{ room.name }}</mat-option>
@@ -194,11 +196,11 @@
     </div>
 
     <div class="actions-right">
-        <button mat-button (click)="selectAll()">Alles auswählen</button>
-        <button mat-button (click)="close()">Abbrechen</button>
+        <button mat-button (click)="selectAll()">ALLES AUSWÄHLEN</button>
+        <button mat-button (click)="close()">ABBRECHEN</button>
         <button mat-flat-button color="primary" [disabled]="selectedAlbums().size === 0" (click)="addSelected()">
             <mat-icon>add</mat-icon>
-            Auswahl hinzufügen ({{ selectedAlbums().size }})
+            OBJEKTE IMPORTIEREN ({{ selectedAlbums().size }})
         </button>
     </div>
 </mat-dialog-actions>

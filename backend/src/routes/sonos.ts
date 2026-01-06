@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 import { getDeviceByName } from '../services/sonos';
 import { config } from '../config';
 import { AppError, asyncHandler } from '../middleware/errorHandler';
-import { parseMetadata } from '../services/metadata';
+import { parseMetadata, unescapeXml } from '../services/metadata';
 import { EdgeTTS, listVoices } from '@travisvn/edge-tts';
 import fs from 'fs';
 import path from 'path';
@@ -12,7 +12,18 @@ const router = Router();
 
 // Middleware to normalize deviceName
 router.use((req: any, res: Response, next: any) => {
-    if (req.method === 'POST') {
+    const headerDevice = req.headers['x-device-name'];
+
+    if (headerDevice) {
+        if (req.method === 'POST') {
+            if (!req.body) req.body = {};
+            if (!req.body.deviceName) req.body.deviceName = headerDevice;
+        }
+        // Also normalize for GET requests by putting it into query if not present
+        if (req.method === 'GET') {
+            if (!req.query.deviceName) req.query.deviceName = headerDevice;
+        }
+    } else if (req.method === 'POST') {
         if (!req.body) req.body = {};
         if (!req.body.deviceName) req.body.deviceName = config.defaultDeviceName;
     }
@@ -44,11 +55,105 @@ router.get('/state', asyncHandler(async (req: Request, res: Response) => {
     const state = await device.AVTransportService.GetTransportInfo();
     const region = await device.AVTransportService.GetPositionInfo();
 
+    // Try to get queue information
+    const queue = await fetchQueue(device);
+
     res.json({
         transportState: state.CurrentTransportState,
         currentUri: region.TrackURI,
-        trackMetaData: parseMetadata(region.TrackMetaData)
+        trackMetaData: parseMetadata(region.TrackMetaData),
+        queue: queue,
+        currentTrackIndex: region.Track // 1-based index in queue
     });
+}));
+
+async function fetchQueue(device: any) {
+    try {
+        console.log(`Fetching queue for ${device.Name}...`);
+        // ObjectID 'Q:0' is the default queue
+        const queueData = await device.ContentDirectoryService.Browse({
+            ObjectID: 'Q:0',
+            BrowseFlag: 'BrowseDirectChildren',
+            Filter: '*',
+            StartingIndex: 0,
+            RequestedCount: 1000,
+            SortCriteria: ''
+        });
+
+        if (queueData && queueData.Result) {
+            let result = queueData.Result;
+            if (result.includes('&lt;')) {
+                result = unescapeXml(result);
+            }
+            console.log(`Raw Queue Result length: ${result.length}`);
+            console.log(`Raw Queue Result snippet: ${result.substring(0, 500)}`);
+
+            // Try a more robust split that handles namespaces and case
+            // Items start with <item or <u:item or similar
+            const items = result.split(/<[a-z0-9-]*:?item/i);
+            const parsedQueue = items.slice(1).map((itemXml: string, index: number) => {
+                const fullXml = `<item${itemXml}`;
+                const metadata = parseMetadata(fullXml);
+                if (index < 3) {
+                    console.log(`Queue item ${index} metadata extracted:`, JSON.stringify(metadata).substring(0, 200));
+                }
+                return {
+                    title: metadata.title || '',
+                    album: metadata.Album || metadata.title || '',
+                    artist: metadata.Artist || '',
+                    uri: metadata.uri || '',
+                    albumArtURI: metadata.albumArtURI || ''
+                };
+            });
+            console.log(`Found ${items.length - 1} items via split, parsed ${parsedQueue.length} into queue.`);
+            return parsedQueue;
+        }
+    } catch (e) {
+        console.warn('Could not fetch queue:', e);
+    }
+    return [];
+}
+
+router.post('/enqueue', asyncHandler(async (req: Request, res: Response) => {
+    let { deviceName, uri } = req.body;
+    console.log(`Enqueue request received for ${deviceName} with URI: ${uri}`);
+
+    if (!uri) {
+        throw new AppError(400, 'Missing uri');
+    }
+
+    const device = getDeviceByName(deviceName);
+    if (!device) {
+        throw new AppError(404, `Device '${deviceName}' not found`);
+    }
+
+    console.log(`Adding URI to queue...`);
+    await device.AddUriToQueue(uri);
+    console.log(`Successfully enqueued.`);
+
+    // Wait 1 second for Sonos to expand the URI if it's an album/playlist
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    const queue = await fetchQueue(device);
+
+    res.json({
+        success: true,
+        message: `Enqueued ${uri} on ${deviceName}`,
+        queue: queue
+    });
+}));
+
+router.post('/clear-queue', asyncHandler(async (req: Request, res: Response) => {
+    const { deviceName } = req.body;
+    const device = getDeviceByName(deviceName);
+    if (!device) throw new AppError(404, `Device '${deviceName}' not found`);
+
+    try {
+        await device.ExecuteCommand('AVTransportService.RemoveAllTracksFromQueue');
+        res.json({ success: true, message: 'Queue cleared' });
+    } catch (e: any) {
+        throw new AppError(500, `Failed to clear queue: ${e.message}`);
+    }
 }));
 
 router.post('/play', asyncHandler(async (req: Request, res: Response) => {
@@ -103,6 +208,38 @@ const simpleAction = (action: string) => asyncHandler(async (req: Request, res: 
 });
 
 router.post('/next', simpleAction('Next'));
+
+router.post('/next-album', asyncHandler(async (req: Request, res: Response) => {
+    const { deviceName } = req.body;
+    const device = getDeviceByName(deviceName);
+    if (!device) throw new AppError(404, `Device '${deviceName}' not found`);
+
+    const queue = await fetchQueue(device);
+    const posInfo = await device.AVTransportService.GetPositionInfo();
+    const currentTrackIndex = parseInt(posInfo.Track.toString()) - 1;
+
+    if (currentTrackIndex >= 0 && currentTrackIndex < queue.length) {
+        const currentAlbum = queue[currentTrackIndex].album;
+        // Find first track of next album
+        const nextIndex = queue.findIndex((item: any, idx: number) => idx > currentTrackIndex && item.album !== currentAlbum);
+
+        if (nextIndex !== -1) {
+            console.log(`Skipping to next album: removing ${nextIndex} tracks.`);
+            // Remove tracks from 1 to nextIndex (current album tracks)
+            await device.AVTransportService.RemoveTrackRangeFromQueue({
+                InstanceID: 0,
+                UpdateID: 0,
+                StartingIndex: 1,
+                NumberOfTracks: nextIndex
+            });
+            // After removal, the first track in queue is the start of the next album
+            await device.Play();
+            return res.json({ success: true, message: 'Skipped to next album and cleaned previous tracks', nextIndex });
+        }
+    }
+
+    res.json({ success: false, message: 'No more albums found in queue' });
+}));
 router.post('/previous', simpleAction('Previous'));
 router.post('/stop', simpleAction('Stop'));
 router.post('/resume', simpleAction('Play'));

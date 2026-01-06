@@ -46,15 +46,23 @@
 @if (!groupByArtist() || selectedArtist()) {
 <div class="grid-container">
     @for (album of displayedAlbums(); track album.id) {
-    <div class="grid-item" [class.playing]="isPlaying(album)" [class.disabled]="startingAlbumId()"
-        (click)="playAlbum(album)">
-        <app-album-card [album]="album" [loading]="startingAlbumId() === (album.id || album.uri)"></app-album-card>
+    <div class="grid-item" [class.playing]="isPlaying(album)" [class.queued]="(getQueuePosition(album) || 0) > 1"
+        [class.disabled]="startingAlbumId()" (click)="playAlbum(album)">
+        <app-album-card [album]="album" [loading]="startingAlbumId() === (album.id || album.uri)"
+            [queuePosition]="getQueuePosition(album)"></app-album-card>
+
+        @if (!getQueuePosition(album)) {
+        <button mat-mini-fab class="enqueue-btn" (click)="enqueueAlbum(album, $event)" [disabled]="startingAlbumId()"
+            color="accent">
+            <mat-icon>add</mat-icon>
+        </button>
+        }
     </div>
     }
 </div>
 }
 }
 
-<app-playback-controls [transportState]="transportState()" [groupByArtist]="groupByArtist"
-    [selectedArtist]="selectedArtist">
+<app-playback-controls [transportState]="transportState()" [hasNextAlbum]="hasNextAlbum()"
+    [hasQueue]="currentQueue().length > 0" [groupByArtist]="groupByArtist" [selectedArtist]="selectedArtist">
 </app-playback-controls>

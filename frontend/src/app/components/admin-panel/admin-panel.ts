@@ -115,6 +115,20 @@ export class AdminPanelComponent implements OnDestroy, AfterViewInit {
 
       return searchMatches && roomMatches;
     };
+
+    // Custom sorting accessor
+    this.dataSource.sortingDataAccessor = (item: Album, property: string) => {
+      switch (property) {
+        case 'rooms':
+          return (item.deviceNames || []).join(', ').toLowerCase();
+        case 'title':
+          return item.title.toLowerCase();
+        case 'artist':
+          return (item.artist || '').toLowerCase();
+        default:
+          return (item as any)[property];
+      }
+    };
   }
 
   refreshAlbums() {
@@ -178,9 +192,14 @@ export class AdminPanelComponent implements OnDestroy, AfterViewInit {
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
+    // We only care about filtered data for "Select All" behavior
+    const filteredData = this.dataSource.filteredData;
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+    const numRows = filteredData.length;
+
+    // Check if every currently visible row is selected
+    const allVisibleSelected = filteredData.every(row => this.selection.isSelected(row));
+    return allVisibleSelected && numRows > 0;
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
@@ -190,7 +209,8 @@ export class AdminPanelComponent implements OnDestroy, AfterViewInit {
       return;
     }
 
-    this.selection.select(...this.dataSource.data);
+    // Select all FILTERED rows
+    this.selection.select(...this.dataSource.filteredData);
   }
 
   async deleteSelected() {

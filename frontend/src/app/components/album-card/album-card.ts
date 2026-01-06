@@ -15,4 +15,5 @@ import { Album } from '../../services/api';
 export class AlbumCardComponent {
   album = input.required<Album>();
   loading = input<boolean>(false);
+  queuePosition = input<number | null>(null);
 }
