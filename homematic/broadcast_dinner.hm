@@ -1,0 +1,10 @@
+! Broadcast "Essen ist fertig" to all Sonos devices via kids-remote backend
+! Replace INSERT_IP_HERE with the IP address of the server running kids-remote
+! port 3000 is default, change if necessary
+
+string url = "http://INSERT_IP_HERE:3000/tts";
+string postvars = "{\"text\": \"Essen ist fertig\", \"deviceNames\": [\"all\"]}";
+string stdout;
+string stderr;
+
+system.Exec("curl -d '" # postvars # "' -H 'Content-Type: application/json' -X POST " # url, &stdout, &stderr);

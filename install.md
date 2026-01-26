@@ -1,10 +1,10 @@
-# Raspberry Pi Installation Guide (Debian Minimal)
+# Raspberry Pi Installation Guide (Debian Bookworm)
 
-This guide walks you through setting up "Kids Remote" on a Raspberry Pi starting from a minimal Debian installation (e.g., Raspberry Pi OS Lite).
+This guide walks you through setting up **Kids Remote** on a Raspberry Pi starting from a minimal Debian installation (e.g., Raspberry Pi OS Lite).
 
-## 1. Initial Setup (clean install)
+## 1. Initial Setup
 
-1.  **Flash the OS**: Download "Raspberry Pi OS Lite" (Legacy or latest, usually Bookworm) and flash it to your SD card using Raspberry Pi Imager.
+1.  **Flash the OS**: Download "Raspberry Pi OS Lite" and flash it to your SD card using Raspberry Pi Imager.
     - Set hostname (e.g., `kids-remote`).
     - Enable SSH.
     - Configure Wi-Fi or skip if using Ethernet.
@@ -37,9 +37,8 @@ This guide walks you through setting up "Kids Remote" on a Raspberry Pi starting
     Since we are using the Lite OS, we need a minimal X server and window manager.
     ```bash
     # Install X server, Openbox (window manager), and Chromium browser
-    sudo apt install -y --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox chromium xserver-xorg-input-libinput
+    sudo apt install -y --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox chromium-browser xserver-xorg-input-libinput
     ```
-    *Note: `xserver-xorg-input-libinput` is typically needed for touchscreens.*
 
 ## 3. Application Setup
 
@@ -52,14 +51,15 @@ This guide walks you through setting up "Kids Remote" on a Raspberry Pi starting
 
 2.  **Install & Build**:
     ```bash
-    # Install dependencies
+    # Install dependencies for both frontend and backend
     npm run setup
     
-    # Build
+    # Build the frontend application
     npm run build
     ```
 
 3.  **Configure Environment**:
+    copy the `.env-demo` file to `.env`:
     ```bash
     cp .env-demo .env
     nano .env
@@ -68,7 +68,7 @@ This guide walks you through setting up "Kids Remote" on a Raspberry Pi starting
 
 ## 4. Setup Kiosk Mode
 
-We will verify X starts automatically and launches our app.
+We will configure the system to auto-login and launch the application in fullscreen kiosk mode.
 
 1.  **Configure Openbox**:
     Create the autostart config directory and file.
@@ -80,19 +80,15 @@ We will verify X starts automatically and launches our app.
 2.  **Add Startup Commands**:
     Paste this into `~/.config/openbox/autostart`:
     ```bash
-    # Enable screen blanking after 5 minutes (300 seconds)
-    xset s 300
-    xset +dpms
-    xset dpms 300 300 300
-
-    # Start the application backend (recommend systemd for reliability, see below)
-    # cd ~/kids-remote && npm start & 
+    # Prevent screen blanking (optional, remove if you want screen to sleep)
+    xset s off
+    xset -dpms
+    xset s noblank
 
     # Launch Chromium in Kiosk mode
     # --kiosk: Fullscreen, no bars
-    # --noerrdialogs: Suppress error bubbles
-    # --disable-infobars: Remove "Chrome is being controlled..."
-    chromium-browser --noerrdialogs --disable-infobars --kiosk http://localhost:3000
+    # --check-for-update-interval=31536000: Disable update checks
+    chromium-browser --noerrdialogs --disable-infobars --kiosk --check-for-update-interval=31536000 http://localhost:3000
     ```
 
 3.  **Auto-login & Start X**:
@@ -146,10 +142,25 @@ For reliability, run the backend as a service so it starts before the browser.
     sudo systemctl start kids-remote.service
     ```
 
-## 6. Reboot
+## 6. Accessing the Admin Panel
+
+Once the system is running, the **Admin Interface** is accessible from any device on your local network.
+
+1.  Find the IP address of your Raspberry Pi:
+    ```bash
+    hostname -I
+    ```
+2.  Open a browser on your phone or laptop and navigate to:
+    `http://<YOUR-PI-IP>:3000/admin` (or port 4200 if running dev mode)
+
+Here you can:
+- **Manage Albums**: Add new content from Spotify.
+- **Assign Rooms**: Control which albums appear in which room.
+- **Voice Transmission**: Send text-to-speech messages to the system.
+
+## 7. Reboot
 
 ```bash
 sudo reboot
 ```
-
-The Pi should reboot, log in automatically, start the X server, and launch Chromium in full screen pointing to your running application.
+The Pi should reboot, log in automatically, start the X server, and launch the Kids Remote interface.

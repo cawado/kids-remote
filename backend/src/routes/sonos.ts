@@ -280,7 +280,14 @@ router.post('/tts', asyncHandler(async (req: any, res: Response) => {
     if (!lang) lang = 'de-DE';
 
     // Normalize to an array of device names
-    const targets: string[] = Array.isArray(deviceNames) ? deviceNames : [deviceName || config.defaultDeviceName];
+    let targets: string[] = Array.isArray(deviceNames) ? deviceNames : [deviceName || config.defaultDeviceName];
+
+    // Handle "all" target
+    if (targets.includes('all') || targets.includes('ALL')) {
+        const { sonosManager } = require('../services/sonos');
+        targets = sonosManager.Devices.map((d: any) => d.Name);
+        console.log(`Targeting all devices: [${targets.join(', ')}]`);
+    }
 
     console.log(`Generating TTS for targets [${targets.join(', ')}]: "${text}" [${lang}]`);
 

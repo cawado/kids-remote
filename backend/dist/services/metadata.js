@@ -1,19 +1,36 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.unescapeXml = unescapeXml;
 exports.parseMetadata = parseMetadata;
+function unescapeXml(xml) {
+    if (!xml)
+        return '';
+    return xml
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&apos;/g, "'");
+}
 /**
  * Simple helper to parse Sonos DIDL-Lite XML metadata
  */
 function parseMetadata(xml) {
     if (!xml || typeof xml !== 'string')
         return null;
+    // Unescape if the string appears to be encoded XML
+    if (xml.includes('&lt;')) {
+        xml = unescapeXml(xml);
+    }
     const result = {};
     // Basic regex for common fields
     const fields = {
-        'title': /<dc:title>(.*?)<\/dc:title>/,
-        'Artist': /<dc:creator>(.*?)<\/dc:creator>/,
-        'Album': /<upnp:album>(.*?)<\/upnp:album>/,
-        'Duration': /<duration>(.*?)<\/duration>/,
+        'title': /<(?:.*?:)?title>(.*?)<\/(?:.*?:)?title>/i,
+        'Artist': /<(?:.*?:)?creator>(.*?)<\/(?:.*?:)?creator>/i,
+        'Album': /<(?:.*?:)?album>(.*?)<\/(?:.*?:)?album>/i,
+        'Duration': /<(?:.*?:)?duration>(.*?)<\/(?:.*?:)?duration>/i,
+        'uri': /<(?:.*?:)?res.*?>(.*?)<\/(?:.*?:)?res>/i,
+        'albumArtURI': /<(?:.*?:)?albumArtURI>(.*?)<\/(?:.*?:)?albumArtURI>/i,
     };
     for (const [key, regex] of Object.entries(fields)) {
         const match = xml.match(regex);
@@ -27,5 +44,5 @@ function parseMetadata(xml) {
                 .replace(/&apos;/g, "'");
         }
     }
-    return Object.keys(result).length > 0 ? result : xml;
+    return Object.keys(result).length > 0 ? result : { raw: xml };
 }
