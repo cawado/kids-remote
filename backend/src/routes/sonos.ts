@@ -58,10 +58,22 @@ router.get('/state', asyncHandler(async (req: Request, res: Response) => {
     // Try to get queue information
     const queue = await fetchQueue(device);
 
+    let finalMetaData = parseMetadata(region.TrackMetaData);
+
+    // Fallback: If metadata is empty/null but we have a valid queue index, use queue info
+    if ((!finalMetaData || !finalMetaData.title) && region.Track) {
+        // region.Track is 1-based index
+        const trackIndex = parseInt(region.Track, 10) - 1;
+        if (trackIndex >= 0 && trackIndex < queue.length) {
+            console.log(`Fallback: Using queue metadata for track ${trackIndex + 1}`);
+            finalMetaData = queue[trackIndex];
+        }
+    }
+
     res.json({
         transportState: state.CurrentTransportState,
         currentUri: region.TrackURI,
-        trackMetaData: parseMetadata(region.TrackMetaData),
+        trackMetaData: finalMetaData,
         queue: queue,
         currentTrackIndex: region.Track // 1-based index in queue
     });
@@ -69,7 +81,7 @@ router.get('/state', asyncHandler(async (req: Request, res: Response) => {
 
 async function fetchQueue(device: any) {
     try {
-        console.log(`Fetching queue for ${device.Name}...`);
+        // console.log(`Fetching queue for ${device.Name}...`);
         // ObjectID 'Q:0' is the default queue
         const queueData = await device.ContentDirectoryService.Browse({
             ObjectID: 'Q:0',
@@ -80,13 +92,12 @@ async function fetchQueue(device: any) {
             SortCriteria: ''
         });
 
-        if (queueData && queueData.Result) {
+            if (queueData && queueData.Result) {
             let result = queueData.Result;
             if (result.includes('&lt;')) {
                 result = unescapeXml(result);
             }
-            console.log(`Raw Queue Result length: ${result.length}`);
-            console.log(`Raw Queue Result snippet: ${result.substring(0, 500)}`);
+            // console.log(`Raw Queue Result length: ${result.length}`);
 
             // Try a more robust split that handles namespaces and case
             // Items start with <item or <u:item or similar
@@ -94,9 +105,11 @@ async function fetchQueue(device: any) {
             const parsedQueue = items.slice(1).map((itemXml: string, index: number) => {
                 const fullXml = `<item${itemXml}`;
                 const metadata = parseMetadata(fullXml);
+                /*
                 if (index < 3) {
                     console.log(`Queue item ${index} metadata extracted:`, JSON.stringify(metadata).substring(0, 200));
                 }
+                */
                 return {
                     title: metadata.title || '',
                     album: metadata.Album || metadata.title || '',
@@ -105,7 +118,7 @@ async function fetchQueue(device: any) {
                     albumArtURI: metadata.albumArtURI || ''
                 };
             });
-            console.log(`Found ${items.length - 1} items via split, parsed ${parsedQueue.length} into queue.`);
+            // console.log(`Found ${items.length - 1} items via split, parsed ${parsedQueue.length} into queue.`);
             return parsedQueue;
         }
     } catch (e) {

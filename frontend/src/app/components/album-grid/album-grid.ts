@@ -25,6 +25,7 @@ export class AlbumGridComponent implements OnInit, OnDestroy {
   albums = signal<Album[]>([]);
   currentAlbumTitle = signal<string | null>(null);
   currentTrackTitle = signal<string | null>(null);
+  currentTrackArtist = signal<string | null>(null);
   currentQueue = signal<any[]>([]); // Liste von {title, album}
   transportState = signal<string>('STOPPED');
   lastState = signal<any>(null);
@@ -116,9 +117,11 @@ export class AlbumGridComponent implements OnInit, OnDestroy {
         if (state.transportState !== 'STOPPED' && metadata) {
           this.currentAlbumTitle.set(metadata.Album || metadata.album || metadata.title || null);
           this.currentTrackTitle.set(metadata.title || null);
+          this.currentTrackArtist.set(metadata.Artist || metadata.artist || null);
         } else {
           this.currentAlbumTitle.set(null);
           this.currentTrackTitle.set(null);
+          this.currentTrackArtist.set(null);
         }
       }
       this.cdr.markForCheck();
@@ -264,6 +267,11 @@ export class AlbumGridComponent implements OnInit, OnDestroy {
       },
       error: err => console.error('Failed to clear queue:', err)
     });
+  }
+
+  toggleGrouping() {
+    this.groupByArtist.update(val => !val);
+    this.selectedArtist.set(null);
   }
 
   isPlaying(album: Album): boolean {

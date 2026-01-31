@@ -45,17 +45,34 @@
     border: 3px solid var(--aperture-grey);
 }
 
-/* Filter Group */
-.filter-group {
+/* Filter Group replaced by Manage Group */
+.manage-group {
     border-color: var(--aperture-grey);
     padding: 8px 16px;
+    padding: 8px 16px;
+    gap: 12px;
 }
 
-.toggle-text {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--aperture-dark);
+.separator {
+    width: 2px;
+    height: 32px;
+    background: var(--aperture-grey);
+    margin: 0 4px;
 }
+
+.manage-btn {
+    width: 48px;
+    height: 48px;
+    border-width: 3px;
+
+    mat-icon {
+        font-size: 28px;
+        width: 28px;
+        height: 28px;
+    }
+}
+
+
 
 /* Play Controls Group */
 .play-group {
@@ -93,6 +110,58 @@
         width: 36px;
         height: 36px;
         color: var(--aperture-dark);
+    }
+}
+
+.toggle-btn {
+    background: var(--portal-orange);
+    border-color: var(--portal-orange);
+    color: white;
+    box-shadow: var(--glow-orange);
+
+    mat-icon {
+        color: white;
+    }
+
+    &:active {
+        background: #e67300;
+        /* Darker Orange */
+        transform: scale(0.95);
+    }
+}
+
+.refresh-btn {
+    background: var(--portal-blue);
+    border-color: var(--portal-blue);
+    color: white;
+    box-shadow: var(--glow-blue);
+
+    mat-icon {
+        color: white;
+    }
+
+    &:active {
+        background: #007acc;
+        /* Darker Blue */
+        transform: scale(0.95);
+    }
+}
+
+.clean-btn {
+    background: var(--aperture-dark);
+    /* Dark Grey for "Destructive" but technical */
+    border-color: var(--aperture-dark);
+    color: #ff4444;
+    /* Red Icon/Text */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+    mat-icon {
+        color: #ff4444;
+    }
+
+    &:active {
+        transform: scale(0.95);
+        background: black;
     }
 }
 
@@ -138,27 +207,7 @@
     }
 }
 
-.clear-btn {
-    width: 60px;
-    height: 60px;
-    border-color: #ff4444; // Warning color
 
-    mat-icon {
-        font-size: 30px;
-        width: 30px;
-        height: 30px;
-        color: #ff4444;
-    }
-
-    &:active {
-        background: #ff4444;
-        color: white;
-
-        mat-icon {
-            color: white;
-        }
-    }
-}
 
 /* Volume Controls Group */
 .volume-group {
@@ -191,18 +240,18 @@
     }
 }
 
-/* Scroll Banner */
-.scroll-banner {
-    position: fixed;
-    bottom: 100px;
-    /* Height of playback controls */
-    left: 0;
-    right: 0;
+/* Info Banner */
+.info-banner {
+    /* Positioned by flex wrapper now */
     height: 32px;
+    width: 100%;
     background: var(--aperture-dark);
     color: var(--portal-blue);
     display: flex;
+    justify-content: center;
+    /* Center horizontally */
     align-items: center;
+    /* Center vertically */
     overflow: hidden;
     white-space: nowrap;
     z-index: 99;
@@ -210,30 +259,23 @@
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.scroll-content {
-    display: inline-block;
-    padding-left: 100%;
-    animation: scroll 20s linear infinite;
+.info-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0 16px;
+}
+
+.info-text {
     font-family: 'Roboto Mono', monospace;
     font-weight: 700;
     font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 1px;
-
-    span {
-        display: inline-block;
-        margin-right: 48px;
-    }
-}
-
-@keyframes scroll {
-    0% {
-        transform: translate3d(0, 0, 0);
-    }
-
-    100% {
-        transform: translate3d(-100%, 0, 0);
-    }
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Media query for smaller screens */

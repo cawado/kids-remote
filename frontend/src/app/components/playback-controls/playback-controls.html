@@ -1,22 +1,27 @@
 <div class="playback-controls-wrapper">
     <div class="playback-controls">
-        <!-- Filter Group -->
-        <div class="control-group filter-group">
-            <mat-slide-toggle [checked]="groupByArtist()()" (change)="onToggleChange($event)" color="primary"
-                class="artist-toggle">
-                <span class="toggle-text">Künstler</span>
-            </mat-slide-toggle>
-        </div>
+        <!-- Left Group: Manage -->
+        <div class="control-group manage-group">
+            <button class="control-btn manage-btn toggle-btn" (click)="toggleGrouping()"
+                [attr.aria-label]="groupByArtist()() ? 'Show Albums' : 'Show Artists'">
+                <mat-icon>{{ groupByArtist()() ? 'album' : 'people' }}</mat-icon>
+            </button>
 
+            <div class="separator"></div>
+
+            <button class="control-btn manage-btn refresh-btn" (click)="doRefresh()" aria-label="Refresh">
+                <mat-icon>refresh</mat-icon>
+            </button>
+
+            @if (hasQueue()) {
+            <button class="control-btn manage-btn clean-btn" (click)="clearQueue()" aria-label="Clear Queue">
+                <mat-icon>delete_sweep</mat-icon>
+            </button>
+            }
+        </div>
         <!-- Play Controls Group -->
         <div class="control-group play-group">
             <div class="play-buttons">
-                @if (hasQueue()) {
-                <button class="control-btn clear-btn" (click)="clearQueue()" aria-label="Warteschlange leeren">
-                    <mat-icon>delete_sweep</mat-icon>
-                </button>
-                }
-
                 <button class="control-btn prev-btn" (click)="previous()" aria-label="Vorheriges">
                     <mat-icon>skip_previous</mat-icon>
                 </button>
@@ -55,17 +60,13 @@
         </div>
     </div>
 
-    <!-- Scroll Banner -->
+    <!-- Info Banner -->
     @if (currentTrackTitle()) {
-    <div class="scroll-banner">
-        <div class="scroll-content">
-            <span>{{ currentTrackTitle() }}</span>
-            <span>•</span>
-            <span>{{ currentTrackTitle() }}</span>
-            <span>•</span>
-            <span>{{ currentTrackTitle() }}</span>
-            <span>•</span>
-            <span>{{ currentTrackTitle() }}</span>
+    <div class="info-banner">
+        <div class="info-content">
+            <span class="info-text">
+                {{ currentTrackArtist() }} - {{ currentAlbumTitle() }} - {{ currentTrackTitle() }}
+            </span>
         </div>
     </div>
     }

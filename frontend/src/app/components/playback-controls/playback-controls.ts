@@ -8,7 +8,7 @@ import { ApiService } from '../../services/api';
 @Component({
   selector: 'app-playback-controls',
   // standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatSlideToggleModule],
+  imports: [CommonModule, MatButtonModule, MatIconModule],
   templateUrl: './playback-controls.html',
   styleUrl: './playback-controls.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -18,7 +18,11 @@ export class PlaybackControlsComponent {
   transportState = input<string>('STOPPED');
   hasNextAlbum = input<boolean>(false);
   hasQueue = input<boolean>(false);
+  refresh = output<void>();
+
   currentTrackTitle = input<string | null>(null);
+  currentTrackArtist = input<string | null>(null);
+  currentAlbumTitle = input<string | null>(null);
   groupByArtist = input.required<WritableSignal<boolean>>();
   selectedArtist = input.required<WritableSignal<string | null>>();
   private api = inject(ApiService);
@@ -30,6 +34,17 @@ export class PlaybackControlsComponent {
   clearQueue() {
     this.api.clearQueue().subscribe();
   }
+
+  toggleGrouping() {
+    this.groupByArtist().update(val => !val);
+    this.selectedArtist().set(null);
+  }
+
+  doRefresh() {
+    this.refresh.emit();
+  }
+
+
 
   previous() {
     this.api.previous().subscribe();
@@ -68,8 +83,5 @@ export class PlaybackControlsComponent {
     this.api.adjustVolume(-5).subscribe();
   }
 
-  onToggleChange(event: any) {
-    this.groupByArtist().set(event.checked);
-    this.selectedArtist().set(null);
-  }
+
 }
