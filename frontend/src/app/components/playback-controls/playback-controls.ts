@@ -18,6 +18,7 @@ export class PlaybackControlsComponent {
   transportState = input<string>('STOPPED');
   hasNextAlbum = input<boolean>(false);
   hasQueue = input<boolean>(false);
+  currentTrackTitle = input<string | null>(null);
   groupByArtist = input.required<WritableSignal<boolean>>();
   selectedArtist = input.required<WritableSignal<string | null>>();
   private api = inject(ApiService);

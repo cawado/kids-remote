@@ -1,8 +1,15 @@
-.playback-controls {
+.playback-controls-wrapper {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+}
+
+.playback-controls {
+    /* Previously fixed, now part of flex column */
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     display: flex;
@@ -12,9 +19,21 @@
     gap: 20px;
     box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.1);
     border-top: 4px solid var(--aperture-grey);
-    z-index: 100;
     height: 100px;
+    width: 100%;
+    box-sizing: border-box;
 }
+
+/* Updated selector to match wrapper structure if we changed HTML structure, but we didn't change the wrapper in HTML, 
+   so we keep .playback-controls as the main bar and add banner BELOW it in DOM order, 
+   BUT we want the banner visually joined.
+   
+   Actually, the HTML structure in previous step was:
+   <div class="playback-controls">...</div>
+   <div class="scroll-banner">...</div>
+   
+   So specific fix needed for layout: 
+*/
 
 /* Control Groups */
 .control-group {
@@ -169,6 +188,51 @@
         background: var(--portal-orange);
         color: white;
         box-shadow: var(--glow-orange);
+    }
+}
+
+/* Scroll Banner */
+.scroll-banner {
+    position: fixed;
+    bottom: 100px;
+    /* Height of playback controls */
+    left: 0;
+    right: 0;
+    height: 32px;
+    background: var(--aperture-dark);
+    color: var(--portal-blue);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+    z-index: 99;
+    border-top: 2px solid var(--portal-blue);
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-content {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll 20s linear infinite;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    span {
+        display: inline-block;
+        margin-right: 48px;
+    }
+}
+
+@keyframes scroll {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(-100%, 0, 0);
     }
 }
 

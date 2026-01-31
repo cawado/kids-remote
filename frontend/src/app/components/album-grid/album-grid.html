@@ -31,6 +31,10 @@
 <!-- Artist Grid (when grouped and no artist selected) -->
 @if (groupByArtist() && !selectedArtist()) {
 <div class="grid-container">
+    <button mat-mini-fab class="refresh-btn" (click)="refreshAlbums()" [disabled]="loading()" color="primary"
+        aria-label="Refresh albums">
+        <mat-icon>refresh</mat-icon>
+    </button>
     @for (artist of artists(); track artist) {
     <div class="grid-item artist-item" (click)="selectArtist(artist)">
         <div class="artist-card">
@@ -45,6 +49,12 @@
 <!-- Album Grid (when not grouped OR artist selected) -->
 @if (!groupByArtist() || selectedArtist()) {
 <div class="grid-container">
+    @if (!selectedArtist()) {
+    <button mat-mini-fab class="refresh-btn" (click)="refreshAlbums()" [disabled]="loading()" color="primary"
+        aria-label="Refresh albums">
+        <mat-icon>refresh</mat-icon>
+    </button>
+    }
     @for (album of displayedAlbums(); track album.id) {
     <div class="grid-item" [class.playing]="isPlaying(album)" [class.queued]="(getQueuePosition(album) || 0) > 1"
         [class.disabled]="startingAlbumId()" (click)="playAlbum(album)">
@@ -64,5 +74,6 @@
 }
 
 <app-playback-controls [transportState]="transportState()" [hasNextAlbum]="hasNextAlbum()"
-    [hasQueue]="currentQueue().length > 0" [groupByArtist]="groupByArtist" [selectedArtist]="selectedArtist">
+    [hasQueue]="currentQueue().length > 0" [groupByArtist]="groupByArtist" [selectedArtist]="selectedArtist"
+    [currentTrackTitle]="currentTrackTitle()">
 </app-playback-controls>

@@ -24,6 +24,7 @@ export class AlbumGridComponent implements OnInit, OnDestroy {
 
   albums = signal<Album[]>([]);
   currentAlbumTitle = signal<string | null>(null);
+  currentTrackTitle = signal<string | null>(null);
   currentQueue = signal<any[]>([]); // Liste von {title, album}
   transportState = signal<string>('STOPPED');
   lastState = signal<any>(null);
@@ -114,8 +115,10 @@ export class AlbumGridComponent implements OnInit, OnDestroy {
         const metadata = state.trackMetaData;
         if (state.transportState !== 'STOPPED' && metadata) {
           this.currentAlbumTitle.set(metadata.Album || metadata.album || metadata.title || null);
+          this.currentTrackTitle.set(metadata.title || null);
         } else {
           this.currentAlbumTitle.set(null);
+          this.currentTrackTitle.set(null);
         }
       }
       this.cdr.markForCheck();

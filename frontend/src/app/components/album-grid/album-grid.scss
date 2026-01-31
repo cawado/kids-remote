@@ -4,7 +4,7 @@
     /* Verkleinert für 4 pro Zeile */
     gap: 20px;
     padding: 24px;
-    padding-bottom: 120px;
+    padding-bottom: 140px;
     /* Platz für HUD */
     height: 100vh;
     overflow-y: auto;
@@ -249,5 +249,29 @@
             transform: scale(0.95);
             background: var(--aperture-light-grey) !important;
         }
+    }
+}
+
+.refresh-btn {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    background: var(--portal-blue) !important;
+    color: white !important;
+    width: 64px !important;
+    height: 64px !important;
+    border-radius: 32px !important;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    border: 4px solid white !important;
+
+    mat-icon {
+        font-size: 32px;
+        width: 32px;
+        height: 32px;
+    }
+
+    &:active {
+        transform: scale(0.95);
     }
 }
